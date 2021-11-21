@@ -1,0 +1,19 @@
+.fadeOut-content {
+   /* width: 300px; */
+   /* margin-bottom: 5px;
+   padding-bottom: 5px; */
+   max-height:400px;
+   overflow:hidden;
+   text-overflow: ellipsis;
+   content: "";
+   position:relative;
+}
+.fadeOut-content :before {
+   content:'';
+   width:100%;
+   height:100%;    
+   position:absolute;
+   left:0;
+   top:0;
+   background:linear-gradient(transparent 50px, white);
+}

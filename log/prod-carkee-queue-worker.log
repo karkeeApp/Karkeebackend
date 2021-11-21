@@ -1,0 +1,478 @@
+2021-05-01 20:45:092021-05-01 20:45:09 [pid: 2199] - Worker is started
+ [pid: 2200] - Worker is started
+2021-05-01 20:45:09 [pid: 2201] - Worker is started
+2021-05-01 20:45:09 [pid: 2202] - Worker is started
+2021-05-01 20:48:22 [pid: 2200] - Worker is stopped (0:03:13)
+2021-05-01 20:48:22 [pid: 2201] - Worker is stopped (0:03:13)
+2021-05-01 20:48:22 [pid: 2202] - Worker is stopped (0:03:13)
+2021-05-01 20:48:22 [pid: 2199] - Worker is stopped (0:03:13)
+2021-05-01 20:48:24 [pid: 2261] - Worker is started
+2021-05-01 20:48:24 [pid: 2262] - Worker is started
+2021-05-01 20:48:24 [pid: 2263] - Worker is started
+2021-05-01 20:48:24 [pid: 2264] - Worker is started
+2021-06-23 13:01:06 [pid: 2262] - Worker is stopped (52:16:12:42)
+2021-06-23 13:01:06 [pid: 2263] - Worker is stopped (52:16:12:42)
+2021-06-23 13:01:06 [pid: 2264] - Worker is stopped (52:16:12:42)
+2021-06-23 13:01:06 [pid: 2261] - Worker is stopped (52:16:12:42)
+2021-06-23 13:01:082021-06-23 13:01:082021-06-23 13:01:08 [pid: 12041] [pid: 12043] - Worker is started
+ - Worker is started
+ [pid: 12042] - Worker is started
+2021-06-23 13:01:08 [pid: 12044] - Worker is started
+2021-06-24 08:42:06 [pid: 12043] - Worker is stopped (19:40:58)
+2021-06-24 08:42:06 [pid: 12044] - Worker is stopped (19:40:58)
+2021-06-24 08:42:06 [pid: 12042] - Worker is stopped (19:40:58)
+2021-06-24 08:42:06 [pid: 12041] - Worker is stopped (19:40:58)
+2021-06-24 08:42:07 [pid: 1815] - Worker is started
+2021-06-24 08:42:07 [pid: 1813] - Worker is started
+2021-06-24 08:42:07 [pid: 1816] - Worker is started
+2021-06-24 08:42:07 [pid: 1814] - Worker is started
+2021-06-25 08:00:03 [1] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Started
+2021-06-25 08:00:03 [2] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Started
+2021-06-25 08:00:03 [2] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Error (0.022 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-06-25 08:00:03 [1] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Done (0.047 s)
+2021-06-26 08:00:03 [3] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-06-26 08:00:03 [3] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.021 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-06-26 08:00:03 [4] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Started
+2021-06-26 08:00:03 [4] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Done (0.076 s)
+2021-06-27 08:00:02 [5] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-06-27 08:00:02 [5] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.050 s)
+2021-06-27 08:00:02 [6] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Started
+2021-06-27 08:00:02 [6] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Error (0.019 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-06-28 08:00:01 [7] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Started
+2021-06-28 08:00:01 [8] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Started
+2021-06-28 08:00:01 [8] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Error (0.026 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-06-28 08:00:01 [7] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Done (0.085 s)
+2021-06-29 08:00:02 [9] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Started
+2021-06-29 08:00:02 [9] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Error (0.021 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-06-29 08:00:02 [10] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Started
+2021-06-29 08:00:02 [10] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Done (0.037 s)
+2021-06-30 08:00:02 [12] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Started
+2021-06-30 08:00:02 [11] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Started
+2021-06-30 08:00:02 [11] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Error (0.054 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-06-30 08:00:02 [12] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Done (0.096 s)
+2021-07-01 08:00:022021-07-01 08:00:02 [13] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+ [14] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-07-01 08:00:02 [13] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.044 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-01 08:00:02 [14] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.080 s)
+2021-07-02 08:00:03 [15] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-07-02 08:00:03 [16] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Started
+2021-07-02 08:00:03 [15] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.045 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-02 08:00:03 [16] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Done (0.078 s)
+2021-07-03 08:00:02 [17] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-07-03 08:00:02 [17] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.022 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-03 08:00:03 [18] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Started
+2021-07-03 08:00:03 [18] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Done (0.037 s)
+2021-07-04 08:00:02 [19] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Started
+2021-07-04 08:00:02 [19] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Error (0.022 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-04 08:00:02 [20] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Started
+2021-07-04 08:00:02 [20] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Done (0.050 s)
+2021-07-05 08:00:02 [21] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Started
+2021-07-05 08:00:02 [22] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-07-05 08:00:02 [21] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Error (0.039 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-05 08:00:02 [22] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.083 s)
+2021-07-06 08:00:04 [23] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Started
+2021-07-06 08:00:04 [23] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Error (0.019 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-06 08:00:04 [24] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Started
+2021-07-06 08:00:04 [24] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Done (0.037 s)
+2021-07-07 08:00:03 [25] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Started
+2021-07-07 08:00:03 [26] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-07-07 08:00:03 [25] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Error (0.052 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-07 08:00:03 [26] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.083 s)
+2021-07-08 08:00:01 [27] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-07-08 08:00:01 [27] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.014 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-08 08:00:02 [28] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Started
+2021-07-08 08:00:02 [28] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Done (0.036 s)
+2021-07-09 08:00:03 [29] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-07-09 08:00:03 [29] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814)2021-07-09 08:00:03 [30] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Started
+ - Done (0.091 s)
+2021-07-09 08:00:03 [30] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Error (0.033 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-10 08:00:03 [31] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Started
+2021-07-10 08:00:03 [31] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Error (0.041 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-10 08:00:03 [32] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Started
+2021-07-10 08:00:03 [32] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Done (0.042 s)
+2021-07-11 08:00:03 [33] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-07-11 08:00:03 [34] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-07-11 08:00:03 [33] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.032 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-11 08:00:03 [34] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.069 s)
+2021-07-12 08:00:02 [35] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Started
+2021-07-12 08:00:02 [36] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Started
+2021-07-12 08:00:02 [35] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Error (0.020 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-12 08:00:02 [36] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Done (0.035 s)
+2021-07-13 08:00:02 [37] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Started
+2021-07-13 08:00:02 [38] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Started
+2021-07-13 08:00:02 [38] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Error (0.040 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-13 08:00:02 [37] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Done (0.082 s)
+2021-07-14 08:00:022021-07-14 08:00:02 [40] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Started
+ [39] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Started
+2021-07-14 08:00:02 [40] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Error (0.026 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-14 08:00:02 [39] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Done (0.056 s)
+2021-07-15 08:00:02 [41] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Started
+2021-07-15 08:00:02 [41] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Error (0.020 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-15 08:00:02 [42] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Started
+2021-07-15 08:00:02 [42] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Done (0.029 s)
+2021-07-16 08:00:02 [43] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-07-16 08:00:02 [44] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-07-16 08:00:02 [44] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.043 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-16 08:00:02 [43] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.095 s)
+2021-07-17 08:00:02 [45] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Started
+2021-07-17 08:00:02 [46] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Started
+2021-07-17 08:00:02 [45] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Error (0.038 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-17 08:00:02 [46] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Done (0.047 s)
+2021-07-18 08:00:03 [47] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Started
+2021-07-18 08:00:03 [48] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-07-18 08:00:03 [47] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Done (0.097 s)
+2021-07-18 08:00:03 [48] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.021 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-19 08:00:04 [49] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Started
+2021-07-19 08:00:04 [50] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-07-19 08:00:04 [49] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Error (0.057 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-19 08:00:04 [50] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.053 s)
+2021-07-20 08:00:04 [51] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Started
+2021-07-20 08:00:04 [52] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Started
+2021-07-20 08:00:04 [51] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Error (0.045 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-20 08:00:04 [52] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Done (0.079 s)
+2021-07-21 08:00:01 [53] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-07-21 08:00:01 [54] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Started
+2021-07-21 08:00:01 [54] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Error (0.059 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-21 08:00:01 [53] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.110 s)
+2021-07-22 08:00:03 [56] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Started
+2021-07-22 08:00:03 [55] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Started
+2021-07-22 08:00:03 [55] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Error (0.048 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-22 08:00:03 [56] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Done (0.081 s)
+2021-07-23 08:00:02 [58] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Started
+2021-07-23 08:00:02 [57] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Started
+2021-07-23 08:00:02 [58] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Error (0.056 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-23 08:00:02 [57] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Done (0.100 s)
+2021-07-24 08:00:02 [59] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Started
+2021-07-24 08:00:02 [59] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Error (0.038 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-24 08:00:02 [60] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-07-24 08:00:02 [60] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.085 s)
+2021-07-25 08:00:02 [61] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-07-25 08:00:02 [61] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.035 s)
+2021-07-25 08:00:02 [62] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Started
+2021-07-25 08:00:02 [62] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Error (0.013 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-26 08:00:032021-07-26 08:00:03 [63] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Started
+ [64] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Started
+2021-07-26 08:00:03 [63] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Error (0.042 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-26 08:00:03 [64] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Done (0.085 s)
+2021-07-27 08:00:03 [65] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-07-27 08:00:03 [66] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Started
+2021-07-27 08:00:03 [65] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.051 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-27 08:00:03 [66] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Done (0.068 s)
+2021-07-28 08:00:02 [67] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Started
+2021-07-28 08:00:02 [67] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Error (0.023 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-28 08:00:02 [68] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Started
+2021-07-28 08:00:02 [68] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Done (0.039 s)
+2021-07-29 08:00:02 [69] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-07-29 08:00:02 [69] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.013 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-29 08:00:02 [70] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Started
+2021-07-29 08:00:02 [70] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Done (0.032 s)
+2021-07-30 08:00:02 [71] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-07-30 08:00:02 [71] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.022 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-30 08:00:02 [72] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Started
+2021-07-30 08:00:02 [72] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Done (0.079 s)
+2021-07-31 08:00:02 [74] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-07-31 08:00:02 [74] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.020 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-07-31 08:00:02 [73] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Started
+2021-07-31 08:00:02 [73] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Done (0.048 s)
+2021-08-01 08:00:04 [75] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Started
+2021-08-01 08:00:04 [76] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-08-01 08:00:04 [76] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.020 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-01 08:00:04 [75] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Done (0.045 s)
+2021-08-02 08:00:01 [77] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Started
+2021-08-02 08:00:01 [78] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Started
+2021-08-02 08:00:01 [78] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Error (0.048 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-02 08:00:01 [77] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Done (0.088 s)
+2021-08-03 08:00:02 [79] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-08-03 08:00:02 [80] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Started
+2021-08-03 08:00:02 [79] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.111 s)
+2021-08-03 08:00:02 [80] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Error (0.055 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-04 08:00:012021-08-04 08:00:01 [81] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Started
+ [82] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Started
+2021-08-04 08:00:01 [81] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Error (0.045 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-04 08:00:01 [82] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Done (0.075 s)
+2021-08-05 08:00:022021-08-05 08:00:02 [84] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Started
+ [83] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Started
+2021-08-05 08:00:02 [84] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Error (0.037 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-05 08:00:02 [83] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Done (0.064 s)
+2021-08-06 08:00:02 [85] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Started
+2021-08-06 08:00:022021-08-06 08:00:03 [85] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Error (0.041 s)
+ [86] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-06 08:00:03 [86] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.064 s)
+2021-08-07 08:00:02 [87] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Started
+2021-08-07 08:00:02 [88] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Started
+2021-08-07 08:00:03 [88] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Error (0.053 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-07 08:00:03 [87] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Done (0.076 s)
+2021-08-08 08:00:02 [90] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-08-08 08:00:02 [89] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-08-08 08:00:02 [90] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.036 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-08 08:00:02 [89] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.073 s)
+2021-08-09 08:00:02 [91] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Started
+2021-08-09 08:00:02 [91] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Done (0.050 s)
+2021-08-09 08:00:02 [92] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Started
+2021-08-09 08:00:02 [92] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Error (0.016 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-10 08:00:02 [93] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Started
+2021-08-10 08:00:03 [94] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-08-10 08:00:03 [93] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Error (0.027 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-10 08:00:03 [94] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.054 s)
+2021-08-11 08:00:01 [95] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Started
+2021-08-11 08:00:01 [95] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Done (0.037 s)
+2021-08-11 08:00:01 [96] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Started
+2021-08-11 08:00:01 [96] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Error (0.016 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-12 08:00:02 [97] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-08-12 08:00:02 [97] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.038 s)
+2021-08-12 08:00:02 [98] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Started
+2021-08-12 08:00:02 [98] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Error (0.015 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-13 08:00:02 [99] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Started
+2021-08-13 08:00:02 [99] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Done (0.047 s)
+2021-08-13 08:00:02 [100] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Started
+2021-08-13 08:00:02 [100] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Error (0.015 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-14 08:00:03 [101] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-08-14 08:00:03 [101] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.016 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-14 08:00:03 [102] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Started
+2021-08-14 08:00:03 [102] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Done (0.041 s)
+2021-08-15 08:00:02 [103] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-08-15 08:00:02 [103] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.016 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-15 08:00:02 [104] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Started
+2021-08-15 08:00:02 [104] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Done (0.042 s)
+2021-08-16 08:00:01 [105] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Started
+2021-08-16 08:00:01 [105] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Error (0.024 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-16 08:00:01 [106] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-08-16 08:00:01 [106] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.048 s)
+2021-08-17 08:00:04 [107] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Started
+2021-08-17 08:00:04 [108] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-08-17 08:00:04 [108] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.027 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-17 08:00:04 [107] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Done (0.057 s)
+2021-08-18 08:00:02 [109] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Started
+2021-08-18 08:00:02 [109] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Error (0.015 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-18 08:00:02 [110] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Started
+2021-08-18 08:00:02 [110] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Done (0.042 s)
+2021-08-19 08:00:01 [111] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Started
+2021-08-19 08:00:01 [111] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Error (0.025 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-19 08:00:01 [112] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-08-19 08:00:01 [112] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.045 s)
+2021-08-20 08:00:02 [113] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-08-20 08:00:02 [113] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.040 s)
+2021-08-20 08:00:02 [114] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Started
+2021-08-20 08:00:02 [114] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Error (0.016 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-21 08:00:02 [115] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-08-21 08:00:02 [116] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-08-21 08:00:02 [115] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.026 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-21 08:00:02 [116] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.043 s)
+2021-08-22 08:00:03 [117] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Started
+2021-08-22 08:00:03 [118] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Started
+2021-08-22 08:00:03 [117] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Error (0.025 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-22 08:00:03 [118] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Done (0.050 s)
+2021-08-23 08:00:02 [119] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Started
+2021-08-23 08:00:02 [119] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Error (0.016 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-23 08:00:02 [120] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Started
+2021-08-23 08:00:02 [120] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Done (0.041 s)
+2021-08-24 08:00:01 [121] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Started
+2021-08-24 08:00:01 [122] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Started
+2021-08-24 08:00:01 [121] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Error (0.025 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-24 08:00:01 [122] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Done (0.047 s)
+2021-08-25 08:00:02 [123] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-08-25 08:00:02 [123] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.037 s)
+2021-08-25 08:00:02 [124] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Started
+2021-08-25 08:00:02 [124] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Error (0.024 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-26 08:00:02 [125] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Started
+2021-08-26 08:00:02 [125] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Done (0.089 s)
+2021-08-26 08:00:02 [126] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-08-26 08:00:02 [126] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.021 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-27 08:00:02 [127] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Started
+2021-08-27 08:00:02 [127] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Error (0.016 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-27 08:00:02 [128] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Started
+2021-08-27 08:00:02 [128] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Done (0.040 s)
+2021-08-28 08:00:02 [129] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Started
+2021-08-28 08:00:02 [129] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Error (0.015 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-28 08:00:02 [130] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-08-28 08:00:02 [130] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.036 s)
+2021-08-29 08:00:02 [131] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-08-29 08:00:02 [131] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.018 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-29 08:00:02 [132] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Started
+2021-08-29 08:00:02 [132] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Done (0.050 s)
+2021-08-30 08:00:01 [133] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-08-30 08:00:01 [133] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.015 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-30 08:00:01 [134] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Started
+2021-08-30 08:00:01 [134] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Done (0.067 s)
+2021-08-31 08:00:03 [135] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Started
+2021-08-31 08:00:03 [135] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Error (0.019 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-08-31 08:00:03 [136] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Started
+2021-08-31 08:00:03 [136] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Done (0.043 s)
+2021-09-01 08:00:02 [137] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Started
+2021-09-01 08:00:02 [138] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Started
+2021-09-01 08:00:02 [138] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Error (0.023 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-09-01 08:00:02 [137] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Done (0.059 s)
+2021-09-02 08:00:02 [139] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Started
+2021-09-02 08:00:02 [139] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Error (0.024 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-09-02 08:00:02 [140] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-09-02 08:00:02 [140] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.040 s)
+2021-09-03 08:00:02 [141] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Started
+2021-09-03 08:00:02 [142] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Started
+2021-09-03 08:00:02 [141] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Error (0.038 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-09-03 08:00:02 [142] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Done (0.072 s)
+2021-09-04 08:00:02 [143] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Started
+2021-09-04 08:00:02 [143] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Done (0.048 s)
+2021-09-04 08:00:02 [144] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Started
+2021-09-04 08:00:02 [144] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Error (0.016 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-09-05 08:00:02 [145] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Started
+2021-09-05 08:00:02 [145] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Done (0.047 s)
+2021-09-05 08:00:02 [146] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Started
+2021-09-05 08:00:02 [146] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Error (0.016 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-09-06 08:00:02 [147] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Started
+2021-09-06 08:00:02 [147] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Done (0.067 s)
+2021-09-06 08:00:02 [148] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Started
+2021-09-06 08:00:02 [148] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Error (0.026 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-09-07 08:00:02 [149] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Started
+2021-09-07 08:00:02 [149] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Error (0.015 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-09-07 08:00:02 [150] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Started
+2021-09-07 08:00:02 [150] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Done (0.036 s)
+2021-09-08 08:00:02 [151] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-09-08 08:00:02 [152] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-09-08 08:00:02 [152] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.022 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-09-08 08:00:02 [151] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.051 s)
+2021-09-09 08:00:02 [154] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-09-09 08:00:02 [154] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.018 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-09-09 08:00:02 [153] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Started
+2021-09-09 08:00:02 [153] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Done (0.056 s)
+2021-09-10 08:00:022021-09-10 08:00:02 [155] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Started
+ [156] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-09-10 08:00:02 [156] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.064 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-09-10 08:00:02 [155] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Done (0.101 s)
+2021-09-11 08:00:03 [157] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Started
+2021-09-11 08:00:03 [157] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1814) - Error (0.045 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-09-11 08:00:03 [158] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Started
+2021-09-11 08:00:03 [158] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Done (0.055 s)
+2021-09-12 08:00:012021-09-12 08:00:01 [159] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Started
+ [160] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Started
+2021-09-12 08:00:01 [159] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Error (0.036 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-09-12 08:00:01 [160] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Done (0.080 s)
+2021-09-13 08:00:02 [161] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-09-13 08:00:02 [162] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Started
+2021-09-13 08:00:02 [161] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.019 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-09-13 08:00:02 [162] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Done (0.035 s)
+2021-09-14 08:00:04 [164] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-09-14 08:00:04 [163] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Started
+2021-09-14 08:00:04 [164] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.077 s)
+2021-09-14 08:00:04 [163] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Error (0.063 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-09-15 08:00:04 [165] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Started
+2021-09-15 08:00:04 [166] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Started
+2021-09-15 08:00:04 [166] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Error (0.018 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-09-15 08:00:04 [165] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Done (0.043 s)
+2021-09-16 08:00:032021-09-16 08:00:03 [168] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+ [167] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Started
+2021-09-16 08:00:03 [167] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Error (0.035 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-09-16 08:00:03 [168] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.065 s)
+2021-09-17 08:00:03 [169] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Started
+2021-09-17 08:00:03 [170] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Started
+2021-09-17 08:00:03 [169] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Error (0.058 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-09-17 08:00:03 [170] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Done (0.092 s)
+2021-09-18 08:00:03 [171] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Started
+2021-09-18 08:00:03 [172] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Started
+2021-09-18 08:00:03 [172] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1816) - Error (0.016 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-09-18 08:00:04 [171] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1815) - Done (0.039 s)
+2021-09-19 08:00:04 [173] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Started
+2021-09-19 08:00:04 [174] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Started
+2021-09-19 08:00:04 [174] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1813) - Error (0.051 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-09-19 08:00:04 [173] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Done (0.094 s)
+2021-09-20 08:00:04 [175] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-09-20 08:00:04 [176] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Started
+2021-09-20 08:00:04 [175] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.048 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-09-20 08:00:04 [176] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1813) - Done (0.081 s)
+2021-09-21 08:00:04 [177] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-09-21 08:00:04 [178] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Started
+2021-09-21 08:00:04 [177] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.038 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-09-21 08:00:04 [178] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1814) - Done (0.101 s)
+2021-09-22 08:00:02 [179] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Started
+2021-09-22 08:00:02 [180] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Started
+2021-09-22 08:00:02 [179] common\jobs\MemberNearExpiryNotifJob (attempt: 1, pid: 1815) - Error (0.042 s)
+> yii\base\InvalidArgumentException: Operator 'NOT' requires exactly one operand.
+2021-09-22 08:00:02 [180] common\jobs\MemberIncNotificationJob (attempt: 1, pid: 1816) - Done (0.082 s)

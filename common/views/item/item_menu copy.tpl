@@ -1,0 +1,25 @@
+@{
+    use yii\helpers\Url;    
+    use common\helpers\Common;
+}
+
+<div class="row">
+    <div class="col-lg-4">
+        <h4><i class="fa fa-cog"></i> @($item->title)</h4>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 text-right">
+        <div class="btn-group dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                <i class=" fa fa-bars"></i>
+            </a>
+            <ul class="dropdown-menu pull-right">
+                <li><a href="@(Url::home())item/@($item->item_id)" title="View"><i class="fa fa-info" title="View"></i> View</a></li>
+                <li><a href="@(Url::home())item/edit/@($item->item_id)" title="Edit"><i class="fa fa-edit" title="Edit"></i> Edit</a></li>
+                <li><a href="@(Url::home())item/redeems/@($item->item_id)" title="Redeems"><i class="fa fa-edit" title="Redeems"></i> Redeems</a></li>
+                <li><a href="javascript:void(0);" title="Remove"><i class="fa fa-trash" title="Remove"></i> Delete</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<hr />
