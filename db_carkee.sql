@@ -1907,6 +1907,21 @@ TRUNCATE TABLE `user`;
 INSERT INTO `user` (`user_id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `pin_hash`, `email`, `status`, `premium_status`, `is_premium`, `created_at`, `updated_at`, `account_id`, `mobile`, `gender`, `birthday`, `firstname`, `lastname`, `mobile_code`, `country`, `postal_code`, `unit_no`, `add_1`, `add_2`, `nric`, `profession`, `company`, `annual_salary`, `chasis_number`, `plate_no`, `car_model`, `registration_code`, `are_you_owner`, `contact_person`, `emergency_code`, `emergency_no`, `relationship`, `img_profile`, `img_nric`, `img_insurance`, `img_authorization`, `img_log_card`, `img_vendor`, `transfer_no`, `transfer_banking_nick`, `transfer_date`, `transfer_amount`, `transfer_screenshot`, `step`, `is_vendor`, `vendor_name`, `vendor_description`, `about`, `ios_uiid`, `android_uiid`, `ios_biometric`, `android_biometric`, `telephone_no`, `founded_date`, `member_type`, `carkee_member_type`, `telephone_code`, `fullname`, `eun`, `number_of_employees`, `img_acra`, `img_memorandum`, `img_car_front`, `img_car_back`, `img_car_left`, `img_car_right`, `reset_code`, `longitude`, `latitude`, `member_expire`, `approved_by`, `confirmed_by`, `role`, `company_mobile_code`, `company_mobile`, `company_email`, `company_country`, `company_postal_code`, `company_unit_no`, `company_add_1`, `company_add_2`, `company_logo`, `brand_synopsis`, `brand_guide`, `club_logo`, `insurance_date`, `level`, `carkee_level`, `approved_at`) VALUES
 (1, 'test', 'wok5AQf3ggPNqMD_lF1UmSqEd2Cwf9uK', '$2y$12$Q5Co/INb8m5rLUrP5oEbke304EAc.YBrlyH/feAT5VXfHoKfE4E2K', NULL, '$2y$13$QGxbrzoP8t3N2g3fu73QTe2hrTdm0qK5awauAO6BZ69dwNDyL/W4W', 'demo@yopmail.com', 3, 1, 0, '2020-01-04 08:43:17', '2021-04-28 14:41:56', 8, '34343434', 'm', 0x323031302d30312d3031, '1', '1', '+65', 'Singapore', '123123', '3434', 'test', '', 'g3151119k', 'asdf', 'asdf', 'Less than 99K', '5273737e', '647474', 'hdhdhd', '2020-09-14', 1, 'hdhdhdhd', '+65', '62929295', 1, '2253d83b1600069505.jpg', 'dd9c519d1600069492.jpg', '74cf498f1600069515.jpg', NULL, '6c37d2e01600069535.jpg', NULL, NULL, NULL, NULL, NULL, '9d5cdd9a1600069547.jpg', 6, 0, 'vendor 9999', 'Im a vendor', 'testt', NULL, '3109738030ae3047', 0, 0, '', '2020-01-04', 2, 5, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'test brand ', '464a8ee21619056418.jpg', '485cdfc81619056385.jpg', NULL, 0, 0, '2021-03-17 10:15:55');
 
+--
+-- Truncate table before insert `user_settings`
+--
+
+TRUNCATE TABLE `user_settings`;
+--
+-- Dumping data for table `user_settings`
+--
+
+INSERT INTO `user_settings` (`id`, `user_id`, `account_id`, `enable_ads`, `skip_approval`, `renewal_alert`, `status`, `verification_code`, `is_verified`, `club_code`, `is_one_approval`, `num_days_expiry`, `renewal_fee`, `created_at`, `updated_at`) VALUES
+(1, 1, 0, 1, 1, 30, 1, '770876', 0, NULL, 0, 30, '0.000', '2021-08-20 00:56:24', '2021-08-20 00:56:24');
+
+--
+-- Truncate table before insert `country`
+--
 
 TRUNCATE TABLE `country`;
 --
@@ -1914,487 +1929,246 @@ TRUNCATE TABLE `country`;
 --
 
 INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('AD', 'ANDORRA', 'Andorra', 'AND', 20, 376);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('AE', 'UNITED ARAB EMIRATES', 'United Arab Emirates', 'ARE', 784, 971);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('AF', 'AFGHANISTAN', 'Afghanistan', 'AFG', 4, 93);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('AG', 'ANTIGUA AND BARBUDA', 'Antigua and Barbuda', 'ATG', 28, 1268);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('AI', 'ANGUILLA', 'Anguilla', 'AIA', 660, 1264);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('AL', 'ALBANIA', 'Albania', 'ALB', 8, 355);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('AM', 'ARMENIA', 'Armenia', 'ARM', 51, 374);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('AN', 'NETHERLANDS ANTILLES', 'Netherlands Antilles', 'ANT', 530, 599);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('AO', 'ANGOLA', 'Angola', 'AGO', 24, 244);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('AQ', 'ANTARCTICA', 'Antarctica', NULL, NULL, 0);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('AR', 'ARGENTINA', 'Argentina', 'ARG', 32, 54);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('AS', 'AMERICAN SAMOA', 'American Samoa', 'ASM', 16, 1684);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('AT', 'AUSTRIA', 'Austria', 'AUT', 40, 43);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('AU', 'AUSTRALIA', 'Australia', 'AUS', 36, 61);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('AW', 'ARUBA', 'Aruba', 'ABW', 533, 297);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('AZ', 'AZERBAIJAN', 'Azerbaijan', 'AZE', 31, 994);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('BA', 'BOSNIA AND HERZEGOVINA', 'Bosnia and Herzegovina', 'BIH', 70, 387);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('BB', 'BARBADOS', 'Barbados', 'BRB', 52, 1246);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('BD', 'BANGLADESH', 'Bangladesh', 'BGD', 50, 880);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('BE', 'BELGIUM', 'Belgium', 'BEL', 56, 32);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('BF', 'BURKINA FASO', 'Burkina Faso', 'BFA', 854, 226);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('BG', 'BULGARIA', 'Bulgaria', 'BGR', 100, 359);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('BH', 'BAHRAIN', 'Bahrain', 'BHR', 48, 973);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('BI', 'BURUNDI', 'Burundi', 'BDI', 108, 257);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('BJ', 'BENIN', 'Benin', 'BEN', 204, 229);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('BM', 'BERMUDA', 'Bermuda', 'BMU', 60, 1441);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('BN', 'BRUNEI DARUSSALAM', 'Brunei Darussalam', 'BRN', 96, 673);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('BO', 'BOLIVIA', 'Bolivia', 'BOL', 68, 591);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('BR', 'BRAZIL', 'Brazil', 'BRA', 76, 55);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('BS', 'BAHAMAS', 'Bahamas', 'BHS', 44, 1242);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('BT', 'BHUTAN', 'Bhutan', 'BTN', 64, 975);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('BV', 'BOUVET ISLAND', 'Bouvet Island', NULL, NULL, 0);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('BW', 'BOTSWANA', 'Botswana', 'BWA', 72, 267);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('BY', 'BELARUS', 'Belarus', 'BLR', 112, 375);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('BZ', 'BELIZE', 'Belize', 'BLZ', 84, 501);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('CA', 'CANADA', 'Canada', 'CAN', 124, 1);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('CC', 'COCOS (KEELING) ISLANDS', 'Cocos (Keeling) Islands', NULL, NULL, 672);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('CD', 'CONGO, THE DEMOCRATIC REPUBLIC OF THE', 'Congo, the Democratic Republic of the', 'COD', 180, 242);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('CF', 'CENTRAL AFRICAN REPUBLIC', 'Central African Republic', 'CAF', 140, 236);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('CG', 'CONGO', 'Congo', 'COG', 178, 242);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('CH', 'SWITZERLAND', 'Switzerland', 'CHE', 756, 41);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('CI', 'COTE D\'IVOIRE', 'Cote D\'Ivoire', 'CIV', 384, 225);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('CK', 'COOK ISLANDS', 'Cook Islands', 'COK', 184, 682);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('CL', 'CHILE', 'Chile', 'CHL', 152, 56);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('CM', 'CAMEROON', 'Cameroon', 'CMR', 120, 237);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('CN', 'CHINA', 'China', 'CHN', 156, 86);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('CO', 'COLOMBIA', 'Colombia', 'COL', 170, 57);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('CR', 'COSTA RICA', 'Costa Rica', 'CRI', 188, 506);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('CS', 'SERBIA AND MONTENEGRO', 'Serbia and Montenegro', NULL, NULL, 381);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('CU', 'CUBA', 'Cuba', 'CUB', 192, 53);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('CV', 'CAPE VERDE', 'Cape Verde', 'CPV', 132, 238);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('CX', 'CHRISTMAS ISLAND', 'Christmas Island', NULL, NULL, 61);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('CY', 'CYPRUS', 'Cyprus', 'CYP', 196, 357);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('CZ', 'CZECH REPUBLIC', 'Czech Republic', 'CZE', 203, 420);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('DE', 'GERMANY', 'Germany', 'DEU', 276, 49);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('DJ', 'DJIBOUTI', 'Djibouti', 'DJI', 262, 253);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('DK', 'DENMARK', 'Denmark', 'DNK', 208, 45);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('DM', 'DOMINICA', 'Dominica', 'DMA', 212, 1767);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('DO', 'DOMINICAN REPUBLIC', 'Dominican Republic', 'DOM', 214, 1809);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('DZ', 'ALGERIA', 'Algeria', 'DZA', 12, 213);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('EC', 'ECUADOR', 'Ecuador', 'ECU', 218, 593);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('EE', 'ESTONIA', 'Estonia', 'EST', 233, 372);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('EG', 'EGYPT', 'Egypt', 'EGY', 818, 20);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('EH', 'WESTERN SAHARA', 'Western Sahara', 'ESH', 732, 212);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('ER', 'ERITREA', 'Eritrea', 'ERI', 232, 291);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('ES', 'SPAIN', 'Spain', 'ESP', 724, 34);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('ET', 'ETHIOPIA', 'Ethiopia', 'ETH', 231, 251);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('FI', 'FINLAND', 'Finland', 'FIN', 246, 358);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('FJ', 'FIJI', 'Fiji', 'FJI', 242, 679);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('FK', 'FALKLAND ISLANDS (MALVINAS)', 'Falkland Islands (Malvinas)', 'FLK', 238, 500);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('FM', 'MICRONESIA, FEDERATED STATES OF', 'Micronesia, Federated States of', 'FSM', 583, 691);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('FO', 'FAROE ISLANDS', 'Faroe Islands', 'FRO', 234, 298);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('FR', 'FRANCE', 'France', 'FRA', 250, 33);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('GA', 'GABON', 'Gabon', 'GAB', 266, 241);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('GB', 'UNITED KINGDOM', 'United Kingdom', 'GBR', 826, 44);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('GD', 'GRENADA', 'Grenada', 'GRD', 308, 1473);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('GE', 'GEORGIA', 'Georgia', 'GEO', 268, 995);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('GF', 'FRENCH GUIANA', 'French Guiana', 'GUF', 254, 594);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('GH', 'GHANA', 'Ghana', 'GHA', 288, 233);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('GI', 'GIBRALTAR', 'Gibraltar', 'GIB', 292, 350);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('GL', 'GREENLAND', 'Greenland', 'GRL', 304, 299);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('GM', 'GAMBIA', 'Gambia', 'GMB', 270, 220);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('GN', 'GUINEA', 'Guinea', 'GIN', 324, 224);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('GP', 'GUADELOUPE', 'Guadeloupe', 'GLP', 312, 590);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('GQ', 'EQUATORIAL GUINEA', 'Equatorial Guinea', 'GNQ', 226, 240);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('GR', 'GREECE', 'Greece', 'GRC', 300, 30);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('GS', 'SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS', 'South Georgia and the South Sandwich Islands', NULL, NULL, 0);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('GT', 'GUATEMALA', 'Guatemala', 'GTM', 320, 502);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('GU', 'GUAM', 'Guam', 'GUM', 316, 1671);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('GW', 'GUINEA-BISSAU', 'Guinea-Bissau', 'GNB', 624, 245);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('GY', 'GUYANA', 'Guyana', 'GUY', 328, 592);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('HK', 'HONG KONG', 'Hong Kong', 'HKG', 344, 852);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('HM', 'HEARD ISLAND AND MCDONALD ISLANDS', 'Heard Island and Mcdonald Islands', NULL, NULL, 0);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('HN', 'HONDURAS', 'Honduras', 'HND', 340, 504);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('HR', 'CROATIA', 'Croatia', 'HRV', 191, 385);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('HT', 'HAITI', 'Haiti', 'HTI', 332, 509);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('HU', 'HUNGARY', 'Hungary', 'HUN', 348, 36);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('ID', 'INDONESIA', 'Indonesia', 'IDN', 360, 62);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('IE', 'IRELAND', 'Ireland', 'IRL', 372, 353);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('IL', 'ISRAEL', 'Israel', 'ISR', 376, 972);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('IN', 'INDIA', 'India', 'IND', 356, 91);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('IO', 'BRITISH INDIAN OCEAN TERRITORY', 'British Indian Ocean Territory', NULL, NULL, 246);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('IQ', 'IRAQ', 'Iraq', 'IRQ', 368, 964);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('IR', 'IRAN, ISLAMIC REPUBLIC OF', 'Iran, Islamic Republic of', 'IRN', 364, 98);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('IS', 'ICELAND', 'Iceland', 'ISL', 352, 354);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('IT', 'ITALY', 'Italy', 'ITA', 380, 39);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('JM', 'JAMAICA', 'Jamaica', 'JAM', 388, 1876);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('JO', 'JORDAN', 'Jordan', 'JOR', 400, 962);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('JP', 'JAPAN', 'Japan', 'JPN', 392, 81);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('KE', 'KENYA', 'Kenya', 'KEN', 404, 254);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('KG', 'KYRGYZSTAN', 'Kyrgyzstan', 'KGZ', 417, 996);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('KH', 'CAMBODIA', 'Cambodia', 'KHM', 116, 855);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('KI', 'KIRIBATI', 'Kiribati', 'KIR', 296, 686);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('KM', 'COMOROS', 'Comoros', 'COM', 174, 269);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('KN', 'SAINT KITTS AND NEVIS', 'Saint Kitts and Nevis', 'KNA', 659, 1869);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('KP', 'KOREA, DEMOCRATIC PEOPLE\'S REPUBLIC OF', 'Korea, Democratic People\'s Republic of', 'PRK', 408, 850);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('KR', 'KOREA, REPUBLIC OF', 'Korea, Republic of', 'KOR', 410, 82);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('KW', 'KUWAIT', 'Kuwait', 'KWT', 414, 965);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('KY', 'CAYMAN ISLANDS', 'Cayman Islands', 'CYM', 136, 1345);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('KZ', 'KAZAKHSTAN', 'Kazakhstan', 'KAZ', 398, 7);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('LA', 'LAO PEOPLE\'S DEMOCRATIC REPUBLIC', 'Lao People\'s Democratic Republic', 'LAO', 418, 856);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('LB', 'LEBANON', 'Lebanon', 'LBN', 422, 961);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('LC', 'SAINT LUCIA', 'Saint Lucia', 'LCA', 662, 1758);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('LI', 'LIECHTENSTEIN', 'Liechtenstein', 'LIE', 438, 423);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('LK', 'SRI LANKA', 'Sri Lanka', 'LKA', 144, 94);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('LR', 'LIBERIA', 'Liberia', 'LBR', 430, 231);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('LS', 'LESOTHO', 'Lesotho', 'LSO', 426, 266);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('LT', 'LITHUANIA', 'Lithuania', 'LTU', 440, 370);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('LU', 'LUXEMBOURG', 'Luxembourg', 'LUX', 442, 352);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('LV', 'LATVIA', 'Latvia', 'LVA', 428, 371);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('LY', 'LIBYAN ARAB JAMAHIRIYA', 'Libyan Arab Jamahiriya', 'LBY', 434, 218);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('MA', 'MOROCCO', 'Morocco', 'MAR', 504, 212);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('MC', 'MONACO', 'Monaco', 'MCO', 492, 377);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('MD', 'MOLDOVA, REPUBLIC OF', 'Moldova, Republic of', 'MDA', 498, 373);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('MG', 'MADAGASCAR', 'Madagascar', 'MDG', 450, 261);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('MH', 'MARSHALL ISLANDS', 'Marshall Islands', 'MHL', 584, 692);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('MK', 'MACEDONIA, THE FORMER YUGOSLAV REPUBLIC OF', 'Macedonia, the Former Yugoslav Republic of', 'MKD', 807, 389);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('ML', 'MALI', 'Mali', 'MLI', 466, 223);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('MM', 'MYANMAR', 'Myanmar', 'MMR', 104, 95);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('MN', 'MONGOLIA', 'Mongolia', 'MNG', 496, 976);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('MO', 'MACAO', 'Macao', 'MAC', 446, 853);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('MP', 'NORTHERN MARIANA ISLANDS', 'Northern Mariana Islands', 'MNP', 580, 1670);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('MQ', 'MARTINIQUE', 'Martinique', 'MTQ', 474, 596);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('MR', 'MAURITANIA', 'Mauritania', 'MRT', 478, 222);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('MS', 'MONTSERRAT', 'Montserrat', 'MSR', 500, 1664);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('MT', 'MALTA', 'Malta', 'MLT', 470, 356);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('MU', 'MAURITIUS', 'Mauritius', 'MUS', 480, 230);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('MV', 'MALDIVES', 'Maldives', 'MDV', 462, 960);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('MW', 'MALAWI', 'Malawi', 'MWI', 454, 265);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('MX', 'MEXICO', 'Mexico', 'MEX', 484, 52);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('MY', 'MALAYSIA', 'Malaysia', 'MYS', 458, 60);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('MZ', 'MOZAMBIQUE', 'Mozambique', 'MOZ', 508, 258);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('NA', 'NAMIBIA', 'Namibia', 'NAM', 516, 264);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('NC', 'NEW CALEDONIA', 'New Caledonia', 'NCL', 540, 687);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('NE', 'NIGER', 'Niger', 'NER', 562, 227);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('NF', 'NORFOLK ISLAND', 'Norfolk Island', 'NFK', 574, 672);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('NG', 'NIGERIA', 'Nigeria', 'NGA', 566, 234);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('NI', 'NICARAGUA', 'Nicaragua', 'NIC', 558, 505);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('NL', 'NETHERLANDS', 'Netherlands', 'NLD', 528, 31);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('NO', 'NORWAY', 'Norway', 'NOR', 578, 47);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('NP', 'NEPAL', 'Nepal', 'NPL', 524, 977);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('NR', 'NAURU', 'Nauru', 'NRU', 520, 674);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('NU', 'NIUE', 'Niue', 'NIU', 570, 683);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('NZ', 'NEW ZEALAND', 'New Zealand', 'NZL', 554, 64);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('OM', 'OMAN', 'Oman', 'OMN', 512, 968);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('PA', 'PANAMA', 'Panama', 'PAN', 591, 507);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('PE', 'PERU', 'Peru', 'PER', 604, 51);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('PF', 'FRENCH POLYNESIA', 'French Polynesia', 'PYF', 258, 689);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('PG', 'PAPUA NEW GUINEA', 'Papua New Guinea', 'PNG', 598, 675);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('PH', 'PHILIPPINES', 'Philippines', 'PHL', 608, 63);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('PK', 'PAKISTAN', 'Pakistan', 'PAK', 586, 92);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('PL', 'POLAND', 'Poland', 'POL', 616, 48);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('PM', 'SAINT PIERRE AND MIQUELON', 'Saint Pierre and Miquelon', 'SPM', 666, 508);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('PN', 'PITCAIRN', 'Pitcairn', 'PCN', 612, 0);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('PR', 'PUERTO RICO', 'Puerto Rico', 'PRI', 630, 1787);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('PS', 'PALESTINIAN TERRITORY, OCCUPIED', 'Palestinian Territory, Occupied', NULL, NULL, 970);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('PT', 'PORTUGAL', 'Portugal', 'PRT', 620, 351);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('PW', 'PALAU', 'Palau', 'PLW', 585, 680);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('PY', 'PARAGUAY', 'Paraguay', 'PRY', 600, 595);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('QA', 'QATAR', 'Qatar', 'QAT', 634, 974);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('RE', 'REUNION', 'Reunion', 'REU', 638, 262);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('RO', 'ROMANIA', 'Romania', 'ROM', 642, 40);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('RU', 'RUSSIAN FEDERATION', 'Russian Federation', 'RUS', 643, 70);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('RW', 'RWANDA', 'Rwanda', 'RWA', 646, 250);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('SA', 'SAUDI ARABIA', 'Saudi Arabia', 'SAU', 682, 966);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('SB', 'SOLOMON ISLANDS', 'Solomon Islands', 'SLB', 90, 677);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('SC', 'SEYCHELLES', 'Seychelles', 'SYC', 690, 248);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('SD', 'SUDAN', 'Sudan', 'SDN', 736, 249);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('SE', 'SWEDEN', 'Sweden', 'SWE', 752, 46);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('SG', 'SINGAPORE', 'Singapore', 'SGP', 702, 65);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('SH', 'SAINT HELENA', 'Saint Helena', 'SHN', 654, 290);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('SI', 'SLOVENIA', 'Slovenia', 'SVN', 705, 386);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('SJ', 'SVALBARD AND JAN MAYEN', 'Svalbard and Jan Mayen', 'SJM', 744, 47);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('SK', 'SLOVAKIA', 'Slovakia', 'SVK', 703, 421);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('SL', 'SIERRA LEONE', 'Sierra Leone', 'SLE', 694, 232);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('SM', 'SAN MARINO', 'San Marino', 'SMR', 674, 378);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('SN', 'SENEGAL', 'Senegal', 'SEN', 686, 221);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('SO', 'SOMALIA', 'Somalia', 'SOM', 706, 252);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('SR', 'SURINAME', 'Suriname', 'SUR', 740, 597);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('ST', 'SAO TOME AND PRINCIPE', 'Sao Tome and Principe', 'STP', 678, 239);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('SV', 'EL SALVADOR', 'El Salvador', 'SLV', 222, 503);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('SY', 'SYRIAN ARAB REPUBLIC', 'Syrian Arab Republic', 'SYR', 760, 963);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('SZ', 'SWAZILAND', 'Swaziland', 'SWZ', 748, 268);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('TC', 'TURKS AND CAICOS ISLANDS', 'Turks and Caicos Islands', 'TCA', 796, 1649);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('TD', 'CHAD', 'Chad', 'TCD', 148, 235);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('TF', 'FRENCH SOUTHERN TERRITORIES', 'French Southern Territories', NULL, NULL, 0);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('TG', 'TOGO', 'Togo', 'TGO', 768, 228);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('TH', 'THAILAND', 'Thailand', 'THA', 764, 66);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('TJ', 'TAJIKISTAN', 'Tajikistan', 'TJK', 762, 992);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('TK', 'TOKELAU', 'Tokelau', 'TKL', 772, 690);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('TL', 'TIMOR-LESTE', 'Timor-Leste', NULL, NULL, 670);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('TM', 'TURKMENISTAN', 'Turkmenistan', 'TKM', 795, 7370);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('TN', 'TUNISIA', 'Tunisia', 'TUN', 788, 216);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('TO', 'TONGA', 'Tonga', 'TON', 776, 676);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('TR', 'TURKEY', 'Turkey', 'TUR', 792, 90);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('TT', 'TRINIDAD AND TOBAGO', 'Trinidad and Tobago', 'TTO', 780, 1868);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('TV', 'TUVALU', 'Tuvalu', 'TUV', 798, 688);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('TW', 'TAIWAN, PROVINCE OF CHINA', 'Taiwan, Province of China', 'TWN', 158, 886);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('TZ', 'TANZANIA, UNITED REPUBLIC OF', 'Tanzania, United Republic of', 'TZA', 834, 255);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('UA', 'UKRAINE', 'Ukraine', 'UKR', 804, 380);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('UG', 'UGANDA', 'Uganda', 'UGA', 800, 256);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('UM', 'UNITED STATES MINOR OUTLYING ISLANDS', 'United States Minor Outlying Islands', NULL, NULL, 1);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('US', 'UNITED STATES', 'United States', 'USA', 840, 1);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('UY', 'URUGUAY', 'Uruguay', 'URY', 858, 598);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('UZ', 'UZBEKISTAN', 'Uzbekistan', 'UZB', 860, 998);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('VA', 'HOLY SEE (VATICAN CITY STATE)', 'Holy See (Vatican City State)', 'VAT', 336, 39);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('VC', 'SAINT VINCENT AND THE GRENADINES', 'Saint Vincent and the Grenadines', 'VCT', 670, 1784);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('VE', 'VENEZUELA', 'Venezuela', 'VEN', 862, 58);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('VG', 'VIRGIN ISLANDS, BRITISH', 'Virgin Islands, British', 'VGB', 92, 1284);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('VI', 'VIRGIN ISLANDS, U.S.', 'Virgin Islands, U.s.', 'VIR', 850, 1340);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('VN', 'VIET NAM', 'Viet Nam', 'VNM', 704, 84);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('VU', 'VANUATU', 'Vanuatu', 'VUT', 548, 678);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('WF', 'WALLIS AND FUTUNA', 'Wallis and Futuna', 'WLF', 876, 681);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('WS', 'SAMOA', 'Samoa', 'WSM', 882, 684);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('YE', 'YEMEN', 'Yemen', 'YEM', 887, 967);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('YT', 'MAYOTTE', 'Mayotte', NULL, NULL, 269);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('ZA', 'SOUTH AFRICA', 'South Africa', 'ZAF', 710, 27);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
-('ZM', 'ZAMBIA', 'Zambia', 'ZMB', 894, 260);
-INSERT INTO `country` (`country_code`, `name`, `nicename`, `iso3`, `numcode`, `phonecode`) VALUES
+('AD', 'ANDORRA', 'Andorra', 'AND', 20, 376),
+('AE', 'UNITED ARAB EMIRATES', 'United Arab Emirates', 'ARE', 784, 971),
+('AF', 'AFGHANISTAN', 'Afghanistan', 'AFG', 4, 93),
+('AG', 'ANTIGUA AND BARBUDA', 'Antigua and Barbuda', 'ATG', 28, 1268),
+('AI', 'ANGUILLA', 'Anguilla', 'AIA', 660, 1264),
+('AL', 'ALBANIA', 'Albania', 'ALB', 8, 355),
+('AM', 'ARMENIA', 'Armenia', 'ARM', 51, 374),
+('AN', 'NETHERLANDS ANTILLES', 'Netherlands Antilles', 'ANT', 530, 599),
+('AO', 'ANGOLA', 'Angola', 'AGO', 24, 244),
+('AQ', 'ANTARCTICA', 'Antarctica', NULL, NULL, 0),
+('AR', 'ARGENTINA', 'Argentina', 'ARG', 32, 54),
+('AS', 'AMERICAN SAMOA', 'American Samoa', 'ASM', 16, 1684),
+('AT', 'AUSTRIA', 'Austria', 'AUT', 40, 43),
+('AU', 'AUSTRALIA', 'Australia', 'AUS', 36, 61),
+('AW', 'ARUBA', 'Aruba', 'ABW', 533, 297),
+('AZ', 'AZERBAIJAN', 'Azerbaijan', 'AZE', 31, 994),
+('BA', 'BOSNIA AND HERZEGOVINA', 'Bosnia and Herzegovina', 'BIH', 70, 387),
+('BB', 'BARBADOS', 'Barbados', 'BRB', 52, 1246),
+('BD', 'BANGLADESH', 'Bangladesh', 'BGD', 50, 880),
+('BE', 'BELGIUM', 'Belgium', 'BEL', 56, 32),
+('BF', 'BURKINA FASO', 'Burkina Faso', 'BFA', 854, 226),
+('BG', 'BULGARIA', 'Bulgaria', 'BGR', 100, 359),
+('BH', 'BAHRAIN', 'Bahrain', 'BHR', 48, 973),
+('BI', 'BURUNDI', 'Burundi', 'BDI', 108, 257),
+('BJ', 'BENIN', 'Benin', 'BEN', 204, 229),
+('BM', 'BERMUDA', 'Bermuda', 'BMU', 60, 1441),
+('BN', 'BRUNEI DARUSSALAM', 'Brunei Darussalam', 'BRN', 96, 673),
+('BO', 'BOLIVIA', 'Bolivia', 'BOL', 68, 591),
+('BR', 'BRAZIL', 'Brazil', 'BRA', 76, 55),
+('BS', 'BAHAMAS', 'Bahamas', 'BHS', 44, 1242),
+('BT', 'BHUTAN', 'Bhutan', 'BTN', 64, 975),
+('BV', 'BOUVET ISLAND', 'Bouvet Island', NULL, NULL, 0),
+('BW', 'BOTSWANA', 'Botswana', 'BWA', 72, 267),
+('BY', 'BELARUS', 'Belarus', 'BLR', 112, 375),
+('BZ', 'BELIZE', 'Belize', 'BLZ', 84, 501),
+('CA', 'CANADA', 'Canada', 'CAN', 124, 1),
+('CC', 'COCOS (KEELING) ISLANDS', 'Cocos (Keeling) Islands', NULL, NULL, 672),
+('CD', 'CONGO, THE DEMOCRATIC REPUBLIC OF THE', 'Congo, the Democratic Republic of the', 'COD', 180, 242),
+('CF', 'CENTRAL AFRICAN REPUBLIC', 'Central African Republic', 'CAF', 140, 236),
+('CG', 'CONGO', 'Congo', 'COG', 178, 242),
+('CH', 'SWITZERLAND', 'Switzerland', 'CHE', 756, 41),
+('CI', 'COTE D\'IVOIRE', 'Cote D\'Ivoire', 'CIV', 384, 225),
+('CK', 'COOK ISLANDS', 'Cook Islands', 'COK', 184, 682),
+('CL', 'CHILE', 'Chile', 'CHL', 152, 56),
+('CM', 'CAMEROON', 'Cameroon', 'CMR', 120, 237),
+('CN', 'CHINA', 'China', 'CHN', 156, 86),
+('CO', 'COLOMBIA', 'Colombia', 'COL', 170, 57),
+('CR', 'COSTA RICA', 'Costa Rica', 'CRI', 188, 506),
+('CS', 'SERBIA AND MONTENEGRO', 'Serbia and Montenegro', NULL, NULL, 381),
+('CU', 'CUBA', 'Cuba', 'CUB', 192, 53),
+('CV', 'CAPE VERDE', 'Cape Verde', 'CPV', 132, 238),
+('CX', 'CHRISTMAS ISLAND', 'Christmas Island', NULL, NULL, 61),
+('CY', 'CYPRUS', 'Cyprus', 'CYP', 196, 357),
+('CZ', 'CZECH REPUBLIC', 'Czech Republic', 'CZE', 203, 420),
+('DE', 'GERMANY', 'Germany', 'DEU', 276, 49),
+('DJ', 'DJIBOUTI', 'Djibouti', 'DJI', 262, 253),
+('DK', 'DENMARK', 'Denmark', 'DNK', 208, 45),
+('DM', 'DOMINICA', 'Dominica', 'DMA', 212, 1767),
+('DO', 'DOMINICAN REPUBLIC', 'Dominican Republic', 'DOM', 214, 1809),
+('DZ', 'ALGERIA', 'Algeria', 'DZA', 12, 213),
+('EC', 'ECUADOR', 'Ecuador', 'ECU', 218, 593),
+('EE', 'ESTONIA', 'Estonia', 'EST', 233, 372),
+('EG', 'EGYPT', 'Egypt', 'EGY', 818, 20),
+('EH', 'WESTERN SAHARA', 'Western Sahara', 'ESH', 732, 212),
+('ER', 'ERITREA', 'Eritrea', 'ERI', 232, 291),
+('ES', 'SPAIN', 'Spain', 'ESP', 724, 34),
+('ET', 'ETHIOPIA', 'Ethiopia', 'ETH', 231, 251),
+('FI', 'FINLAND', 'Finland', 'FIN', 246, 358),
+('FJ', 'FIJI', 'Fiji', 'FJI', 242, 679),
+('FK', 'FALKLAND ISLANDS (MALVINAS)', 'Falkland Islands (Malvinas)', 'FLK', 238, 500),
+('FM', 'MICRONESIA, FEDERATED STATES OF', 'Micronesia, Federated States of', 'FSM', 583, 691),
+('FO', 'FAROE ISLANDS', 'Faroe Islands', 'FRO', 234, 298),
+('FR', 'FRANCE', 'France', 'FRA', 250, 33),
+('GA', 'GABON', 'Gabon', 'GAB', 266, 241),
+('GB', 'UNITED KINGDOM', 'United Kingdom', 'GBR', 826, 44),
+('GD', 'GRENADA', 'Grenada', 'GRD', 308, 1473),
+('GE', 'GEORGIA', 'Georgia', 'GEO', 268, 995),
+('GF', 'FRENCH GUIANA', 'French Guiana', 'GUF', 254, 594),
+('GH', 'GHANA', 'Ghana', 'GHA', 288, 233),
+('GI', 'GIBRALTAR', 'Gibraltar', 'GIB', 292, 350),
+('GL', 'GREENLAND', 'Greenland', 'GRL', 304, 299),
+('GM', 'GAMBIA', 'Gambia', 'GMB', 270, 220),
+('GN', 'GUINEA', 'Guinea', 'GIN', 324, 224),
+('GP', 'GUADELOUPE', 'Guadeloupe', 'GLP', 312, 590),
+('GQ', 'EQUATORIAL GUINEA', 'Equatorial Guinea', 'GNQ', 226, 240),
+('GR', 'GREECE', 'Greece', 'GRC', 300, 30),
+('GS', 'SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS', 'South Georgia and the South Sandwich Islands', NULL, NULL, 0),
+('GT', 'GUATEMALA', 'Guatemala', 'GTM', 320, 502),
+('GU', 'GUAM', 'Guam', 'GUM', 316, 1671),
+('GW', 'GUINEA-BISSAU', 'Guinea-Bissau', 'GNB', 624, 245),
+('GY', 'GUYANA', 'Guyana', 'GUY', 328, 592),
+('HK', 'HONG KONG', 'Hong Kong', 'HKG', 344, 852),
+('HM', 'HEARD ISLAND AND MCDONALD ISLANDS', 'Heard Island and Mcdonald Islands', NULL, NULL, 0),
+('HN', 'HONDURAS', 'Honduras', 'HND', 340, 504),
+('HR', 'CROATIA', 'Croatia', 'HRV', 191, 385),
+('HT', 'HAITI', 'Haiti', 'HTI', 332, 509),
+('HU', 'HUNGARY', 'Hungary', 'HUN', 348, 36),
+('ID', 'INDONESIA', 'Indonesia', 'IDN', 360, 62),
+('IE', 'IRELAND', 'Ireland', 'IRL', 372, 353),
+('IL', 'ISRAEL', 'Israel', 'ISR', 376, 972),
+('IN', 'INDIA', 'India', 'IND', 356, 91),
+('IO', 'BRITISH INDIAN OCEAN TERRITORY', 'British Indian Ocean Territory', NULL, NULL, 246),
+('IQ', 'IRAQ', 'Iraq', 'IRQ', 368, 964),
+('IR', 'IRAN, ISLAMIC REPUBLIC OF', 'Iran, Islamic Republic of', 'IRN', 364, 98),
+('IS', 'ICELAND', 'Iceland', 'ISL', 352, 354),
+('IT', 'ITALY', 'Italy', 'ITA', 380, 39),
+('JM', 'JAMAICA', 'Jamaica', 'JAM', 388, 1876),
+('JO', 'JORDAN', 'Jordan', 'JOR', 400, 962),
+('JP', 'JAPAN', 'Japan', 'JPN', 392, 81),
+('KE', 'KENYA', 'Kenya', 'KEN', 404, 254),
+('KG', 'KYRGYZSTAN', 'Kyrgyzstan', 'KGZ', 417, 996),
+('KH', 'CAMBODIA', 'Cambodia', 'KHM', 116, 855),
+('KI', 'KIRIBATI', 'Kiribati', 'KIR', 296, 686),
+('KM', 'COMOROS', 'Comoros', 'COM', 174, 269),
+('KN', 'SAINT KITTS AND NEVIS', 'Saint Kitts and Nevis', 'KNA', 659, 1869),
+('KP', 'KOREA, DEMOCRATIC PEOPLE\'S REPUBLIC OF', 'Korea, Democratic People\'s Republic of', 'PRK', 408, 850),
+('KR', 'KOREA, REPUBLIC OF', 'Korea, Republic of', 'KOR', 410, 82),
+('KW', 'KUWAIT', 'Kuwait', 'KWT', 414, 965),
+('KY', 'CAYMAN ISLANDS', 'Cayman Islands', 'CYM', 136, 1345),
+('KZ', 'KAZAKHSTAN', 'Kazakhstan', 'KAZ', 398, 7),
+('LA', 'LAO PEOPLE\'S DEMOCRATIC REPUBLIC', 'Lao People\'s Democratic Republic', 'LAO', 418, 856),
+('LB', 'LEBANON', 'Lebanon', 'LBN', 422, 961),
+('LC', 'SAINT LUCIA', 'Saint Lucia', 'LCA', 662, 1758),
+('LI', 'LIECHTENSTEIN', 'Liechtenstein', 'LIE', 438, 423),
+('LK', 'SRI LANKA', 'Sri Lanka', 'LKA', 144, 94),
+('LR', 'LIBERIA', 'Liberia', 'LBR', 430, 231),
+('LS', 'LESOTHO', 'Lesotho', 'LSO', 426, 266),
+('LT', 'LITHUANIA', 'Lithuania', 'LTU', 440, 370),
+('LU', 'LUXEMBOURG', 'Luxembourg', 'LUX', 442, 352),
+('LV', 'LATVIA', 'Latvia', 'LVA', 428, 371),
+('LY', 'LIBYAN ARAB JAMAHIRIYA', 'Libyan Arab Jamahiriya', 'LBY', 434, 218),
+('MA', 'MOROCCO', 'Morocco', 'MAR', 504, 212),
+('MC', 'MONACO', 'Monaco', 'MCO', 492, 377),
+('MD', 'MOLDOVA, REPUBLIC OF', 'Moldova, Republic of', 'MDA', 498, 373),
+('MG', 'MADAGASCAR', 'Madagascar', 'MDG', 450, 261),
+('MH', 'MARSHALL ISLANDS', 'Marshall Islands', 'MHL', 584, 692),
+('MK', 'MACEDONIA, THE FORMER YUGOSLAV REPUBLIC OF', 'Macedonia, the Former Yugoslav Republic of', 'MKD', 807, 389),
+('ML', 'MALI', 'Mali', 'MLI', 466, 223),
+('MM', 'MYANMAR', 'Myanmar', 'MMR', 104, 95),
+('MN', 'MONGOLIA', 'Mongolia', 'MNG', 496, 976),
+('MO', 'MACAO', 'Macao', 'MAC', 446, 853),
+('MP', 'NORTHERN MARIANA ISLANDS', 'Northern Mariana Islands', 'MNP', 580, 1670),
+('MQ', 'MARTINIQUE', 'Martinique', 'MTQ', 474, 596),
+('MR', 'MAURITANIA', 'Mauritania', 'MRT', 478, 222),
+('MS', 'MONTSERRAT', 'Montserrat', 'MSR', 500, 1664),
+('MT', 'MALTA', 'Malta', 'MLT', 470, 356),
+('MU', 'MAURITIUS', 'Mauritius', 'MUS', 480, 230),
+('MV', 'MALDIVES', 'Maldives', 'MDV', 462, 960),
+('MW', 'MALAWI', 'Malawi', 'MWI', 454, 265),
+('MX', 'MEXICO', 'Mexico', 'MEX', 484, 52),
+('MY', 'MALAYSIA', 'Malaysia', 'MYS', 458, 60),
+('MZ', 'MOZAMBIQUE', 'Mozambique', 'MOZ', 508, 258),
+('NA', 'NAMIBIA', 'Namibia', 'NAM', 516, 264),
+('NC', 'NEW CALEDONIA', 'New Caledonia', 'NCL', 540, 687),
+('NE', 'NIGER', 'Niger', 'NER', 562, 227),
+('NF', 'NORFOLK ISLAND', 'Norfolk Island', 'NFK', 574, 672),
+('NG', 'NIGERIA', 'Nigeria', 'NGA', 566, 234),
+('NI', 'NICARAGUA', 'Nicaragua', 'NIC', 558, 505),
+('NL', 'NETHERLANDS', 'Netherlands', 'NLD', 528, 31),
+('NO', 'NORWAY', 'Norway', 'NOR', 578, 47),
+('NP', 'NEPAL', 'Nepal', 'NPL', 524, 977),
+('NR', 'NAURU', 'Nauru', 'NRU', 520, 674),
+('NU', 'NIUE', 'Niue', 'NIU', 570, 683),
+('NZ', 'NEW ZEALAND', 'New Zealand', 'NZL', 554, 64),
+('OM', 'OMAN', 'Oman', 'OMN', 512, 968),
+('PA', 'PANAMA', 'Panama', 'PAN', 591, 507),
+('PE', 'PERU', 'Peru', 'PER', 604, 51),
+('PF', 'FRENCH POLYNESIA', 'French Polynesia', 'PYF', 258, 689),
+('PG', 'PAPUA NEW GUINEA', 'Papua New Guinea', 'PNG', 598, 675),
+('PH', 'PHILIPPINES', 'Philippines', 'PHL', 608, 63),
+('PK', 'PAKISTAN', 'Pakistan', 'PAK', 586, 92),
+('PL', 'POLAND', 'Poland', 'POL', 616, 48),
+('PM', 'SAINT PIERRE AND MIQUELON', 'Saint Pierre and Miquelon', 'SPM', 666, 508),
+('PN', 'PITCAIRN', 'Pitcairn', 'PCN', 612, 0),
+('PR', 'PUERTO RICO', 'Puerto Rico', 'PRI', 630, 1787),
+('PS', 'PALESTINIAN TERRITORY, OCCUPIED', 'Palestinian Territory, Occupied', NULL, NULL, 970),
+('PT', 'PORTUGAL', 'Portugal', 'PRT', 620, 351),
+('PW', 'PALAU', 'Palau', 'PLW', 585, 680),
+('PY', 'PARAGUAY', 'Paraguay', 'PRY', 600, 595),
+('QA', 'QATAR', 'Qatar', 'QAT', 634, 974),
+('RE', 'REUNION', 'Reunion', 'REU', 638, 262),
+('RO', 'ROMANIA', 'Romania', 'ROM', 642, 40),
+('RU', 'RUSSIAN FEDERATION', 'Russian Federation', 'RUS', 643, 70),
+('RW', 'RWANDA', 'Rwanda', 'RWA', 646, 250),
+('SA', 'SAUDI ARABIA', 'Saudi Arabia', 'SAU', 682, 966),
+('SB', 'SOLOMON ISLANDS', 'Solomon Islands', 'SLB', 90, 677),
+('SC', 'SEYCHELLES', 'Seychelles', 'SYC', 690, 248),
+('SD', 'SUDAN', 'Sudan', 'SDN', 736, 249),
+('SE', 'SWEDEN', 'Sweden', 'SWE', 752, 46),
+('SG', 'SINGAPORE', 'Singapore', 'SGP', 702, 65),
+('SH', 'SAINT HELENA', 'Saint Helena', 'SHN', 654, 290),
+('SI', 'SLOVENIA', 'Slovenia', 'SVN', 705, 386),
+('SJ', 'SVALBARD AND JAN MAYEN', 'Svalbard and Jan Mayen', 'SJM', 744, 47),
+('SK', 'SLOVAKIA', 'Slovakia', 'SVK', 703, 421),
+('SL', 'SIERRA LEONE', 'Sierra Leone', 'SLE', 694, 232),
+('SM', 'SAN MARINO', 'San Marino', 'SMR', 674, 378),
+('SN', 'SENEGAL', 'Senegal', 'SEN', 686, 221),
+('SO', 'SOMALIA', 'Somalia', 'SOM', 706, 252),
+('SR', 'SURINAME', 'Suriname', 'SUR', 740, 597),
+('ST', 'SAO TOME AND PRINCIPE', 'Sao Tome and Principe', 'STP', 678, 239),
+('SV', 'EL SALVADOR', 'El Salvador', 'SLV', 222, 503),
+('SY', 'SYRIAN ARAB REPUBLIC', 'Syrian Arab Republic', 'SYR', 760, 963),
+('SZ', 'SWAZILAND', 'Swaziland', 'SWZ', 748, 268),
+('TC', 'TURKS AND CAICOS ISLANDS', 'Turks and Caicos Islands', 'TCA', 796, 1649),
+('TD', 'CHAD', 'Chad', 'TCD', 148, 235),
+('TF', 'FRENCH SOUTHERN TERRITORIES', 'French Southern Territories', NULL, NULL, 0),
+('TG', 'TOGO', 'Togo', 'TGO', 768, 228),
+('TH', 'THAILAND', 'Thailand', 'THA', 764, 66),
+('TJ', 'TAJIKISTAN', 'Tajikistan', 'TJK', 762, 992),
+('TK', 'TOKELAU', 'Tokelau', 'TKL', 772, 690),
+('TL', 'TIMOR-LESTE', 'Timor-Leste', NULL, NULL, 670),
+('TM', 'TURKMENISTAN', 'Turkmenistan', 'TKM', 795, 7370),
+('TN', 'TUNISIA', 'Tunisia', 'TUN', 788, 216),
+('TO', 'TONGA', 'Tonga', 'TON', 776, 676),
+('TR', 'TURKEY', 'Turkey', 'TUR', 792, 90),
+('TT', 'TRINIDAD AND TOBAGO', 'Trinidad and Tobago', 'TTO', 780, 1868),
+('TV', 'TUVALU', 'Tuvalu', 'TUV', 798, 688),
+('TW', 'TAIWAN, PROVINCE OF CHINA', 'Taiwan, Province of China', 'TWN', 158, 886),
+('TZ', 'TANZANIA, UNITED REPUBLIC OF', 'Tanzania, United Republic of', 'TZA', 834, 255),
+('UA', 'UKRAINE', 'Ukraine', 'UKR', 804, 380),
+('UG', 'UGANDA', 'Uganda', 'UGA', 800, 256),
+('UM', 'UNITED STATES MINOR OUTLYING ISLANDS', 'United States Minor Outlying Islands', NULL, NULL, 1),
+('US', 'UNITED STATES', 'United States', 'USA', 840, 1),
+('UY', 'URUGUAY', 'Uruguay', 'URY', 858, 598),
+('UZ', 'UZBEKISTAN', 'Uzbekistan', 'UZB', 860, 998),
+('VA', 'HOLY SEE (VATICAN CITY STATE)', 'Holy See (Vatican City State)', 'VAT', 336, 39),
+('VC', 'SAINT VINCENT AND THE GRENADINES', 'Saint Vincent and the Grenadines', 'VCT', 670, 1784),
+('VE', 'VENEZUELA', 'Venezuela', 'VEN', 862, 58),
+('VG', 'VIRGIN ISLANDS, BRITISH', 'Virgin Islands, British', 'VGB', 92, 1284),
+('VI', 'VIRGIN ISLANDS, U.S.', 'Virgin Islands, U.s.', 'VIR', 850, 1340),
+('VN', 'VIET NAM', 'Viet Nam', 'VNM', 704, 84),
+('VU', 'VANUATU', 'Vanuatu', 'VUT', 548, 678),
+('WF', 'WALLIS AND FUTUNA', 'Wallis and Futuna', 'WLF', 876, 681),
+('WS', 'SAMOA', 'Samoa', 'WSM', 882, 684),
+('YE', 'YEMEN', 'Yemen', 'YEM', 887, 967),
+('YT', 'MAYOTTE', 'Mayotte', NULL, NULL, 269),
+('ZA', 'SOUTH AFRICA', 'South Africa', 'ZAF', 710, 27),
+('ZM', 'ZAMBIA', 'Zambia', 'ZMB', 894, 260),
 ('ZW', 'ZIMBABWE', 'Zimbabwe', 'ZWE', 716, 263);
-
-INSERT INTO `user_settings` (`id`, `user_id`, `account_id`, `enable_ads`, `skip_approval`, `renewal_alert`, `status`, `verification_code`, `is_verified`, `club_code`, `is_one_approval`, `num_days_expiry`, `renewal_fee`, `created_at`, `updated_at`) VALUES
-(1, 1, 0, 1, 1, 30, 1, '770876', 0, NULL, 0, 30, '0.000', '2021-08-20 00:56:24', '2021-08-20 00:56:24');
-
+COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
