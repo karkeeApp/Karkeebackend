@@ -56,7 +56,7 @@ CREATE TABLE `account` (
   `hash_id` varchar(45) DEFAULT NULL,
   `prefix` varchar(20) DEFAULT NULL,
   `user_id` bigint DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -78,7 +78,7 @@ CREATE TABLE `account_membership` (
   `approved_at` datetime DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -95,7 +95,7 @@ CREATE TABLE `account_security_questions` (
   `status` tinyint DEFAULT '1',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -116,7 +116,7 @@ CREATE TABLE `account_user` (
   `updated_at` datetime NOT NULL,
   `role` int NOT NULL DEFAULT '2',
   `email` varchar(225) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -136,7 +136,7 @@ CREATE TABLE `admin` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `role` tinyint DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -158,7 +158,7 @@ CREATE TABLE `ads` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `status` tinyint DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -178,7 +178,7 @@ CREATE TABLE `ads_remove_attachment` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `status` tinyint DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -198,7 +198,7 @@ CREATE TABLE `banner_images` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `account_id` bigint DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -215,7 +215,7 @@ CREATE TABLE `banner_management` (
   `managed_by` bigint DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -234,7 +234,7 @@ CREATE TABLE `company` (
   `status` smallint NOT NULL DEFAULT '10',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -250,7 +250,7 @@ CREATE TABLE `country` (
   `iso3` varchar(3) DEFAULT NULL,
   `numcode` smallint DEFAULT NULL,
   `phonecode` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -267,7 +267,7 @@ CREATE TABLE `document` (
   `updated_at` datetime DEFAULT NULL,
   `status` tinyint DEFAULT '1',
   `type` tinyint DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='     ';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci COMMENT='     ';
 
 -- --------------------------------------------------------
 
@@ -296,7 +296,7 @@ CREATE TABLE `event` (
   `cut_off_at` datetime DEFAULT NULL,
   `limit` int DEFAULT '1000',
   `num_guest_brought_limit` int DEFAULT '10'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -313,11 +313,11 @@ CREATE TABLE `event_attendee` (
   `paid` double DEFAULT '0',
   `filename` text,
   `name` varchar(255) DEFAULT NULL,
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `num_guest_brought` int DEFAULT '0',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -335,7 +335,7 @@ CREATE TABLE `event_gallery` (
   `updated_at` datetime DEFAULT NULL,
   `is_primary` tinyint DEFAULT '0',
   `status` tinyint DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -352,7 +352,7 @@ CREATE TABLE `hr_notification` (
   `created_at` datetime DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   `hr_id` bigint DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -373,7 +373,7 @@ CREATE TABLE `hr_setting` (
   `salary_date` int DEFAULT NULL,
   `loan_cut_off` int DEFAULT NULL,
   `salary_tax` tinyint DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -392,7 +392,7 @@ CREATE TABLE `hr_staff_update` (
   `created_at` datetime DEFAULT NULL,
   `status` tinyint DEFAULT '0',
   `updated_by` bigint DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -414,7 +414,7 @@ CREATE TABLE `item` (
   `amount` decimal(11,2) DEFAULT '0.00',
   `approved_by` bigint DEFAULT NULL,
   `confirmed_by` bigint DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -433,7 +433,7 @@ CREATE TABLE `item_gallery` (
   `updated_at` datetime DEFAULT NULL,
   `is_primary` tinyint DEFAULT '0',
   `status` tinyint DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -450,7 +450,7 @@ CREATE TABLE `item_redeem` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `status` tinyint DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -472,7 +472,7 @@ CREATE TABLE `listing` (
   `approved_by` bigint DEFAULT NULL,
   `confirmed_by` bigint DEFAULT NULL,
   `is_primary` tinyint DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -491,7 +491,7 @@ CREATE TABLE `listing_gallery` (
   `updated_at` datetime DEFAULT NULL,
   `is_primary` tinyint DEFAULT '0',
   `status` tinyint DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -507,7 +507,7 @@ CREATE TABLE `media` (
   `created_by` bigint DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `status` tinyint DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -544,7 +544,7 @@ CREATE TABLE `member_security_answers` (
   `status` tinyint DEFAULT '1',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -556,7 +556,7 @@ DROP TABLE IF EXISTS `migration`;
 CREATE TABLE `migration` (
   `version` varchar(180) NOT NULL,
   `apply_time` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 --
 -- Truncate table before insert `migration`
@@ -711,7 +711,7 @@ CREATE TABLE `news` (
   `is_event` tinyint DEFAULT '0',
   `is_happening` tinyint DEFAULT '0',
   `is_public` tinyint DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -729,7 +729,7 @@ CREATE TABLE `news_gallery` (
   `updated_at` datetime DEFAULT NULL,
   `is_primary` tinyint DEFAULT '0',
   `status` tinyint DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -746,7 +746,7 @@ CREATE TABLE `notification` (
   `created_at` datetime DEFAULT NULL,
   `recipient` mediumtext,
   `sent` tinyint DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -764,7 +764,7 @@ CREATE TABLE `page` (
   `updated_at` datetime DEFAULT NULL,
   `created_admin_id` bigint DEFAULT NULL,
   `updated_admin_id` bigint DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -784,7 +784,7 @@ CREATE TABLE `queue` (
   `reserved_at` int DEFAULT NULL,
   `attempt` int DEFAULT NULL,
   `done_at` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -805,7 +805,7 @@ CREATE TABLE `renewal` (
   `log_card` varchar(191) DEFAULT NULL COMMENT 'log card img file',
   `updated_by` bigint DEFAULT NULL,
   `status` tinyint DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='                       ';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci COMMENT='                       ';
 
 -- --------------------------------------------------------
 
@@ -816,7 +816,7 @@ CREATE TABLE `renewal` (
 DROP TABLE IF EXISTS `security_file_upload`;
 CREATE TABLE `security_file_upload` (
   `id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -830,7 +830,7 @@ CREATE TABLE `session` (
   `expire` int DEFAULT NULL,
   `data` blob,
   `user_id` bigint DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -865,7 +865,7 @@ CREATE TABLE `settings` (
   `renewal_alert` int DEFAULT '30',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -885,7 +885,7 @@ CREATE TABLE `sponsor` (
   `managed_by` bigint DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -903,7 +903,7 @@ CREATE TABLE `support` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `status` tinyint DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -922,7 +922,7 @@ CREATE TABLE `support_reply` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `status` tinyint DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1026,7 +1026,7 @@ CREATE TABLE `user` (
   `level` tinyint DEFAULT '0',
   `carkee_level` tinyint DEFAULT '0',
   `approved_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1047,7 +1047,7 @@ CREATE TABLE `user_director` (
   `created_at` datetime DEFAULT NULL,
   `status` tinyint DEFAULT '1',
   `account_id` bigint DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1064,7 +1064,7 @@ CREATE TABLE `user_existing` (
   `updated_at` datetime DEFAULT NULL,
   `status` tinyint DEFAULT '1',
   `account_id` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1082,7 +1082,7 @@ CREATE TABLE `user_fcm_token` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `status` tinyint DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1100,7 +1100,7 @@ CREATE TABLE `user_file` (
   `type` int DEFAULT NULL,
   `account_id` bigint DEFAULT NULL,
   `decription` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1117,7 +1117,7 @@ CREATE TABLE `user_logs` (
   `type` tinyint NOT NULL DEFAULT '1' COMMENT '1: member, 2: renewal',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -1133,7 +1133,7 @@ CREATE TABLE `user_notification` (
   `message` mediumtext,
   `created_at` datetime DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1160,7 +1160,7 @@ CREATE TABLE `user_payment` (
   `confirmed_at` datetime DEFAULT NULL,
   `approved_by` int DEFAULT NULL,
   `approved_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1181,7 +1181,7 @@ CREATE TABLE `user_payment_attachment` (
   `updated_at` datetime DEFAULT NULL,
   `status` tinyint DEFAULT '1',
   `amount` decimal(10,3) DEFAULT '0.000'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1206,7 +1206,7 @@ CREATE TABLE `user_settings` (
   `renewal_fee` decimal(10,3) DEFAULT '0.000',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1223,7 +1223,7 @@ CREATE TABLE `user_social_media` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `status` tinyint DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1239,7 +1239,7 @@ CREATE TABLE `user_sponsor` (
   `status` tinyint DEFAULT '1',
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1257,7 +1257,7 @@ CREATE TABLE `watchdog` (
   `hostname` varchar(128) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `account_id` int DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
