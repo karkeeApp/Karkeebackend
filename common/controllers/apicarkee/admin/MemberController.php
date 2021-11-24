@@ -518,6 +518,123 @@ class MemberController extends Controller
             return Helper::errorMessage($error['message'], true);
         }
         
+        
+
+        $transaction = Yii::$app->db->beginTransaction(); 
+
+        try {
+            $user = User::create($form, User::TYPE_MEMBER);
+
+            $dir = Yii::$app->params['dir_member'];
+            // $user->transfer_screenshot = Helper::base64ToImage($dir,Yii::$app->request->post('transfer_screenshot')); 
+            // $user->img_authorization = Helper::base64ToImage($dir,Yii::$app->request->post('img_authorization')); 
+            // $user->img_log_card = Helper::base64ToImage($dir,Yii::$app->request->post('img_log_card')); 
+            // $user->img_insurance = Helper::base64ToImage($dir,Yii::$app->request->post('img_insurance')); 
+            // $user->img_nric = Helper::base64ToImage($dir,Yii::$app->request->post('img_nric')); 
+            // $user->img_profile = Helper::base64ToImage($dir,Yii::$app->request->post('img_profile')); 
+
+            $transfile = UploadedFile::getInstanceByName('transfer_screenshot');
+            $imgauthfile = UploadedFile::getInstanceByName('img_authorization');
+            $imglogfile = UploadedFile::getInstanceByName('img_log_card');
+            $imginsfile = UploadedFile::getInstanceByName('img_insurance');
+            $imgnricfile = UploadedFile::getInstanceByName('img_nric');
+            $imgprofile = UploadedFile::getInstanceByName('img_profile');
+
+            if (!empty($transfile)) {
+                $newFilename = hash('crc32', $transfile->name) . time() . '.' . $transfile->getExtension();                
+                $fileDestination = $dir . $newFilename;    
+                if (!$transfile->saveAs($fileDestination)) {
+                    return [
+                        'code'    => self::CODE_ERROR,
+                        'message' => 'Error uploading the file'
+                    ];
+                }    
+                $user->transfer_screenshot = $newFilename;
+            }
+            if (!empty($imgauthfile)) {
+                $newFilename = hash('crc32', $imgauthfile->name) . time() . '.' . $imgauthfile->getExtension();                
+                $fileDestination = $dir . $newFilename;    
+                if (!$imgauthfile->saveAs($fileDestination)) {
+                    return [
+                        'code'    => self::CODE_ERROR,
+                        'message' => 'Error uploading the file'
+                    ];
+                }    
+                $user->img_authorization = $newFilename;
+            }
+            if (!empty($imglogfile)) {
+                $newFilename = hash('crc32', $imglogfile->name) . time() . '.' . $imglogfile->getExtension();                
+                $fileDestination = $dir . $newFilename;    
+                if (!$imglogfile->saveAs($fileDestination)) {
+                    return [
+                        'code'    => self::CODE_ERROR,
+                        'message' => 'Error uploading the file'
+                    ];
+                }    
+                $user->img_log_card = $newFilename;
+            }
+            if (!empty($imginsfile)) {
+                $newFilename = hash('crc32', $imginsfile->name) . time() . '.' . $imginsfile->getExtension();                
+                $fileDestination = $dir . $newFilename;    
+                if (!$imginsfile->saveAs($fileDestination)) {
+                    return [
+                        'code'    => self::CODE_ERROR,
+                        'message' => 'Error uploading the file'
+                    ];
+                }    
+                $user->img_insurance = $newFilename;
+            }
+            if (!empty($imgnricfile)) {
+                $newFilename = hash('crc32', $imgnricfile->name) . time() . '.' . $imgnricfile->getExtension();                
+                $fileDestination = $dir . $newFilename;    
+                if (!$imgnricfile->saveAs($fileDestination)) {
+                    return [
+                        'code'    => self::CODE_ERROR,
+                        'message' => 'Error uploading the file'
+                    ];
+                }    
+                $user->img_nric = $newFilename;
+            }
+            if (!empty($imgprofile)) {
+                $newFilename = hash('crc32', $imgprofile->name) . time() . '.' . $imgprofile->getExtension();                
+                $fileDestination = $dir . $newFilename;    
+                if (!$imgprofile->saveAs($fileDestination)) {
+                    return [
+                        'code'    => self::CODE_ERROR,
+                        'message' => 'Error uploading the file'
+                    ];
+                }    
+                $user->img_profile = $newFilename;
+            }
+            $user->save();
+
+            $transaction->commit();
+
+            // Watchdog::carkeeLog('Carkee: @email - member registration', ['@email' => $user->email], $user);
+            
+            return [
+                'code'        => self::CODE_SUCCESS,
+                'message'     => 'Successfully registered',
+                'accesstoken' => $user->auth_key,
+                'data'        => $user->data(1),
+            ];
+        } catch (\Exception $e) {
+            $transaction->rollBack();      
+            
+            $error = $e->getMessage();
+            return Helper::errorMessage($error,true);
+        }
+    }
+    public function actionCreateNoApproval()
+    {
+        $form = new UserForm(['scenario' => 'admin-add-carkee-member']);
+        $form = $this->postLoad($form);        
+        
+        if (!$form->validate()) {
+            $error = self::getFirstError(ActiveForm::validate($form));
+            return Helper::errorMessage($error['message'], true);
+        }
+
         $transfile = UploadedFile::getInstanceByName('transfer_screenshot');
         $imgauthfile = UploadedFile::getInstanceByName('img_authorization');
         $imglogfile = UploadedFile::getInstanceByName('img_log_card');
@@ -528,7 +645,10 @@ class MemberController extends Controller
         $transaction = Yii::$app->db->beginTransaction(); 
 
         try {
-            $user = User::create($form, User::TYPE_MEMBER);
+            $form->account_id = 0;
+            $form->no_approval = 1;
+            $usertype = !is_null($form->member_type) ? $form->member_type : User::TYPE_MEMBER;
+            $user = User::create($form, $usertype);
 
             if (!empty($transfile)) {
                 $newFilename = hash('crc32', $transfile->name) . time() . '.' . $transfile->getExtension();                
@@ -609,41 +729,6 @@ class MemberController extends Controller
                 'data'        => $user->data(1),
             ];
         } catch (\Exception $e) {
-            $transaction->rollBack();      
-            
-            $error = $e->getMessage();
-            return Helper::errorMessage($error,true);
-        }
-    }
-    public function actionCreateNoApproval()
-    {
-        $form = new UserForm(['scenario' => 'admin-add-carkee-member']);
-        $form = $this->postLoad($form);        
-        
-        if (!$form->validate()) {
-            $error = self::getFirstError(ActiveForm::validate($form));
-            return Helper::errorMessage($error['message'], true);
-        }
-
-        $transaction = Yii::$app->db->beginTransaction(); 
-
-        try {
-            $form->account_id = 0;
-            $form->no_approval = 1;
-            $usertype = !is_null($form->member_type) ? $form->member_type : User::TYPE_MEMBER;
-            $user = User::create($form, $usertype);
-
-            $transaction->commit();
-
-            // Watchdog::carkeeLog('Carkee: @email - member registration', ['@email' => $user->email], $user);
-            
-            return [
-                'code'        => self::CODE_SUCCESS,
-                'message'     => 'Successfully registered',
-                'accesstoken' => $user->auth_key,
-                'data'        => $user->data(1),
-            ];
-        } catch (\Exception $e) {
             $transaction->rollBack();
             
             $error = $e->getMessage();
@@ -667,9 +752,16 @@ class MemberController extends Controller
             return Helper::errorMessage($error['message'], true);
         }
 
+        $transfile = UploadedFile::getInstanceByName('transfer_screenshot');
+        $imgauthfile = UploadedFile::getInstanceByName('img_authorization');
+        $imglogfile = UploadedFile::getInstanceByName('img_log_card');
+        $imginsfile = UploadedFile::getInstanceByName('img_insurance');
+        $imgnricfile = UploadedFile::getInstanceByName('img_nric');
+        $imgprofile = UploadedFile::getInstanceByName('img_profile');
+
         if($user->password_hash == Yii::$app->security->generatePasswordHash($form->password)) $user->setPassword($form->password);
 
-        $excludeFields = ['user_id','password','password_confirm','status'];
+        $excludeFields = ['user_id','password','password_confirm','status','img_profile','img_nric','img_insurance','img_log_card','img_authorization','transfer_screenshot'];
         
         $fields = Helper::getFieldKeys($params_data, $excludeFields);
 
@@ -680,6 +772,73 @@ class MemberController extends Controller
             else return Helper::errorMessage("Password is Invalid or Does not Match!", true);
         }
        
+        if (!empty($transfile)) {
+            $newFilename = hash('crc32', $transfile->name) . time() . '.' . $transfile->getExtension();                
+            $fileDestination = Yii::$app->params['dir_member'] . $newFilename;    
+            if (!$transfile->saveAs($fileDestination)) {
+                return [
+                    'code'    => self::CODE_ERROR,
+                    'message' => 'Error uploading the file'
+                ];
+            }    
+            $user->transfer_screenshot = $newFilename;
+        }
+        if (!empty($imgauthfile)) {
+            $newFilename = hash('crc32', $imgauthfile->name) . time() . '.' . $imgauthfile->getExtension();                
+            $fileDestination = Yii::$app->params['dir_member'] . $newFilename;    
+            if (!$imgauthfile->saveAs($fileDestination)) {
+                return [
+                    'code'    => self::CODE_ERROR,
+                    'message' => 'Error uploading the file'
+                ];
+            }    
+            $user->img_authorization = $newFilename;
+        }
+        if (!empty($imglogfile)) {
+            $newFilename = hash('crc32', $imglogfile->name) . time() . '.' . $imglogfile->getExtension();                
+            $fileDestination = Yii::$app->params['dir_member'] . $newFilename;    
+            if (!$imglogfile->saveAs($fileDestination)) {
+                return [
+                    'code'    => self::CODE_ERROR,
+                    'message' => 'Error uploading the file'
+                ];
+            }    
+            $user->img_log_card = $newFilename;
+        }
+        if (!empty($imginsfile)) {
+            $newFilename = hash('crc32', $imginsfile->name) . time() . '.' . $imginsfile->getExtension();                
+            $fileDestination = Yii::$app->params['dir_member'] . $newFilename;    
+            if (!$imginsfile->saveAs($fileDestination)) {
+                return [
+                    'code'    => self::CODE_ERROR,
+                    'message' => 'Error uploading the file'
+                ];
+            }    
+            $user->img_insurance = $newFilename;
+        }
+        if (!empty($imgnricfile)) {
+            $newFilename = hash('crc32', $imgnricfile->name) . time() . '.' . $imgnricfile->getExtension();                
+            $fileDestination = Yii::$app->params['dir_member'] . $newFilename;    
+            if (!$imgnricfile->saveAs($fileDestination)) {
+                return [
+                    'code'    => self::CODE_ERROR,
+                    'message' => 'Error uploading the file'
+                ];
+            }    
+            $user->img_nric = $newFilename;
+        }
+        if (!empty($imgprofile)) {
+            $newFilename = hash('crc32', $imgprofile->name) . time() . '.' . $imgprofile->getExtension();                
+            $fileDestination = Yii::$app->params['dir_member'] . $newFilename;    
+            if (!$imgprofile->saveAs($fileDestination)) {
+                return [
+                    'code'    => self::CODE_ERROR,
+                    'message' => 'Error uploading the file'
+                ];
+            }    
+            $user->img_profile = $newFilename;
+        }
+
         $user->save();
         $edituser = $user;
         $data = array_merge($edituser->data(1),$edituser->carkeeData(1));

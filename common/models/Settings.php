@@ -4,6 +4,7 @@ namespace common\models;
 use Yii;
 use yii\db\ActiveRecord;
 use common\behaviors\TimestampBehavior;
+use yii\helpers\Url;
 
 class Settings extends ActiveRecord{    
     const STATUS_ACTIVE = 1;
@@ -59,10 +60,14 @@ class Settings extends ActiveRecord{
     public function data($user = NULL)
     {
         $data = $this->attributes;
-        
+        $data['logo_url'] = $this->logoUrl();
+        // $data['user'] = ($this->user ? $this->user->simpleData() : null);
         return $data;
     }
-   
+    public function logoUrl()
+    {
+        return Url::home(TRUE) . 'member/logo?account_id=0&t=' . $this->logo;
+    }
     public function status()
     {
         return self::statuses()[$this->status];

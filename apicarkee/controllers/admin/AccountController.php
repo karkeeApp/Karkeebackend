@@ -44,6 +44,7 @@ class AccountController extends \common\controllers\apicarkee\admin\AccountContr
                     'set-club-code'             => ['post'],
                     'set-default-days-unverified'=> ['post'],
                     'update-default-settings'   => ['post'],
+                    'update-master-settings'   => ['post'],
 
                     'add-security-questions'    => ['post'],
                     'edit-security-questions'   => ['post'],

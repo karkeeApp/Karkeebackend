@@ -2201,8 +2201,10 @@ class MemberController extends Controller
         $account_id = Yii::$app->request->get('account_id',null);
         try{
             $dir = Yii::$app->params['dir_member'];
-       
-            $file = Account::findOne($account_id);
+            if(!is_null($account_id)){
+                if($account_id >= 1) $file = Account::findOne($account_id);
+                else $file = Settings::find()->one();
+            }
             if (is_null($file->logo) OR (!is_null($file->logo) AND !file_exists($dir . $file->logo))) {
                 return Yii::$app->response->sendFile(Yii::$app->params['dir_default'] . 'default-profile.png', 'default-profile.png', ['inline' => TRUE]);
             }

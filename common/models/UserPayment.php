@@ -79,10 +79,15 @@ class UserPayment extends ActiveRecord
     {        
         $data = $this->attributes;
         $data['link'] = ($this->renewal ? $this->renewal->docLink() : $this->filelink());
+        $data['is_image_link'] = ($this->renewal ? $this->renewal->is_image_payment : $this->is_image_payment);
+        $data['link_mime_type'] = ($this->renewal ? $this->renewal->screenshot_mime_type : $this->screenshot_mime_type);
         $data['email'] = $this->user ? $this->user->email : "";
         $data['user'] = $this->user->simpleData();
         $data['amount'] = ($this->amount ? $this->amount : 0);
         $data['payment_for'] = ($this->payment_for ? $this->payment_for : self::PAYMENT_FOR_OTHERS);
+        $data['screenshot'] = ($this->renewal ? $this->renewal->docLink() : null);
+        $data['is_image_screenshot'] = ($this->renewal ? $this->renewal->is_image_payment : false);
+        $data['screenshot_mime_type'] = ($this->renewal ? $this->renewal->screenshot_mime_type : false);
         $data['log_card'] = ($this->renewal ? $this->renewal->log_card() : null);
         $data['is_image_logcard'] = ($this->renewal ? $this->renewal->is_image_log_card : false);
         $data['log_card_mime_type'] = ($this->renewal ? $this->renewal->log_card_mime_type : false);
@@ -158,6 +163,30 @@ class UserPayment extends ActiveRecord
     public function isApproved()
     {
         return $this->status == self::STATUS_APPROVED;
+    }
+    public function getIs_image_payment()
+    {
+        $dir = Yii::$app->params['dir_renewal'];
+        $filename = $this->filename;
+        if(file_exists($dir . $filename)){
+
+            $mimeType = mime_content_type($dir . $filename);
+            if(preg_match("/image/", $mimeType)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function getScreenshot_mime_type(){
+        if (!empty($this->filename)) {
+            $file = Yii::$app->params['dir_renewal'] . $this->filename;
+
+            if (file_exists($file)) {
+                return mime_content_type($file); 
+            }
+        } 
+        return "";
     }
 
     public function filelink()

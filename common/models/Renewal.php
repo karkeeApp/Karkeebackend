@@ -146,6 +146,17 @@ class Renewal extends ActiveRecord{
         return false;
     }
 
+    public function getScreenshot_mime_type(){
+        if (!empty($this->filename)) {
+            $file = Yii::$app->params['dir_renewal'] . $this->filename;
+
+            if (file_exists($file)) {
+                return mime_content_type($file); 
+            }
+        } 
+        return "";
+    }
+
     public function getIs_image_log_card()
     {
         $dir = Yii::$app->params['dir_renewal'];

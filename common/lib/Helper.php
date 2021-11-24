@@ -619,7 +619,38 @@ class Helper
         return $result;
     }
 
+    public static function base64ToImage($dir,$b64rw){
+        $b64 = json_decode($b64rw);
+        Yii::info($b64,"carkee");
+        // Obtain the original content (usually binary data)
+        $bin = base64_decode($b64);
 
+        // Gather information about the image using the GD library
+        $size = getImageSizeFromString($bin);
+
+        // Check the MIME type to be sure that the binary data is an image
+        if (empty($size['mime']) || strpos($size['mime'], 'image/') !== 0) {
+        die('Base64 value is not a valid image');
+        }
+
+        // Mime types are represented as image/gif, image/png, image/jpeg, and so on
+        // Therefore, to extract the image extension, we subtract everything after the “image/” prefix
+        $ext = substr($size['mime'], 6);
+
+        // Make sure that you save only the desired file extensions
+        if (!in_array($ext, ['png', 'gif', 'jpeg'])) {
+        die('Unsupported image type');
+        }
+        $filenameWOext = hash('crc32', 'image') . time();
+        // Specify the location where you want to save the image
+        $img_file = "{$filenameWOext}.{$ext}";
+        $img_file_fullpath = "{$dir}{$img_file}";
+        // Save binary data as raw data (that is, it will not remove metadata or invalid contents)
+        // In this case, the PHP backdoor will be stored on the server
+        file_put_contents($img_file_fullpath, $bin);
+
+        return $img_file;
+    }
 
 
 

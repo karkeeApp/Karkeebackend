@@ -494,10 +494,13 @@ class VendorController extends Controller
             return LibHelper::errorMessage($error['message'], true);
         }
 
+        $vendorLogo = UploadedFile::getInstanceByName('img_vendor');
+
         $user              = new User;
         $user->member_type = User::TYPE_VENDOR;
         $user->account_id  = $admin->account_id;
         $user->step        = 7;
+
 
         $excludeFields = ['member_type','step','user_id','pin_hash','password','password_confirm','status'];
         
@@ -510,6 +513,20 @@ class VendorController extends Controller
         if (!empty($form->password)) {
             $user->setPassword($form->password);
         }
+
+        if (!empty($vendorLogo)) {
+            $newFilename = hash('crc32', $vendorLogo->name) . time() . '.' . $vendorLogo->getExtension();                
+            $fileDestination = Yii::$app->params['dir_member'] . $newFilename;    
+            if (!$vendorLogo->saveAs($fileDestination)) {
+                return [
+                    'code'    => self::CODE_ERROR,
+                    'message' => 'Error uploading the file'
+                ];
+            }    
+            $user->img_vendor = $newFilename;
+        }
+
+
         $user->setPin('0000'); // default pin
 
         $user->save();
@@ -539,6 +556,8 @@ class VendorController extends Controller
             return LibHelper::errorMessage($error['message'], true);
         }
 
+        $vendorLogo = UploadedFile::getInstanceByName('img_vendor');
+
         $excludeFields = ['user_id','pin_hash','password','password_confirm','status'];
         $fields = LibHelper::getFieldKeys($params_data, $excludeFields);
         
@@ -548,6 +567,18 @@ class VendorController extends Controller
 
         if (!empty($form->password)) {
             $user->setPassword($form->password);
+        }
+
+        if (!empty($vendorLogo)) {
+            $newFilename = hash('crc32', $vendorLogo->name) . time() . '.' . $vendorLogo->getExtension();                
+            $fileDestination = Yii::$app->params['dir_member'] . $newFilename;    
+            if (!$vendorLogo->saveAs($fileDestination)) {
+                return [
+                    'code'    => self::CODE_ERROR,
+                    'message' => 'Error uploading the file'
+                ];
+            }    
+            $user->img_vendor = $newFilename;
         }
 
         $user->save();

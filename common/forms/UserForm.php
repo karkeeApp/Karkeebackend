@@ -94,6 +94,7 @@ class UserForm extends Model
     public $number_of_employees;
     public $level;
     public $member_expire;
+    public $img_vendor;
 
     public $model;
 
@@ -289,6 +290,11 @@ class UserForm extends Model
             [['img_nric', 'img_insurance', 'img_authorization', 'img_log_card', 'img_profile'], 'safe'],
             [['img_nric', 'img_insurance', 'img_authorization', 'img_log_card'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, pdf', 'maxSize' => 1024 * 1024 * 20, 'on' => ['edit_documents']],
            
+            
+            //Vendor Logo
+            [['img_vendor'], 'safe'],
+            [['img_vendor'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, pdf', 'maxSize' => 1024 * 1024 * 20],
+
             // ==================            
             // [['email', 'password', 'password_confirm', 'mobile', 'mobile_code', 'fullname'], 'required', 'on' => ['carkee-add-member', 'carkee-add-vendor']],
         ];

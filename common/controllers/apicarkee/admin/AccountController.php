@@ -227,17 +227,21 @@ class AccountController extends Controller
 
     public function actionView()
     {
-        $account_id = Yii::$app->request->get('account_id',null);
-        $account = Account::findOne($account_id);
-
-        if (!$account) return LibHelper::errorMessage('Account not found',true);
-
-        return [
-            'success' => TRUE,
-            'message' => 'Successfully Retrieved.',
-            'data' => $account->data()
-        ];
+        $account_id = Yii::$app->request->get('account_id',NULL);
         
+        if(!is_null($account_id)){
+            if($account_id >= 1) $account = Account::findOne($account_id);
+            else $account = Settings::find()->one();
+            
+            if (empty($account)) return LibHelper::errorMessage('Account not found',true);
+            
+            return [
+                'success' => TRUE,
+                'message' => 'Successfully Retrieved.',
+                'data' => $account->data()
+            ];
+        }
+        return LibHelper::errorMessage('Account not found',true);
     }
 
     public function actionViewAccountMembership()
@@ -817,6 +821,53 @@ class AccountController extends Controller
             'code' => self::CODE_SUCCESS,
             'success' => TRUE,
             'message' => 'Successfully Updated Default Settings.',
+        ];
+    }
+
+
+    public function actionUpdateMasterSettings()
+    {
+        $admin = Yii::$app->user->identity;
+
+        $form = new AccountSettingsForm;
+        $form = $this->postLoad($form);
+        $form->club_code = $form->club_code ? $form->club_code : mt_rand(100000, 999999);
+
+        if (!empty($_FILES)) $form->file = UploadedFile::getInstanceByName('file');
+        if (!empty($form->file)) $form->logo = hash('crc32', $form->file->name) . time() . '.' . $form->file->extension;
+
+        if (!$form->validate()){
+            $error = self::getFirstError(ActiveForm::validate($form));
+            return LibHelper::errorMessage($error['message'], true);
+        }
+        if (!empty($form->file)){
+            if (!empty($form->logo)) $saved_img = LibHelper::saveImage($this, $form->file, $form->logo, Yii::$app->params['dir_member']);
+            if (!empty($saved_img) AND !$saved_img['success'])  return $saved_img;
+        }
+        $settings = Settings::find()->one();
+        if($form->default_interest) $settings->default_interest         = $form->default_interest;
+        if($form->renewal_fee) $settings->renewal_fee                   = $form->renewal_fee;
+        if($form->company) $settings->company                           = $form->company;
+        if($form->logo) $settings->logo                                 = $form->logo;
+        if($form->title) $settings->title                               = $form->title;
+        if($form->content) $settings->content                           = $form->content;
+        if($form->email) $settings->email                               = $form->email;
+        if($form->contact_name) $settings->contact_name                 = $form->contact_name;
+        if($form->address) $settings->address                           = $form->address;
+        if($form->num_days_expiry) $settings->num_days_expiry           = $form->num_days_expiry;
+        if($form->enable_ads) $settings->enable_ads                     = $form->enable_ads;
+        if($form->enable_banner) $settings->enable_banner               = $form->enable_banner;
+        if($form->is_one_approval) $settings->is_one_approval           = $form->is_one_approval;
+        if($form->renewal_alert) $settings->renewal_alert               = $form->renewal_alert;
+        if($form->skip_approval) $settings->skip_approval               = $form->skip_approval;
+        if($form->club_code) $settings->club_code                       = $form->club_code;
+        if($form->days_unverified_reg) $settings->days_unverified_reg   = $form->days_unverified_reg;
+        $settings->save();
+
+        return [
+            'code' => self::CODE_SUCCESS,
+            'success' => TRUE,
+            'message' => 'Successfully Updated Master Settings.',
         ];
     }
 
