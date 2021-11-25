@@ -175,9 +175,6 @@ class SendGridEmail
             //$email->addContent("text/html","This is just a test email message... ".$params['name']."!");
         }
 
-        // $apiKey = 'sendgrid_api_key_lead';  //team lead acct
-        $apiKey = 'sendgrid_api_key_jr_dev';  //jr Dev acct
-        //  $apiKey = 'sendgrid_api_key_new';  //New Acct
                        
         $sendgrid = new \SendGrid($apiKey);
         try {
