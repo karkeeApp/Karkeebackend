@@ -53,8 +53,12 @@ class MemberController extends Controller
     public function actionListSecurityAnswersByUserId()
     {
         $user_id        = Yii::$app->request->get('user_id');
-        $acntmem = AccountMembership::find()->where(['user_id'=>$user_id])->one();
-        if(!$acntmem) Helper::errorMessage("No Club Registration Found!");
+        $account_id     = Yii::$app->request->get('account_id');
+        $qry = AccountMembership::find()->where(['user_id'=>$user_id]);
+        
+        if(!is_null($account_id)) $qry->andWhere(['account_id' => $account_id]);
+        
+        $acntmem = $qry->one();
 
         $data = [];
         foreach($acntmem->member_security_answers as $ans){
