@@ -275,10 +275,6 @@ class SendGridEmail
 
         }
 
-        // $apiKey = 'sendgrid_api_key_lead';  //team lead acct
-        $apiKey = 'sendgrid_api_key_jr_dev';  //jr Dev acct
-        //  $apiKey = 'sendgrid_api_key_new';  //New Acct
-                    
         $sendgrid = new \SendGrid($apiKey);
         try {
             $response = $sendgrid->send($email);
