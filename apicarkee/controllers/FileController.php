@@ -31,6 +31,7 @@ class FileController extends \common\controllers\apicarkee\FileController
             'verbs' => [
                 'class' => \yii\filters\VerbFilter::class,
                 'actions' => [                    
+                    'doc'=> ['get'],
                     'identity'=> ['get'],
                     'media'=> ['get'],
                     'mediathumb'=> ['get'],
@@ -47,7 +48,7 @@ class FileController extends \common\controllers\apicarkee\FileController
                 ],
             ],
             'authenticator' => [
-                'optional' => ['identity','media','mediathumb','staffimport','download','event-gallery','event','banner','ads','news','news-gallery','payment'],
+                'optional' => ['doc','identity','media','mediathumb','staffimport','download','event-gallery','event','banner','ads','news','news-gallery','payment'],
                 'class' => \yii\filters\auth\QueryParamAuth::class,            
             ]
         ];
