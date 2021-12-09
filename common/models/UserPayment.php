@@ -46,12 +46,14 @@ class UserPayment extends ActiveRecord
     public static function Add($form, $user_id)
     {
         $payment                  = new self;
-        $payment->id              = $form->id;
+        // $payment->id              = $form->id;
         $payment->account_id      = $form->account_id;
+        $payment->ads_id          = $form->ads_id;
         $payment->user_id         = $user_id;
         $payment->amount          = $form->amount;
         $payment->description     = $form->description;
         $payment->filename        = $form->filename;
+        $payment->log_card        = $form->log_card;
         $payment->name            = $form->name;
         $payment->payment_for     = $form->payment_for;
 
@@ -67,6 +69,7 @@ class UserPayment extends ActiveRecord
         $payment->amount          = $form->amount;
         $payment->description     = $form->description;
         $payment->filename        = $form->filename;
+        $payment->log_card        = $form->log_card;
         $payment->name            = $form->name;
         $payment->payment_for     = $form->payment_for;
 
@@ -78,19 +81,20 @@ class UserPayment extends ActiveRecord
     public function data($user = NULL)
     {        
         $data = $this->attributes;
-        $data['link'] = ($this->renewal ? $this->renewal->docLink() : $this->filelink());
-        $data['is_image_link'] = ($this->renewal ? $this->renewal->is_image_payment : $this->is_image_payment);
-        $data['link_mime_type'] = ($this->renewal ? $this->renewal->screenshot_mime_type : $this->screenshot_mime_type);
+        $data['renewal_image'] = ($this->renewal ? $this->renewal->docLink() : null);
+        $data['renewal_mime_type'] = ($this->renewal ? $this->renewal->screenshot_mime_type : null);
+
         $data['email'] = $this->user ? $this->user->email : "";
         $data['user'] = $this->user->simpleData();
         $data['amount'] = ($this->amount ? $this->amount : 0);
+
         $data['payment_for'] = ($this->payment_for ? $this->payment_for : self::PAYMENT_FOR_OTHERS);
-        $data['screenshot'] = ($this->renewal ? $this->renewal->docLink() : null);
-        $data['is_image_screenshot'] = ($this->renewal ? $this->renewal->is_image_payment : false);
-        $data['screenshot_mime_type'] = ($this->renewal ? $this->renewal->screenshot_mime_type : false);
-        $data['log_card'] = ($this->renewal ? $this->renewal->log_card() : null);
-        $data['is_image_logcard'] = ($this->renewal ? $this->renewal->is_image_log_card : false);
-        $data['log_card_mime_type'] = ($this->renewal ? $this->renewal->log_card_mime_type : false);
+                             
+        $data['screenshot'] = ($this->filename ? $this->screenshot() : ($this->renewal ? $this->renewal->docLink() : ($this->attendee ? $this->attendee->filelink() : null)) );
+        $data['screenshot_mime_type'] = ($this->filename ? $this->screenshot_mime_type : ($this->renewal ? $this->renewal->screenshot_mime_type : ($this->attendee ? $this->attendee->screenshot_mime_type :null)));
+
+        $data['log_card'] = (($this->log_card AND file_exists(Yii::$app->params['dir_payment'].$this->log_card)) ? $this->log_card() : ($this->renewal ? $this->renewal->log_card() : null));
+        $data['log_card_mime_type'] = ($this->log_card ? $this->log_card_mime_type : ($this->renewal ? $this->renewal->log_card_mime_type : null));
         
         unset(
             $data['user_id'], 
@@ -167,10 +171,17 @@ class UserPayment extends ActiveRecord
     public function getIs_image_payment()
     {
         $dir = Yii::$app->params['dir_renewal'];
+        $dirpay = Yii::$app->params['dir_payment'];
         $filename = $this->filename;
         if(file_exists($dir . $filename)){
 
             $mimeType = mime_content_type($dir . $filename);
+            if(preg_match("/image/", $mimeType)){
+                return true;
+            }
+        } else if(file_exists($dirpay . $filename)){
+
+            $mimeType = mime_content_type($dirpay . $filename);
             if(preg_match("/image/", $mimeType)){
                 return true;
             }
@@ -181,23 +192,45 @@ class UserPayment extends ActiveRecord
     public function getScreenshot_mime_type(){
         if (!empty($this->filename)) {
             $file = Yii::$app->params['dir_renewal'] . $this->filename;
+            $filepay = Yii::$app->params['dir_payment'] . $this->filename;
 
-            if (file_exists($file)) {
-                return mime_content_type($file); 
-            }
+            if (file_exists($file)) return mime_content_type($file); 
+            else if (file_exists($filepay)) return mime_content_type($filepay); 
         } 
         return "";
     }
 
-    public function filelink()
+    public function getLog_card_mime_type(){
+        if (!empty($this->filename)) {
+            $file = Yii::$app->params['dir_renewal'] . $this->log_card;
+            $filepay = Yii::$app->params['dir_payment'] . $this->log_card;
+
+            if (file_exists($file)) return mime_content_type($file); 
+            else if (file_exists($filepay)) return mime_content_type($filepay); 
+        } 
+        return "";
+    }
+
+    public function screenshot()
     {
         if (Common::isApi() OR Common::isCarkeeApi()) {
-            return !empty($this->filename)? Url::home(TRUE) . 'file/payment?id=' . $this->id : ''; //'&access-token=' . Yii::$app->request->get('access-token') : '';
+            return !empty($this->filename)? Url::home(TRUE) . 'file/payment?id=' . $this->id . '&f=' . $this->filename : ''; //'&access-token=' . Yii::$app->request->get('access-token') : '';
         } else if(Common::isAccount() OR Common::isCpanel()){
-            return !empty($this->filename)? Url::home(TRUE) . 'file/payment?id=' . $this->id : '';
+            return !empty($this->filename)? Url::home(TRUE) . 'file/payment?id=' . $this->id . '&f=' . $this->filename : '';
         }
 
-        return !empty($this->filename)? Url::home(TRUE) . 'file/payment/' . $this->id : NULL; //. '?access-token=' . Yii::$app->request->get('access-token') : NULL;
+        return !empty($this->filename)? Url::home(TRUE) . 'file/payment/' . $this->id . '&f=' . $this->filename : NULL; //. '?access-token=' . Yii::$app->request->get('access-token') : NULL;
+    }
+
+    public function log_card()
+    {
+        if (Common::isApi() OR Common::isCarkeeApi()) {
+            return !empty($this->log_card)? Url::home(TRUE) . 'file/log-card?id=' . $this->id . '&f=' . $this->log_card : ''; //'&access-token=' . Yii::$app->request->get('access-token') : '';
+        } else if(Common::isAccount() OR Common::isCpanel()){
+            return !empty($this->log_card)? Url::home(TRUE) . 'file/log-card?id=' . $this->id . '&f=' . $this->log_card : '';
+        }
+
+        return !empty($this->log_card)? Url::home(TRUE) . 'file/log-card/' . $this->id . '&f=' . $this->log_card : NULL; //. '?access-token=' . Yii::$app->request->get('access-token') : NULL;
     }
 
     public function getUser()
@@ -213,6 +246,11 @@ class UserPayment extends ActiveRecord
     public function getEvent()
     {
         return $this->hasOne(Event::class,['id' => 'event_id']);
+    }
+
+    public function getAttendee()
+    {
+        return $this->hasOne(EventAttendee::class,['event_id' => 'event_id']);
     }
 
     public function getAttachments()

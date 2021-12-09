@@ -23,6 +23,7 @@ use apicarkee\forms\LoginForm;
 use apicarkee\forms\LoginUiidForm;
 use common\forms\AccountMembershipForm;
 use common\forms\DirectorForm;
+use common\forms\DocumentForm;
 use common\forms\UserPaymentForm;
 use common\helpers\Common;
 use common\lib\PaginationLib;
@@ -31,6 +32,7 @@ use common\helpers\Sort;
 use common\lib\Helper;
 use common\models\AccountMembership;
 use common\models\AccountSecurityQuestions;
+use common\models\Document;
 use common\models\MemberSecurityAnswers;
 use common\models\Settings;
 use common\models\UserDirector;
@@ -75,23 +77,10 @@ class MemberController extends Controller
     public function actionRenewal()
     {
         $user = Yii::$app->user->identity;
-        // dd(Yii::$app->request->post());
-        // dd($user);
-        // if (!$user->isMembershipExpire() AND !$user->isMembershipNearExpire()){
-        //     return [
-        //         'code'    => self::CODE_ERROR,
-        //         'message' => 'Membership is not expired or nearly expired'
-        //     ];
-        // }
-
         
         /**
          * Check if have pending renewal
          */
-        // $renewal = Renewal::findOne([
-        //     'user_id'=> $user->user_id,
-        //     'status' => Renewal::STATUS_PENDING
-        // ]);
 
         $renewal = Renewal::find()
                             ->where(['user_id'=> $user->user_id])
@@ -128,17 +117,17 @@ class MemberController extends Controller
 
         $form = $this->postLoad($form);
         $uploadFile = UploadedFile::getInstance($form,'file');
-        $logFile = UploadedFile::getInstance($form,'log_card');
+        $logFile = UploadedFile::getInstanceByName('log_card');
         $transaction = Yii::$app->db->beginTransaction();
         try {
 
-            if(is_null($uploadFile)){
+            if(empty($uploadFile)){
                 return [
                 'code'    => self::CODE_ERROR,
                 'message' => 'Payment screenshot is required'
                 ];
             }
-            if(is_null($logFile)){
+            if(empty($logFile)){
                 return [
                     'code'    => self::CODE_ERROR,
                     'message' => 'Log card file is required'
@@ -146,9 +135,11 @@ class MemberController extends Controller
             }
             if ($uploadFile) {
 
-                $newFilename = hash('crc32', $uploadFile->name) . time() .time() . '.' . $uploadFile->getExtension();
-                
+                $newFilename = hash('crc32', $uploadFile->name) . time() . '.' . $uploadFile->getExtension();
                 $fileDestination = Yii::$app->params['dir_renewal'] . $newFilename;
+
+                $newFilename2 = hash('crc32', $logFile->name) . time() . '.' . $logFile->getExtension();
+                $fileDestination2 = Yii::$app->params['dir_renewal'] . $newFilename2;
 
                 if (!$uploadFile->saveAs($fileDestination)) {
                     return [
@@ -157,9 +148,7 @@ class MemberController extends Controller
                     ];
                 }
 
-                $newFilename2 = hash('crc32', $logFile->name) . time() . '.' . $logFile->getExtension();
-                $fileDestination = Yii::$app->params['dir_renewal'] . $newFilename2;
-                if (!$logFile->saveAs($fileDestination)) {
+                if (!$logFile->saveAs($fileDestination2)) {
                     return [
                         'code'    => self::CODE_ERROR,
                         'message' => 'Error uploading log card file'
@@ -172,18 +161,13 @@ class MemberController extends Controller
                 $renewal->filename   = $newFilename;
                 $renewal->log_card   = $newFilename2;
                 $renewal->save();
-                $user_log = [
-                    'user_id' => $user->user_id,
-                    'renewal_id' => $renewal->id,
-                    'type' => 2, //renewal
-                    'log_card' => $newFilename2,
-                ];
-                UserLog::create($user_log);
+
+                $dir_payment = Yii::$app->params['dir_payment'];
+                @copy($fileDestination,$dir_payment.$renewal->filename);
+                @copy($fileDestination2,$dir_payment.$renewal->log_card);
+
                 $renewal->user->status = User::STATUS_PENDING_RENEWAL_APPROVAL;
                 $renewal->user->save();
-                
-                $dir_payment = Yii::$app->params['dir_payment'];
-                @copy($fileDestination,$dir_payment.$newFilename);
 
                 $userpaymentform = new UserPaymentForm;
                 $userpaymentform = $this->postLoad($userpaymentform);
@@ -193,6 +177,7 @@ class MemberController extends Controller
                 $userpaymentform->amount = 0;
                 $userpaymentform->description = $user->fullname . " renewal payment";
                 $userpaymentform->filename = $newFilename;
+                $userpaymentform->log_card = $newFilename2;
                 $userpaymentform->name = $user->fullname . " renewal";
                 $userpaymentform->payment_for = !is_null($userpaymentform->payment_for) ? $userpaymentform->payment_for : UserPayment::PAYMENT_FOR_RENEWAL;
                 $userPayment = UserPayment::Add($userpaymentform, $user->user_id);
@@ -209,7 +194,13 @@ class MemberController extends Controller
                     $member_expiry->save();
                 }
 
-                $transaction->commit();
+                $user_log = [
+                    'user_id' => $user->user_id,
+                    'renewal_id' => $renewal->id,
+                    'type' => 2, //renewal
+                    'log_card' => $newFilename2,
+                ];
+                UserLog::create($user_log);
 
                 Email::sendEmailNotification(Yii::$app->params['admin.email'], 'KARKEE Event', 'admin-notification', User::adminEmails(), User::subAdminEmails(), User::superAdminEmails(), $params=[
                     'name'       => !empty($user->fullname) ? $user->fullname : $user->firstname,
@@ -222,6 +213,8 @@ class MemberController extends Controller
                     'club_logo'     => "http://qa.carkeeapi.carkee.sg/logo-edited.png",
                     'api_link'      => (Yii::$app->params['environment'] == 'production' ? Yii::$app->params['api.carkee.endpoint']['prod'] : Yii::$app->params['api.carkee.endpoint']['dev'])
                 ]);
+
+                $transaction->commit();
 
                 return [
                     'code'    => self::CODE_SUCCESS,
@@ -239,7 +232,7 @@ class MemberController extends Controller
     }
     public function actionRenewalAttachment()
     {
-        $loginUser = Yii::$app->user->identity;
+        // $loginUser = Yii::$app->user->identity;
         $id        = Yii::$app->request->get('u');
         $size    = Yii::$app->request->get('size', 'medium');
         $field   = Yii::$app->request->get('f');
@@ -294,20 +287,54 @@ class MemberController extends Controller
 
     public function actionRenewalLogCard()
     {
-        $loginUser = Yii::$app->user->identity;
-        $field     = Yii::$app->request->get('f');
+        // $loginUser = Yii::$app->user->identity;
         $id        = Yii::$app->request->get('u');
+        $size    = Yii::$app->request->get('size', 'medium');
+        $field   = Yii::$app->request->get('f');
         $renewal   = Renewal::findOne($id);
+
+        if (!in_array($size, ['small', 'medium', 'large'])){
+            throw new \yii\web\HttpException(404, 'Invalid size.');
+        }
         
         try{
             $dir = Yii::$app->params['dir_renewal'];
+            $subDir = $dir . "{$size}/";
 
             /**
              * Load default profile
              */
-            if (empty($renewal->log_card)) $renewal->log_card = 'default-profile.png';
+            if (empty($renewal->{$field})) $renewal->{$field} = 'default-profile.png';
+            $filename = $renewal->{$field};
 
-            Yii::$app->response->sendFile($dir . $renewal->log_card, $renewal->log_card, ['inline' => TRUE]);
+            if (!file_exists($subDir)) FileHelper::createDirectory($subDir);
+
+            $mimeType = mime_content_type($dir . $filename);
+
+            $info = getimagesize ($dir . $filename);
+
+            if ($info AND preg_match("/image/", $mimeType)) {
+                $originalPath = $dir . $filename;
+                $thumbPath    = $subDir . $filename;
+
+                $mimeType = mime_content_type($originalPath);
+
+                if (!file_exists($thumbPath)) {
+                    if ($size == 'small') {
+                        Image::resize($originalPath, 100, 100)->save($thumbPath, ['quality' => 100]);;
+                    } elseif ($size == 'medium'){
+                        Image::resize($originalPath, 600, 600)->save($thumbPath, ['quality' => 100]);;
+                    } else {
+                        Image::resize($originalPath, 1024, 1024)->save($thumbPath, ['quality' => 100]);;
+                    }
+                }
+
+                Yii::$app->response->sendFile($thumbPath, NULL, ['inline' => TRUE]);
+            }else if(preg_match("/image/", $mimeType)){
+                Yii::$app->response->sendFile('../../default_file.png', NULL, ['inline' => TRUE]);
+            } else {
+                Yii::$app->response->sendFile($dir . $filename, NULL, ['inline' => TRUE]);
+            }
         } catch(\Exception $e) {
             echo $e->getMessage();
         }
@@ -2150,6 +2177,14 @@ class MemberController extends Controller
 
             $user->{$field} = $newFilename;
             $user->save();
+
+            $docform = new DocumentForm;
+            $docform = $this->postLoad($docform);   
+            $docform->user_id       = $user->user_id;
+            $docform->account_id    = $user->account_id;
+            $docform->filename      = $newFilename;
+            $doc_type = Document::EquivalentTypes()[$field];
+            Document::Create($docform,$user->user_id,$doc_type);
             
             return [
                 'code'    => self::CODE_SUCCESS,

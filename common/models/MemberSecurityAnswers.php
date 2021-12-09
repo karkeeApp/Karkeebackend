@@ -42,10 +42,22 @@ class MemberSecurityAnswers extends ActiveRecord{
         return $this->hasOne(Account::class,['account_id' => 'account_id']);
     }
 
+    public function simpleData(){
+        $attrs = [];
+        $attrs['question_id'] = $this->question_id;
+        $attrs['question'] = ( $this->question ? $this->question->question : "");
+        $attrs['answer'] = ($this->isImageMimeType() ? $this->imagelink() : $this->answer);
+        $attrs['mime_type'] = ($this->isImageMimeType() ? $this->getMimeType() : null);
+        $attrs['is_file_upload'] = ( $this->question ? $this->question->is_file_upload : null);
+        return $attrs;
+    }
+
     public function data(){
         $attrs = $this->attributes;
+        unset($attrs['answer']);
         $attrs['question'] = $this->question;
-        $attrs['image_url'] = $this->isImageMimeType() ? $this->imagelink() : null;
+        $attrs['mime_type'] = ($this->isImageMimeType() ? $this->getMimeType() : null);
+        $attrs['answer'] = ($this->isImageMimeType() ? $this->imagelink() : $this->answer);
         $attrs['question'] = $this->member_security_question;
         return $attrs;
     }
@@ -69,5 +81,11 @@ class MemberSecurityAnswers extends ActiveRecord{
         if (preg_match("/image/", $file_mime)) return TRUE;
 
         return FALSE;
+    }
+
+    public function getMimeType(){
+        $file_absURL = Yii::$app->params['dir_sec_questions'].$this->answer;
+        if(!file_exists($file_absURL)) return FALSE;
+        return FileHelper::getMimeType($file_absURL);
     }
 }

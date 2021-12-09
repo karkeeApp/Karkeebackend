@@ -11,7 +11,7 @@ use common\models\BannerImage;
 
 use common\forms\BannerManagementForm;
 use common\forms\BannerImageForm;
-
+use common\forms\UserPaymentForm;
 use common\lib\CrudAction;
 use common\lib\Helper;
 use common\lib\PaginationLib;
@@ -22,6 +22,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;
 use yii\bootstrap\ActiveForm;
 use common\helpers\Common;
+use common\models\UserPayment;
 
 class AdsController extends Controller
 {
@@ -110,57 +111,170 @@ class AdsController extends Controller
         ];
     }
 
+
     public function actionRemoveAds()
     {
         $user = Yii::$app->user->identity;
         $id = Yii::$app->request->post('id');
 
-        $tmp = [];
-
-        foreach($_FILES as $file) {
-            $tmp['AdsRemoveAttachmentForm'] = [
-                'name'     => ['file' => $file['name']],
-                'type'     => ['file' => $file['type']],
-                'tmp_name' => ['file' => $file['tmp_name']],
-                'error'    => ['file' => $file['error']],
-                'size'     => ['file' => $file['size']],
-            ];
-        }
-
-        $_FILES = $tmp;
-
-        $form = new AdsRemoveAttachmentForm();
+        $form = new AdsRemoveAttachmentForm(['scenario' => 'remove-ads']);
+       
         $form = $this->postLoad($form);
+        $form->ads_id = $id;
 
-        $uploadFile = UploadedFile::getInstance($form, 'file');
+        $form->file = UploadedFile::getInstanceByName('file');
 
-        if ($uploadFile) {
-            $filename = date('Ymd') . '_' . time() . "_{$id}" . '.' . $uploadFile->getExtension();
-            
-            $fileDestination = Yii::$app->params['dir_ads_removed'] . $filename;
+        $transaction = Yii::$app->db->beginTransaction();
 
-            if (!$uploadFile->saveAs($fileDestination)) {
+        try {
+
+            if(empty($form->file)){
                 return [
-                    'code'    => self::CODE_ERROR,
-                    'message' => 'Error uploading the file'
+                'code'    => self::CODE_ERROR,
+                'message' => 'screenshot upload is required'
                 ];
             }
 
-            $ads_rem = AdsRemoveAttachment::create($form,$user->user_id);
+            if (!empty($form->file)) {
+
+                $form->filename = $filename = date('Ymd') . '_' . time() . "_{$id}" . '.' . $form->file->getExtension();
+                
+                $fileDestination = Yii::$app->params['dir_ads_removed'] . $filename;
+
+                if (!$form->file->saveAs($fileDestination)) {
+                    return [
+                        'code'    => self::CODE_ERROR,
+                        'message' => 'Error uploading the file'
+                    ];
+                }
+    
+                $ads_rem = AdsRemoveAttachment::create($form,$user->user_id);
+    
+                $dir_payment = Yii::$app->params['dir_payment'];
+                @copy($fileDestination,$dir_payment.$filename);
+
+    
+                $userpaymentform = new UserPaymentForm(['scenario' => 'remove-ads']);
+                $userpaymentform = $this->postLoad($userpaymentform);
+                $userpaymentform->ads_id = $ads_rem->ads_id;
+                $userpaymentform->user_id = $user->user_id;
+                $userpaymentform->account_id = $user->account_id;
+                $userpaymentform->amount = 0;
+                $userpaymentform->description = $user->fullname . " ads removal payment";
+                $userpaymentform->filename = $filename;
+                $userpaymentform->log_card = $filename;
+                $userpaymentform->name = $user->fullname . " ads removal";;
+                $userpaymentform->payment_for = UserPayment::PAYMENT_FOR_ADS;
+                $userPayment = UserPayment::Add($userpaymentform, $user->user_id);
+    
+                $transaction->commit();
+
+                return [
+                    'code'    => self::CODE_SUCCESS,
+                    'message' => 'Successfully Removed Ads',
+                    'data'    => $ads_rem->data($user)
+                    // 'attachment'    => $ads_rem->filelink(),
+                ];
+            }
+        } catch (\Exception $e) {
             
             return [
-                'code'    => self::CODE_SUCCESS,
-                'message' => 'Successfully Removed Ads',
-                'data'    => $ads_rem->data($user)
-                // 'attachment'    => $ads_rem->filelink(),
+                'code'    => self::CODE_ERROR,
+                'message' => 'Invalid file'
             ];
         }
-
-        return [
-            'code'    => self::CODE_ERROR,
-            'message' => 'Invalid file'
-        ];
     }
+
+
+
+
+
+
+    // public function actionRemoveAds()
+    // {
+    //     $user = Yii::$app->user->identity;
+    //     $id = Yii::$app->request->post('id');
+
+    //     // $tmp = [];
+
+    //     // foreach($_FILES as $file) {
+    //     //     $tmp['AdsRemoveAttachmentForm'] = [
+    //     //         'name'     => ['file' => $file['name']],
+    //     //         'type'     => ['file' => $file['type']],
+    //     //         'tmp_name' => ['file' => $file['tmp_name']],
+    //     //         'error'    => ['file' => $file['error']],
+    //     //         'size'     => ['file' => $file['size']],
+    //     //     ];
+    //     // }
+
+    //     // $_FILES = $tmp;
+
+    //     $form = new AdsRemoveAttachmentForm(['scenario' => 'remove-ads']);
+    //     $form = $this->postLoad($form);
+
+    //     // $uploadFile = UploadedFile::getInstance($form, 'file');
+    //     $form->ads_id = $id;
+    //     if(!empty($_FILES['file'])) $form->file = UploadedFile::getInstanceByName('file');
+    //     //if(!empty($_FILES['log_card'])) $form->log_card_file = UploadedFile::getInstanceByName('log_card');
+        
+    //    // Yii::info($form,'carkee');
+    //     if (!empty($form->file)) {
+    //         $form->filename = $filename = date('Ymd') . '_' . time() . "_{$id}" . '.' . $form->file->getExtension();
+            
+    //         $fileDestination = Yii::$app->params['dir_ads_removed'] . $filename;
+
+    //         if (!$form->file->saveAs($fileDestination)) {
+    //             return [
+    //                 'code'    => self::CODE_ERROR,
+    //                 'message' => 'Error uploading the file'
+    //             ];
+    //         }
+    //         // $logcard = null;
+    //         // if(!empty($form->log_card_file)){
+    //         //     $form->log_card = $logcard = date('Ymd') . '_' . time() . "_{$id}" . '.' . $form->log_card_file->getExtension();
+    //         //     $fileDestinationlc = Yii::$app->params['dir_ads_removed'] . $logcard;
+    //         //     if (!$form->log_card_file->saveAs($fileDestinationlc)) {
+    //         //         return [
+    //         //             'code'    => self::CODE_ERROR,
+    //         //             'message' => 'Error uploading the file'
+    //         //         ];
+    //         //     }
+
+    //         //     $dir_payment = Yii::$app->params['dir_payment'];
+    //         //     @copy($fileDestinationlc,$dir_payment.$logcard);
+    //         // }
+
+    //         $ads_rem = AdsRemoveAttachment::create($form,$user->user_id);
+
+    //         $dir_payment = Yii::$app->params['dir_payment'];
+    //         @copy($fileDestination,$dir_payment.$filename);
+
+    //         $userpaymentform = new UserPaymentForm;
+    //         $userpaymentform = $this->postLoad($userpaymentform);
+    //         $userpaymentform->ads_id = $ads_rem->ads_id;
+    //         $userpaymentform->user_id = $user->user_id;
+    //         $userpaymentform->account_id = $user->account_id;
+    //         $userpaymentform->amount = 0;
+    //         $userpaymentform->description = $user->fullname . " ads removal payment";
+    //         $userpaymentform->filename = $filename;
+    //         $userpaymentform->log_card = $filename;
+    //         $userpaymentform->name = $user->fullname . " ads removal";
+    //         $userpaymentform->payment_for = UserPayment::PAYMENT_FOR_ADS;
+    //         $userPayment = UserPayment::Add($userpaymentform, $user->user_id);
+
+    //         return [
+    //             'code'    => self::CODE_SUCCESS,
+    //             'message' => 'Successfully Removed Ads',
+    //             'data'    => $ads_rem->data($user)
+    //             // 'attachment'    => $ads_rem->filelink(),
+    //         ];
+    //     }
+
+    //     return [
+    //         'code'    => self::CODE_ERROR,
+    //         'message' => 'Invalid file'
+    //     ];
+    // }
 
     public function actionCreate()
     {

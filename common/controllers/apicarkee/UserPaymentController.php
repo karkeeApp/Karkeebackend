@@ -119,6 +119,7 @@ class UserPaymentController extends Controller
                     $user->save();
                 }
                 $form->payment_for = UserPayment::PAYMENT_FOR_ADS;
+                $form->name = $user->fullname . " ads removal";
                 $payment = UserPayment::create($form,$user->user_id);
                 
                 $transaction->commit();

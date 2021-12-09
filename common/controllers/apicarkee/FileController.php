@@ -1,6 +1,7 @@
 <?php
 namespace common\controllers\apicarkee;
 
+use common\lib\Helper;
 use common\models\Ads;
 use Yii;
 
@@ -17,12 +18,32 @@ use common\models\Event;
 use common\models\EventGallery;
 use common\models\Media;
 use common\models\BannerImage;
+use common\models\Document;
+use common\models\Renewal;
 use common\models\UserImport;
 use common\models\UserPayment;
 
 class FileController extends Controller
 {
+    public function actionDoc()
+    {
+        $doc_id   = Yii::$app->request->get('u');
+        $document = Document::findOne($doc_id);
 
+        if (!$document) return Helper::errorMessage("User is not found",true);
+
+        try{
+            $dir = Yii::$app->params['dir_member'];
+            $file = $dir . $document->filename;
+            if (!file_exists($file)) $document->filename = 'default-profile.png';
+
+            return Yii::$app->response->sendFile($dir . $document->filename, $document->filename, ['inline' => TRUE]);
+        } catch(\Exception $e) {
+            
+            $error = $e->getMessage();
+            return Helper::errorMessage($error,true);
+        }
+    }  
     public function actionIdentity($id=0)
     {
         $file = UserFile::findOne($id);
@@ -269,14 +290,18 @@ class FileController extends Controller
     {
         $dir = Yii::$app->params['dir_payment'];
         $id = Yii::$app->request->get('id',0);
-        
+        $event_id = Yii::$app->request->get('event_id',0);
+        $user_id = Yii::$app->request->get('user_id',0);
         try{
             
             $file = UserPayment::findOne($id);
 
             if (!$file OR !file_exists($dir . $file->filename)) {
-                echo "Invalid file";
-                return;
+                $file = UserPayment::find()->where(['event_id' => $event_id])->andWhere(['user_id' => $user_id])->one();
+                if(!$file OR !file_exists($dir . $file->filename)){
+                    echo "Invalid file";
+                    return;
+                }
             }
 
             /**
@@ -290,6 +315,51 @@ class FileController extends Controller
             // echo $e->getMessage();
         }
 
+    }
+
+    public function actionLogCard()
+    {
+        $dir = Yii::$app->params['dir_payment'];
+        $dirren = Yii::$app->params['dir_renewal'];
+        $id = Yii::$app->request->get('id',0);
+        $event_id = Yii::$app->request->get('event_id',0);
+        $user_id = Yii::$app->request->get('user_id',0);
+        
+        try{
+            
+            $file = UserPayment::findOne($id);
+
+            if (!$file OR ($file AND (!file_exists($dir . $file->log_card) AND !file_exists($dirren . $file->log_card)))) {
+                echo "Invalid file";
+                return;
+            }
+            if(file_exists($dir . $file->log_card)) return Yii::$app->response->sendFile($dir . $file->log_card, $file->log_card, ['inline' => TRUE]);
+            else if(file_exists($dirren . $file->log_card)) return Yii::$app->response->sendFile($dirren . $file->log_card, $file->log_card, ['inline' => TRUE]);
+            else return Yii::$app->response->sendFile(Yii::$app->params['dir_default'] . 'default.png', 'default.png', ['inline' => TRUE]);            
+        } catch(\Exception $e) {
+            // echo $e->getMessage();
+        }
+    }
+
+    private function renewalLogCard($id)
+    {
+        $loginUser = Yii::$app->user->identity;
+        $field     = Yii::$app->request->get('f');
+        $id        = Yii::$app->request->get('u');
+        $renewal   = Renewal::findOne($id);
+        
+        try{
+            $dir = Yii::$app->params['dir_renewal'];
+
+            /**
+             * Load default profile
+             */
+            if (empty($renewal->log_card)) $renewal->log_card = 'default-profile.png';
+
+            Yii::$app->response->sendFile($dir . $renewal->log_card, $renewal->log_card, ['inline' => TRUE]);
+        } catch(\Exception $e) {
+            return false;
+        }
     }
 
     public function actionAds()

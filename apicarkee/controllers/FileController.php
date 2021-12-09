@@ -44,11 +44,12 @@ class FileController extends \common\controllers\apicarkee\FileController
                     'news-gallery'=> ['get'],
                     'event'       => ['get'],
                     'news'        => ['get'],
-                    'payment'     => ['get']
+                    'payment'     => ['get'],
+                    'log-card'    => ['get']
                 ],
             ],
             'authenticator' => [
-                'optional' => ['doc','identity','media','mediathumb','staffimport','download','event-gallery','event','banner','ads','news','news-gallery','payment'],
+                'optional' => ['doc','identity','media','mediathumb','staffimport','download','event-gallery','event','banner','ads','news','news-gallery','payment','log-card'],
                 'class' => \yii\filters\auth\QueryParamAuth::class,            
             ]
         ];

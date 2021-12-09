@@ -16,6 +16,12 @@ class AdsRemoveAttachment extends ActiveRecord
     {
         return '{{%ads_remove_attachment}}';
     }
+    public function behaviors()
+    {
+        return [
+            \common\behaviors\TimestampBehavior::class,
+        ];
+    }
 
     public static function create(\common\forms\AdsRemoveAttachmentForm $form, $user_id)
     {
@@ -24,6 +30,7 @@ class AdsRemoveAttachment extends ActiveRecord
         $ads->user_id         = $user_id;
         $ads->name            = $form->name;
         $ads->ads_id          = $form->ads_id;
+        $ads->filename        = $form->filename;
         $ads->description     = $form->description;
         
         $ads->save();

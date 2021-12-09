@@ -69,7 +69,13 @@ class MemberController extends \common\controllers\api\MemberController
                     'update-topic'                  => ['get'],
                     'check-admin'                   => ['get'],
 
-                    'request-new-club'              => ['get']
+                    'renewal-log-card'              => ['get'],
+                    'sign-in-codes'                 => ['post'],
+                    'request-new-club'              => ['post'],
+                    'club-registration'             => ['post'],
+                    'security-questions'            => ['get'],
+                    'file-security-answers'         => ['get'],
+                    'list-security-answers'         => ['get'],
 	            ],
     		],
             // 'contentNegotiator' => [
@@ -84,7 +90,7 @@ class MemberController extends \common\controllers\api\MemberController
                                 'register', 'register-vendor', 'login', 'login-uiid', 'renewal-attachment',
                                 'login-biometric', 'login-face-id', 'forgot-password', 'renewal-log-card',
                                 'forgot-password-confirm-code', 'forgot-password-update', 'request-new-club',
-                                'doc','social-media-check', 'apple-user-check-redirect'
+                                'doc','social-media-check', 'apple-user-check-redirect','logo','file-security-answers','sign-in-codes','renewal-attachment'
                             ],
 	            'class' => \yii\filters\auth\QueryParamAuth::class,            
             ]

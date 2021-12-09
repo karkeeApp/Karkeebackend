@@ -2,6 +2,7 @@
 namespace common\controllers\apicarkee\admin;
 
 use common\forms\AdminRoleForm;
+use common\forms\DocumentForm;
 use Yii;
 
 use yii\web\View;
@@ -28,6 +29,7 @@ use common\helpers\MyActiveDataProvider;
 use common\helpers\Sort;
 use common\lib\Helper as LibHelper;
 use common\lib\PaginationLib;
+use common\models\Document;
 use common\models\Settings;
 use common\models\UserFile;
 use yii\data\Pagination;
@@ -558,7 +560,7 @@ class VendorController extends Controller
 
         $vendorLogo = UploadedFile::getInstanceByName('img_vendor');
 
-        $excludeFields = ['user_id','pin_hash','password','password_confirm','status'];
+        $excludeFields = ['user_id','pin_hash','password','password_confirm','status','img_vendor'];
         $fields = LibHelper::getFieldKeys($params_data, $excludeFields);
         
         foreach($fields as $field){
@@ -579,6 +581,13 @@ class VendorController extends Controller
                 ];
             }    
             $user->img_vendor = $newFilename;
+            $docform = new DocumentForm;
+            $docform = $this->postLoad($docform);   
+            $docform->user_id       = $user->user_id;
+            $docform->account_id    = $user->account_id;
+            $docform->filename      = $newFilename;
+            $doc_type = Document::EquivalentTypes()['img_vendor'];
+            Document::Create($docform,$user->user_id,$doc_type);
         }
 
         $user->save();

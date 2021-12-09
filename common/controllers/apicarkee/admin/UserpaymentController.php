@@ -93,8 +93,11 @@ class UserpaymentController extends Controller
         $form = $this->postLoad($form);
 
         $form->account_id = $user->account_id;
-        if (!is_null($_FILES) AND count($_FILES) > 0) $form->file = UploadedFile::getInstanceByName('file');
-        if (!is_null($form->file) AND count($_FILES) > 0) $form->filename = hash('crc32', $form->file->name) . time() . '.' . $form->file->extension;
+        if (!empty($_FILES['screenshot'])) $form->file = UploadedFile::getInstanceByName('screenshot');
+        if (!is_null($form->file)) $form->filename = hash('crc32', $form->file->name) . time() . '.' . $form->file->extension;
+       
+        if (!empty($_FILES['log_card'])) $form->file_logcard = UploadedFile::getInstanceByName('log_card');
+        if (!is_null($form->file_logcard)) $form->log_card = hash('crc32', $form->file_logcard->name) . time() . '.' . $form->file_logcard->extension;
 
         if (!$form->validate()){
             $error = self::getFirstError(ActiveForm::validate($form));
@@ -106,9 +109,13 @@ class UserpaymentController extends Controller
 
             $form->payment_for = !is_null($form->payment_for) ? $form->payment_for : UserPayment::PAYMENT_FOR_OTHERS;
             $userPayment = UserPayment::create($form, $user->user_id);
-            if (!is_null($form->filename) AND count($_FILES) > 0) $saved_img = Helper::saveImage($this, $form->file, $form->filename, Yii::$app->params['dir_payment']);
+            
+            if (!empty($form->file)) $saved_img = Helper::saveImage($this, $form->file, $form->filename, Yii::$app->params['dir_payment']);
             if (!empty($saved_img) AND !$saved_img['success'])  return $saved_img;
             
+            if (!empty($form->file_logcard)) $saved_imglc = Helper::saveImage($this, $form->file_logcard, $form->log_card, Yii::$app->params['dir_payment']);
+            if (!empty($saved_imglc) AND !$saved_imglc['success'])  return $saved_img;
+
             if($userPayment->payment_for == UserPayment::PAYMENT_FOR_RENEWAL){
                 $dir_pay = Yii::$app->params['dir_payment'];
                 $dir_ren = Yii::$app->params['dir_renewal'];
@@ -118,7 +125,16 @@ class UserpaymentController extends Controller
                 $filerenorig = $dir_pay . $userPayment->filename;
                 $filerendes = $dir_ren . $renewal->filename;
 
-                if(file_exists($filerenorig)) @copy($filerenorig,$filerendes);
+                if (!empty($form->file)) @copy($filerenorig,$filerendes);
+
+                if (!empty($form->file_logcard)) {
+                    $filerenoriglc = $dir_pay . $userPayment->log_card;
+                    $filerendeslc = $dir_ren . $renewal->log_card;
+                    if(file_exists($filerenoriglc)) @copy($filerenoriglc,$filerendeslc);
+                }
+
+                $userPayment->renewal_id = $renewal->id;
+                $userPayment->save();
             }
 
             $transaction->commit();
@@ -144,8 +160,11 @@ class UserpaymentController extends Controller
         $form = new UserPaymentForm(['scenario' => 'admin-carkee-edit-payment']);
         $form = $this->postLoad($form);
 
-        if (!is_null($_FILES) AND count($_FILES) > 0) $form->file = UploadedFile::getInstanceByName('file');
-        if (!is_null($form->file) AND count($_FILES) > 0) $form->filename = hash('crc32', $form->file->name) . time() . '.' . $form->file->extension;
+        if (!empty($_FILES['screenshot'])) $form->file = UploadedFile::getInstanceByName('screenshot');
+        if (!empty($form->file)) $form->filename = hash('crc32', $form->file->name) . time() . '.' . $form->file->extension;
+
+        if (!empty($_FILES['log_card'])) $form->file_logcard = UploadedFile::getInstanceByName('log_card');
+        if (!is_null($form->file_logcard)) $form->log_card = hash('crc32', $form->file_logcard->name) . time() . '.' . $form->file_logcard->extension;
 
         if (!$form->validate()){
             $error = self::getFirstError(ActiveForm::validate($form));
@@ -159,7 +178,7 @@ class UserpaymentController extends Controller
 
             if(!$userPayment ) return Helper::errorMessage('User Payment not found',true);
 
-            $excludeFields = ['id', 'filename'];
+            $excludeFields = ['id', 'filename','log_card', 'file','file_logcard'];
             $fields = Helper::getFieldKeys($params_data, $excludeFields);
 
             if (!empty($fields) AND !empty($excludeFields)) $response = CrudAction::applyUpdateNew($this, $transaction, $userPayment, $fields,$form);
@@ -167,14 +186,17 @@ class UserpaymentController extends Controller
 
             // Copying/Saving image to destination executed last so that tmp/<tmp_name> will not disappear until details are validated by form validator then saved,
             // otherwise an error display of Please upload file
-            if (!is_null($form->filename) AND count($_FILES) > 0){
+            if (!empty($form->filename)){
                 $userPayment->filename = $form->filename;
-                $userPayment->save();
                 $saved_img = Helper::saveImage($this, $form->file, $form->filename, Yii::$app->params['dir_payment']);
             }
             if (!empty($saved_img) AND !$saved_img['success']) return $saved_img;
 
-           
+            if (!empty($form->file_logcard)){
+                $userPayment->log_card = $form->log_card;
+                Helper::saveImage($this, $form->file_logcard, $form->log_card, Yii::$app->params['dir_payment']);
+            }           
+            $userPayment->save();
             if($userPayment->payment_for == UserPayment::PAYMENT_FOR_RENEWAL){
                 $dir_pay = Yii::$app->params['dir_payment'];
                 $dir_ren = Yii::$app->params['dir_renewal'];
@@ -184,14 +206,18 @@ class UserpaymentController extends Controller
                     $renewal->user_id         = $user->user_id;
                     $renewal->paid            = $userPayment->amount;
                     $renewal->filename        = $userPayment->filename;
+                    $renewal->log_card        = $userPayment->log_card;
                     $renewal->save();
-
-
                 }else $renewal = Renewal::Create($userPayment, $user->user_id);
 
                 $filerenorig = $dir_pay . $userPayment->filename;
                 $filerendes = $dir_ren . $renewal->filename;
                 if(file_exists($filerenorig)) @copy($filerenorig,$filerendes);
+
+                if(empty($userPayment->renewal_id)){
+                    $userPayment->renewal_id = $renewal->id;                    
+                    $userPayment->save();
+                }
             }
 
             

@@ -15,6 +15,7 @@ use common\lib\CrudAction;
 use common\lib\Helper as LibHelper;
 use common\models\AccountMembership;
 use common\models\AccountSecurityQuestions;
+use common\models\Document;
 use common\models\Settings;
 use common\models\User;
 use Exception;
@@ -23,6 +24,25 @@ use yii\web\UploadedFile;
 
 class AccountController extends Controller
 {
+    public function actionDoc()
+    {
+        $doc_id   = Yii::$app->request->get('u');
+        $document = Document::findOne($doc_id);
+
+        if (!$document) return LibHelper::errorMessage("User is not found",true);
+
+        try{
+            $dir = Yii::$app->params['dir_member'];
+            $file = $dir . $document->filename;
+            if (!file_exists($file)) $document->filename = 'default-profile.png';
+
+            return Yii::$app->response->sendFile($dir . $document->filename, $document->filename, ['inline' => TRUE]);
+        } catch(\Exception $e) {
+            
+            $error = $e->getMessage();
+            return LibHelper::errorMessage($error,true);
+        }
+    }   
     private function accountList(){
         
         $page    = Yii::$app->request->get('page', 1);
@@ -84,13 +104,13 @@ class AccountController extends Controller
         $page    = Yii::$app->request->get('page', 1);
         $page_size = Yii::$app->request->get('size',10);
 
-        $account_id= Yii::$app->request->get('account_id',0);
+        $account_id= Yii::$app->request->get('account_id',NULL);
         $type      = Yii::$app->request->get('type',NULL);
         $keyword   = Yii::$app->request->get('keyword',NULL);
         $status    = Yii::$app->request->get('status',NULL);
         $premium_status = Yii::$app->request->get('premium_status');
         $club_code = Yii::$app->request->get('club_code',NULL);
-        $role      = Yii::$app->request->get('role',User::ROLE_USER);
+        $role      = Yii::$app->request->get('role',NULL);
 
         $qry = AccountMembership::find()->where("1=1");
 

@@ -57,8 +57,8 @@ class AccountMembership extends ActiveRecord{
     {
         $data = [];
         $data = $this->attributes;
-        $data['account'] = $this->account;
-        $data['user'] = $this->user;
+        $data['account'] = ($this->account ? $this->account->data() : null);
+        $data['user'] = ($this->user ? $this->user->simpleData(1) : null);
         return $data;
     }
 

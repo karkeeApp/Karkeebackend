@@ -164,7 +164,7 @@ class EventController extends Controller
 
         $event = Event::findOne($event_id);
 
-        if (!$account OR !$event OR $event->account_id != 0) {
+        if (!$event OR ($event AND $event->account_id != 0)) {
             echo "Invalid file";
             return;
         }
@@ -200,7 +200,7 @@ class EventController extends Controller
             $dir = Yii::$app->params['dir_Event'];
 
             Yii::$app->response->sendFile($dir . $image, $image, ['inline' => TRUE]);
-        } catch(Exception $e) {
+        } catch(\Exception $e) {
             echo $e->getMessage();
         }
     }
@@ -407,17 +407,17 @@ class EventController extends Controller
                     $userpayment->payment_for = UserPayment::PAYMENT_FOR_EVENT;
                     $userpayment->save();
                 }
-                // Email::sendEmailNotification(Yii::$app->params['admin.email'], 'KARKEE Event', 'admin-notification', $this->adminEmails(), $this->subEmails(), $this->superEmails(), $params=[
-                //     'name'       => !empty($user->fullname) ? $user->fullname : $user->firstname,
-                //     'heading'      => 'The following user booked '. $event->title.' event',
-                //     'email'         => $user->email,
-                //     'client_email'  => $user->email,
-                //     'club_email'    => "admin@carkee.sg",
-                //     'club_name'     => "KARKEE",
-                //     'club_link'     => "http://cpanel.carkee.sg",
-                //     'club_logo'     => "http://qa.carkeeapi.carkee.sg/logo-edited.png",
-                //     'api_link'      => (Yii::$app->params['environment'] == 'production' ? Yii::$app->params['api.carkee.endpoint']['prod'] : Yii::$app->params['api.carkee.endpoint']['dev'])
-                // ]);
+                Email::sendEmailNotification(Yii::$app->params['admin.email'], 'KARKEE Event', 'admin-notification', $this->adminEmails(), $this->subEmails(), $this->superEmails(), $params=[
+                    'name'       => !empty($user->fullname) ? $user->fullname : $user->firstname,
+                    'heading'      => 'The following user booked '. $event->title.' and made payment of SGD '.$userpayment->amount,
+                    'email'         => $user->email,
+                    'client_email'  => $user->email,
+                    'club_email'    => "admin@carkee.sg",
+                    'club_name'     => "KARKEE",
+                    'club_link'     => "http://cpanel.carkee.sg",
+                    'club_logo'     => "http://qa.carkeeapi.carkee.sg/logo-edited.png",
+                    'api_link'      => (Yii::$app->params['environment'] == 'production' ? Yii::$app->params['api.carkee.endpoint']['prod'] : Yii::$app->params['api.carkee.endpoint']['dev'])
+                ]);
 
                 return [
                     'code'        => self::CODE_SUCCESS,
@@ -428,7 +428,9 @@ class EventController extends Controller
                 ];
             }else if(!$join_response['status']){
                 $cancel_response = $event->cancelAttendee($user);
-
+                if(!in_array($join_response['attendee_status'],[EventAttendee::STATUS_CANCELLED,EventAttendee::STATUS_CANCELLED])) $cancel_response['response'] = $join_response['response'];
+                else $cancel_response['response'] = 'You have cancelled to attend this event.';
+                
                 Email::sendEmailNotification(Yii::$app->params['admin.email'], 'KARKEE Event', 'admin-notification', $this->adminEmails(), $this->subEmails(), $this->superEmails(), $params=[
                     'name'       => !empty($user->fullname) ? $user->fullname : $user->firstname,
                     'heading'      => 'The following user has canceled attending '. $event->title.' event',
@@ -442,7 +444,7 @@ class EventController extends Controller
                 ]);
                 return [
                     'code'        => self::CODE_SUCCESS,
-                    'message'     => 'You have cancelled to attend this event.',
+                    'message'     => $cancel_response['response'],
                     'is_attendee' => false,
                     'response'    => $cancel_response
                 ];

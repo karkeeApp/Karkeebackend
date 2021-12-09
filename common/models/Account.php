@@ -73,6 +73,11 @@ class Account extends ActiveRecord
         return $this->hasOne(User::class, ['user_id' => 'user_id']);
     }
 
+    public function getDocuments()
+    {
+        return $this->hasMany(Document::class,['account_id' => 'account_id']);
+    }
+
     public function company()
     {
         return $this->company;
@@ -176,10 +181,26 @@ class Account extends ActiveRecord
     public function data(){
         $attributes = $this->attributes;
         $attributes['logo_url'] = $this->logoUrl();
-        // $attributes['user'] = $this->user->data();
+        $attributes['documents'] = $this->documents_per_club;
+        // if(!empty($this->users))
+        //     foreach($this->users as $user)
+        //         if(!empty($user->documents))
+        //             foreach($user->documents as $document) $attributes['documents'][] = $user->documents;
+        
         return $attributes;
     }
+    public function getDocuments_per_club(){
+        $documents = $this->documents;
+        
+        $dataAcnt = [];
+        if(!empty($documents) AND count($documents)>0){
+            foreach($documents as $document){
+                if(in_array($document->type,[Document::TYPE_TRANSFER_SCREENSHOT])) $dataAcnt[] = $document->data();
+            }
+        }
 
+        return $dataAcnt;
+    }
     public function logoUrl()
     {
         return Url::home(TRUE) . 'member/logo?account_id=' . $this->account_id . '&t=' . $this->logo;

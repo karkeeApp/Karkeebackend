@@ -3,6 +3,7 @@ namespace common\controllers\apicarkee\admin;
 
 use common\forms\AdsForm;
 use common\forms\AdsRemoveAttachmentForm;
+use common\forms\UserPaymentForm;
 use Yii;
 
 use common\lib\CrudAction;
@@ -11,6 +12,7 @@ use common\models\Account;
 use common\models\Ads;
 use common\models\AdsRemoveAttachment;
 use common\models\Settings;
+use common\models\UserPayment;
 use yii\data\Pagination;
 
 use yii\web\UploadedFile;
@@ -146,24 +148,24 @@ class AdsController extends Controller
         $user = Yii::$app->user->identity;
         $id = Yii::$app->request->post('id');
 
-        $tmp = [];
+        // $tmp = [];
 
-        foreach($_FILES as $file) {
-            $tmp['AdsRemoveAttachmentForm'] = [
-                'name'     => ['file' => $file['name']],
-                'type'     => ['file' => $file['type']],
-                'tmp_name' => ['file' => $file['tmp_name']],
-                'error'    => ['file' => $file['error']],
-                'size'     => ['file' => $file['size']],
-            ];
-        }
+        // foreach($_FILES as $file) {
+        //     $tmp['AdsRemoveAttachmentForm'] = [
+        //         'name'     => ['file' => $file['name']],
+        //         'type'     => ['file' => $file['type']],
+        //         'tmp_name' => ['file' => $file['tmp_name']],
+        //         'error'    => ['file' => $file['error']],
+        //         'size'     => ['file' => $file['size']],
+        //     ];
+        // }
 
-        $_FILES = $tmp;
+        // $_FILES = $tmp;
 
         $form = new AdsRemoveAttachmentForm();
         $form = $this->postLoad($form);
 
-        $uploadFile = UploadedFile::getInstance($form, 'file');
+        $uploadFile = UploadedFile::getInstanceByName('file');
 
         if (!is_null($uploadFile) AND count($_FILES) > 0) {
             $filename = date('Ymd') . '_' . time() . "_{$id}" . '.' . $uploadFile->getExtension();
@@ -173,7 +175,22 @@ class AdsController extends Controller
             if (!$uploadFile->saveAs($fileDestination)) return Helper::errorMessage("Error uploading the file",true);
 
             $ads_rem = AdsRemoveAttachment::create($form,$user->user_id);
-            
+
+            $dir_payment = Yii::$app->params['dir_payment'];
+            @copy($fileDestination,$dir_payment.$filename);
+
+            $userpaymentform = new UserPaymentForm;
+            $userpaymentform = $this->postLoad($userpaymentform);
+            $userpaymentform->ads_id = $ads_rem->id;
+            $userpaymentform->user_id = $user->user_id;
+            $userpaymentform->account_id = $user->account_id;
+            $userpaymentform->amount = 0;
+            $userpaymentform->description = $user->fullname . " ads removal payment";
+            $userpaymentform->filename = $filename;
+            $userpaymentform->name = $user->fullname . " ads removal";
+            $userpaymentform->payment_for = UserPayment::PAYMENT_FOR_ADS;
+            $userPayment = UserPayment::Add($userpaymentform, $user->user_id);
+
             return [
                 'code'    => self::CODE_SUCCESS,
                 'message' => 'Successfully Removed Ads',

@@ -42,7 +42,7 @@ class AdsController extends \common\controllers\apicarkee\AdsController
     		],
             'authenticator' => [
                 'optional' => ['index','list','list-random'],
-                'class' => \yii\filters\auth\QueryParamAuth::class,            
+                'class' => \yii\filters\auth\QueryParamAuth::class,           
             ],
             'contentNegotiator' => [
                 'class' => \yii\filters\ContentNegotiator::class,

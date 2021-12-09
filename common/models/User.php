@@ -267,6 +267,10 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(UserPayment::class,['user_id' => 'user_id']);
     }
 
+    public function getEvent_payments()
+    {
+        return $this->hasMany(UserPayment::class,['event_id' => 'event_id', 'payment_for' => UserPayment::PAYMENT_FOR_EVENT]);
+    }
 
     public function getLogs()
     {
@@ -292,7 +296,6 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->hasMany(UserDirector::class,['user_id' => 'user_id'])->where(['status' => UserDirector::STATUS_ACTIVE]);
     }
-
     public function getItemCount()
     {
         return $this->getItems()->count();
@@ -334,6 +337,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function getFile()
     {
         return $this->hasMany(UserFile::class,['user_id' => 'user_id']);
+    }
+
+    public function getDocuments()
+    {
+        return $this->hasMany(Document::class,['user_id' => 'user_id']);
     }
 
     public function getUserpayment()
@@ -1303,7 +1311,7 @@ class User extends ActiveRecord implements IdentityInterface
             }
         }
 
-        $attributes['clubs'] = $this->getRegisteredClubs();
+        $attributes['clubs'] = $this->registeredClubs;
         $attributes['club'] = $this->account;
         $attributes['club_logo'] = ($this->account ? $this->account->logoUrl() : "");
         return $attributes;
@@ -1456,6 +1464,26 @@ class User extends ActiveRecord implements IdentityInterface
         if(!empty($accounts) AND count($accounts)>0){
             foreach($accounts as $account){
                 $dataAcnt[] = $account->data();
+            }
+        }        
+        // $dataDet = $dataDocs = [];
+        // $dataDet['data'] = $dataAcnt;
+        // $dataDocs['documents'] = $this->documents_per_club;
+        // $data = array_merge($dataDet,$dataDocs);
+        return $dataAcnt; // array_merge($dataAcnt,array('documents' => $this->documents_per_club));
+    }
+
+    public function getDocuments_per_club(){
+        $accounts = $this->accounts;
+        
+        $dataAcnt = [];
+        if(!empty($accounts) AND count($accounts)>0){
+            foreach($accounts as $account){
+                if(!empty($account->documents)){
+                    foreach($account->documents as $document){
+                        $dataAcnt[] = $document->data();
+                    }
+                }
             }
         }
 

@@ -7,6 +7,9 @@ use yii\base\Model;
 class AdsRemoveAttachmentForm extends Model
 {
     public $file;
+    public $filename;
+    public $log_card;
+    public $log_card_file;
     public $name;
     public $description;
     public $user_id;
@@ -17,11 +20,10 @@ class AdsRemoveAttachmentForm extends Model
     public function rules()
     {
         return [
-            [['account_id','user_id','id','name'], 'safe'],
+            [['account_id','user_id','id','name','log_card_file','file','filename','log_card'], 'safe'],
             [['description'], 'trim'],
-            [['description','ads_id'], 'required'],
-            ['file', 'file', 'skipOnEmpty' => FALSE, 'extensions' => 'png, jpg, jpeg, gif', 'maxSize' => 1024 * 1024 * 20],
-            
+            [['description','ads_id'], 'required', 'on' => ['remove-ads']],
+            [['file'], 'file', 'skipOnEmpty' => TRUE, 'extensions' => 'png, jpg, jpeg', 'maxSize' => 1024 * 1024 * 20, 'on' => ['remove-ads']]
         ];
     }
 }

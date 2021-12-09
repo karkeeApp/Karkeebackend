@@ -29,66 +29,67 @@ class MemberController extends \common\controllers\apicarkee\MemberController
     		'verbs' => [
     			'class' => \yii\filters\VerbFilter::class,
 	            'actions' => [
-                    'register'                     => ['post'],
-                    'login'                        => ['post'],
-                    'login-uiid'                   => ['post'],
-                    'login-biometric'              => ['post'],
-                    'login-face-id'                => ['post'],
-                    'update-password'              => ['post'],
-                    'update-email'                 => ['post'],
-                    'update-mobile'                => ['post'],
-                    'update-pin'                   => ['post'],
-                    'verify-password'              => ['post'],
-                    'info'                         => ['get'],  
-                    'redeem-list'                  => ['get'],
-                    'update-profile'               => ['post'],
-                    'upload-doc'                   => ['post'],
-                    'doc'                          => ['get'],
-                    'options'                      => ['get'],
-                    'update-personal-profile'      => ['post'],
-                    'update-vendor-profile'        => ['post'],
-                    'update-vehicle'               => ['post'],
+                    'register'                      => ['post'],
+                    'register-vendor'               => ['post'],
+                    'renewal'                       => ['post'],
                     
-                    'forgot-password'              => ['post'],
-                    'forgot-password-confirm-code' => ['post'],
-                    'forgot-password-update'       => ['post'],
-                    
-                    'register-vendor'              => ['post'],
+                    'login'                         => ['post'],
+                    'login-uiid'                    => ['post'],
+                    'login-biometric'               => ['post'],
+                    'login-face-id'                 => ['post'],
 
-                    'update-company-onboarding'    => ['post'],
+                    'update-password'               => ['post'],
+                    'update-email'                  => ['post'],
+                    'update-mobile'                 => ['post'],
+                    'update-pin'                    => ['post'],
+                    'update-profile'                => ['post'],
+                    'update-personal-profile'       => ['post'],
+                    'update-vendor-profile'         => ['post'],
+                    'update-vehicle'                => ['post'],
+                    'update-company-profile'        => ['post'],
+                    'update-is-premium'             => ['post'],
+                    'update-premium-status'         => ['post'],
+                    'update-company-onboarding'     => ['post'],
+                    'update-director'               => ['post'],
+                    'upload-doc'                    => ['post'],
+
+                    'verify-password'               => ['post'],
+                    
+                    'forgot-password'               => ['post'],
+                    'forgot-password-confirm-code'  => ['post'],
+                    'forgot-password-update'        => ['post'],                    
 
                     'add-director'                  => ['post'],
-                    'update-director'               => ['post'],
 
                     'delete-director'               => ['post'],
 
                     'brand-synopsis'                => ['post'],
-                    'update-company-profile'        => ['post'],
-
-                    'update-is-premium'             => ['post'],
-                    'update-premium-status'         => ['post'],
 
                     'social-media-check'            => ['post'],
                     'validate-sm-login'             => ['post'],
-                    'apple-user-check-redirect'     => ['get'],
 
+                    'sign-in-codes'                 => ['post'],
+                    'request-new-club'              => ['post'],
+                    'club-registration'             => ['post'],
+
+                    'apple-user-check-redirect'     => ['get'],
+                    'info'                          => ['get'],  
+                    'redeem-list'                   => ['get'],
+                    'doc'                           => ['get'],
+                    'options'                       => ['get'],
                     'update-topic'                  => ['get'],
                     'check-admin'                   => ['get'],
                     'logo'                          => ['get'],
 
                     'renewal-attachment'            => ['get'],
                     'renewal-log-card'              => ['get'],
-                    'renewal'                       => ['post'],
-                    'sign-in-codes'                 => ['post'],
-                    'request-new-club'              => ['post'],
-                    'club-registration'             => ['post'],
                     'security-questions'            => ['get'],
                     'file-security-answers'         => ['get'],
                     'list-security-answers'         => ['get'],
 
-                    'main'                        => ['get'],
-                    'sub'                        => ['get'],
-                    'super'                        => ['get']
+                    'main'                          => ['get'],
+                    'sub'                           => ['get'],
+                    'super'                         => ['get']
                     // 'dashboard'                     => ['get']
 	            ],
     		],
@@ -96,7 +97,7 @@ class MemberController extends \common\controllers\apicarkee\MemberController
 	            'except' => [
                                 'main','sub','super', 'register', 'register-vendor', 'login', 'login-uiid', 'login-biometric', 'login-face-id', 
                                 'forgot-password', 'forgot-password-confirm-code', 'forgot-password-update','doc','social-media-check',
-                                'apple-user-check-redirect','logo','file-security-answers','sign-in-codes'
+                                'apple-user-check-redirect','logo','file-security-answers','sign-in-codes','renewal-attachment'
                             ],
                 // 'optional' => ['club-registration'],
                 'class' => \yii\filters\auth\CompositeAuth::class,

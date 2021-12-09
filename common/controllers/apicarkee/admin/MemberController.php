@@ -2,6 +2,7 @@
 namespace common\controllers\apicarkee\admin;
 
 use common\forms\AdminRoleForm;
+use common\forms\DocumentForm;
 use common\forms\FileForm;
 use common\forms\MemberResetPasswordForm;
 use common\forms\UserForm;
@@ -18,6 +19,7 @@ use common\models\User;
 use common\lib\Helper;
 use common\models\Account;
 use common\models\AccountMembership;
+use common\models\Document;
 use common\models\Email;
 use common\models\MemberSecurityAnswers;
 use common\models\Settings;
@@ -58,16 +60,25 @@ class MemberController extends Controller
         
         if(!is_null($account_id)) $qry->andWhere(['account_id' => $account_id]);
         
-        $acntmem = $qry->one();
+        $acntmems = $qry->all();
 
         $data = [];
-        foreach($acntmem->member_security_answers as $ans){
-            $data[] = $ans->data();
+        foreach($acntmems as $acntmem){
+            $ansdata = [];
+            foreach($acntmem->member_security_answers as $ans) $ansdata[] = $ans->simpleData(); 
+
+            $data[] = [
+                            'account_id' => $acntmem->account_id,
+                            'user_id' => $acntmem->user_id,
+                            'company' => $acntmem->account->company,
+                            'security_questions' => $ansdata
+                        ];
+            
         }
         
         return [
             'code' => self::CODE_SUCCESS,
-            'data' => $data
+            'data' => $data 
         ];
     }
 
@@ -110,7 +121,15 @@ class MemberController extends Controller
             
             $user->{$field} = $newFilename;
             $user->save();
-            
+
+            $docform = new DocumentForm;
+            $docform = $this->postLoad($docform);   
+            $docform->user_id       = $user_id;
+            $docform->account_id    = $user->account_id;
+            $docform->filename      = $newFilename;
+            $doc_type = Document::EquivalentTypes()[$field];
+            Document::Create($docform,$user->user_id,$doc_type);
+
             return [
                 'code'    => self::CODE_SUCCESS,
                 'message' => 'Successfully uploaded'
@@ -544,6 +563,11 @@ class MemberController extends Controller
             $imgnricfile = UploadedFile::getInstanceByName('img_nric');
             $imgprofile = UploadedFile::getInstanceByName('img_profile');
 
+            $docform = new DocumentForm;
+            $docform = $this->postLoad($docform);   
+            $docform->user_id       = $user->user_id;
+            $docform->account_id    = $user->account_id;
+
             if (!empty($transfile)) {
                 $newFilename = hash('crc32', $transfile->name) . time() . '.' . $transfile->getExtension();                
                 $fileDestination = $dir . $newFilename;    
@@ -554,6 +578,11 @@ class MemberController extends Controller
                     ];
                 }    
                 $user->transfer_screenshot = $newFilename;
+
+                $docform->filename      = $newFilename;
+
+                $doc_type1 = Document::EquivalentTypes()['transfer_screenshot'];
+                Document::Create($docform,$user->user_id,$doc_type1);
             }
             if (!empty($imgauthfile)) {
                 $newFilename = hash('crc32', $imgauthfile->name) . time() . '.' . $imgauthfile->getExtension();                
@@ -564,7 +593,12 @@ class MemberController extends Controller
                         'message' => 'Error uploading the file'
                     ];
                 }    
-                $user->img_authorization = $newFilename;
+                $user->img_authorization = $newFilename;                
+
+                $docform->filename      = $newFilename;
+
+                $doc_type2 = Document::EquivalentTypes()['img_authorization'];
+                Document::Create($docform,$user->user_id,$doc_type2);
             }
             if (!empty($imglogfile)) {
                 $newFilename = hash('crc32', $imglogfile->name) . time() . '.' . $imglogfile->getExtension();                
@@ -575,7 +609,12 @@ class MemberController extends Controller
                         'message' => 'Error uploading the file'
                     ];
                 }    
-                $user->img_log_card = $newFilename;
+                $user->img_log_card = $newFilename;                
+
+                $docform->filename      = $newFilename;
+
+                $doc_type3 = Document::EquivalentTypes()['img_log_card'];
+                Document::Create($docform,$user->user_id,$doc_type3);
             }
             if (!empty($imginsfile)) {
                 $newFilename = hash('crc32', $imginsfile->name) . time() . '.' . $imginsfile->getExtension();                
@@ -586,7 +625,12 @@ class MemberController extends Controller
                         'message' => 'Error uploading the file'
                     ];
                 }    
-                $user->img_insurance = $newFilename;
+                $user->img_insurance = $newFilename;                
+
+                $docform->filename      = $newFilename;
+
+                $doc_type4 = Document::EquivalentTypes()['img_insurance'];
+                Document::Create($docform,$user->user_id,$doc_type4);
             }
             if (!empty($imgnricfile)) {
                 $newFilename = hash('crc32', $imgnricfile->name) . time() . '.' . $imgnricfile->getExtension();                
@@ -597,7 +641,12 @@ class MemberController extends Controller
                         'message' => 'Error uploading the file'
                     ];
                 }    
-                $user->img_nric = $newFilename;
+                $user->img_nric = $newFilename;                
+
+                $docform->filename      = $newFilename;
+
+                $doc_type5 = Document::EquivalentTypes()['img_nric'];
+                Document::Create($docform,$user->user_id,$doc_type5);
             }
             if (!empty($imgprofile)) {
                 $newFilename = hash('crc32', $imgprofile->name) . time() . '.' . $imgprofile->getExtension();                
@@ -608,7 +657,12 @@ class MemberController extends Controller
                         'message' => 'Error uploading the file'
                     ];
                 }    
-                $user->img_profile = $newFilename;
+                $user->img_profile = $newFilename;                
+
+                $docform->filename      = $newFilename;
+
+                $doc_type6 = Document::EquivalentTypes()['img_profile'];
+                Document::Create($docform,$user->user_id,$doc_type6);
             }
             $user->save();
 
@@ -654,6 +708,11 @@ class MemberController extends Controller
             $usertype = !is_null($form->member_type) ? $form->member_type : User::TYPE_MEMBER;
             $user = User::create($form, $usertype);
 
+            $docform = new DocumentForm;
+            $docform = $this->postLoad($docform);   
+            $docform->user_id       = $user->user_id;
+            $docform->account_id    = $user->account_id;
+
             if (!empty($transfile)) {
                 $newFilename = hash('crc32', $transfile->name) . time() . '.' . $transfile->getExtension();                
                 $fileDestination = Yii::$app->params['dir_member'] . $newFilename;    
@@ -663,62 +722,92 @@ class MemberController extends Controller
                         'message' => 'Error uploading the file'
                     ];
                 }    
-                $user->transfer_screenshot = $newFilename;
+                $user->transfer_screenshot = $newFilename;                
+
+                $docform->filename      = $newFilename;
+
+                $doc_type1 = Document::EquivalentTypes()['transfer_screenshot'];
+                Document::Create($docform,$user->user_id,$doc_type1);
             }
             if (!empty($imgauthfile)) {
                 $newFilename = hash('crc32', $imgauthfile->name) . time() . '.' . $imgauthfile->getExtension();                
-                $fileDestination = Yii::$app->params['dir_member'] . $newFilename;    
+                $fileDestination = $dir . $newFilename;    
                 if (!$imgauthfile->saveAs($fileDestination)) {
                     return [
                         'code'    => self::CODE_ERROR,
                         'message' => 'Error uploading the file'
                     ];
                 }    
-                $user->img_authorization = $newFilename;
+                $user->img_authorization = $newFilename;                
+
+                $docform->filename      = $newFilename;
+
+                $doc_type2 = Document::EquivalentTypes()['img_authorization'];
+                Document::Create($docform,$user->user_id,$doc_type2);
             }
             if (!empty($imglogfile)) {
                 $newFilename = hash('crc32', $imglogfile->name) . time() . '.' . $imglogfile->getExtension();                
-                $fileDestination = Yii::$app->params['dir_member'] . $newFilename;    
+                $fileDestination = $dir . $newFilename;    
                 if (!$imglogfile->saveAs($fileDestination)) {
                     return [
                         'code'    => self::CODE_ERROR,
                         'message' => 'Error uploading the file'
                     ];
                 }    
-                $user->img_log_card = $newFilename;
+                $user->img_log_card = $newFilename;                
+
+                $docform->filename      = $newFilename; 
+
+                $doc_type3 = Document::EquivalentTypes()['img_log_card'];
+                Document::Create($docform,$user->user_id,$doc_type3);
             }
             if (!empty($imginsfile)) {
                 $newFilename = hash('crc32', $imginsfile->name) . time() . '.' . $imginsfile->getExtension();                
-                $fileDestination = Yii::$app->params['dir_member'] . $newFilename;    
+                $fileDestination = $dir . $newFilename;    
                 if (!$imginsfile->saveAs($fileDestination)) {
                     return [
                         'code'    => self::CODE_ERROR,
                         'message' => 'Error uploading the file'
                     ];
                 }    
-                $user->img_insurance = $newFilename;
+                $user->img_insurance = $newFilename;                
+
+                $docform->filename      = $newFilename;
+
+                $doc_type4 = Document::EquivalentTypes()['img_insurance'];
+                Document::Create($docform,$user->user_id,$doc_type4);
             }
             if (!empty($imgnricfile)) {
                 $newFilename = hash('crc32', $imgnricfile->name) . time() . '.' . $imgnricfile->getExtension();                
-                $fileDestination = Yii::$app->params['dir_member'] . $newFilename;    
+                $fileDestination = $dir . $newFilename;    
                 if (!$imgnricfile->saveAs($fileDestination)) {
                     return [
                         'code'    => self::CODE_ERROR,
                         'message' => 'Error uploading the file'
                     ];
                 }    
-                $user->img_nric = $newFilename;
+                $user->img_nric = $newFilename;                
+
+                $docform->filename      = $newFilename;
+
+                $doc_type5 = Document::EquivalentTypes()['img_nric'];
+                Document::Create($docform,$user->user_id,$doc_type5);
             }
             if (!empty($imgprofile)) {
                 $newFilename = hash('crc32', $imgprofile->name) . time() . '.' . $imgprofile->getExtension();                
-                $fileDestination = Yii::$app->params['dir_member'] . $newFilename;    
+                $fileDestination = $dir . $newFilename;    
                 if (!$imgprofile->saveAs($fileDestination)) {
                     return [
                         'code'    => self::CODE_ERROR,
                         'message' => 'Error uploading the file'
                     ];
                 }    
-                $user->img_profile = $newFilename;
+                $user->img_profile = $newFilename;                
+
+                $docform->filename      = $newFilename;
+
+                $doc_type6 = Document::EquivalentTypes()['img_profile'];
+                Document::Create($docform,$user->user_id,$doc_type6);
             }
             $user->save();
 
@@ -775,6 +864,11 @@ class MemberController extends Controller
             if($form->password == $form->password_confirm) $user->setPassword($form->password);            
             else return Helper::errorMessage("Password is Invalid or Does not Match!", true);
         }
+        
+        $docform = new DocumentForm;
+        $docform = $this->postLoad($docform);   
+        $docform->user_id       = $user->user_id;
+        $docform->account_id    = $user->account_id;
        
         if (!empty($transfile)) {
             $newFilename = hash('crc32', $transfile->name) . time() . '.' . $transfile->getExtension();                
@@ -785,62 +879,92 @@ class MemberController extends Controller
                     'message' => 'Error uploading the file'
                 ];
             }    
-            $user->transfer_screenshot = $newFilename;
+            $user->transfer_screenshot = $newFilename;                
+
+            $docform->filename      = $newFilename;
+
+            $doc_type1 = Document::EquivalentTypes()['transfer_screenshot'];
+            Document::Create($docform,$user->user_id,$doc_type1);
         }
         if (!empty($imgauthfile)) {
             $newFilename = hash('crc32', $imgauthfile->name) . time() . '.' . $imgauthfile->getExtension();                
-            $fileDestination = Yii::$app->params['dir_member'] . $newFilename;    
+            $fileDestination = $dir . $newFilename;    
             if (!$imgauthfile->saveAs($fileDestination)) {
                 return [
                     'code'    => self::CODE_ERROR,
                     'message' => 'Error uploading the file'
                 ];
             }    
-            $user->img_authorization = $newFilename;
+            $user->img_authorization = $newFilename;                
+
+            $docform->filename      = $newFilename;
+
+            $doc_type2 = Document::EquivalentTypes()['img_authorization'];
+            Document::Create($docform,$user->user_id,$doc_type2);
         }
         if (!empty($imglogfile)) {
             $newFilename = hash('crc32', $imglogfile->name) . time() . '.' . $imglogfile->getExtension();                
-            $fileDestination = Yii::$app->params['dir_member'] . $newFilename;    
+            $fileDestination = $dir . $newFilename;    
             if (!$imglogfile->saveAs($fileDestination)) {
                 return [
                     'code'    => self::CODE_ERROR,
                     'message' => 'Error uploading the file'
                 ];
             }    
-            $user->img_log_card = $newFilename;
+            $user->img_log_card = $newFilename;                
+
+            $docform->filename      = $newFilename;
+
+            $doc_type3 = Document::EquivalentTypes()['img_log_card'];
+            Document::Create($docform,$user->user_id,$doc_type3);
         }
         if (!empty($imginsfile)) {
             $newFilename = hash('crc32', $imginsfile->name) . time() . '.' . $imginsfile->getExtension();                
-            $fileDestination = Yii::$app->params['dir_member'] . $newFilename;    
+            $fileDestination = $dir . $newFilename;    
             if (!$imginsfile->saveAs($fileDestination)) {
                 return [
                     'code'    => self::CODE_ERROR,
                     'message' => 'Error uploading the file'
                 ];
             }    
-            $user->img_insurance = $newFilename;
+            $user->img_insurance = $newFilename;                
+
+            $docform->filename      = $newFilename;
+
+            $doc_type4 = Document::EquivalentTypes()['img_insurance'];
+            Document::Create($docform,$user->user_id,$doc_type4);
         }
         if (!empty($imgnricfile)) {
             $newFilename = hash('crc32', $imgnricfile->name) . time() . '.' . $imgnricfile->getExtension();                
-            $fileDestination = Yii::$app->params['dir_member'] . $newFilename;    
+            $fileDestination = $dir . $newFilename;    
             if (!$imgnricfile->saveAs($fileDestination)) {
                 return [
                     'code'    => self::CODE_ERROR,
                     'message' => 'Error uploading the file'
                 ];
             }    
-            $user->img_nric = $newFilename;
+            $user->img_nric = $newFilename;                
+
+            $docform->filename      = $newFilename;
+
+            $doc_type5 = Document::EquivalentTypes()['img_nric'];
+            Document::Create($docform,$user->user_id,$doc_type5);
         }
         if (!empty($imgprofile)) {
             $newFilename = hash('crc32', $imgprofile->name) . time() . '.' . $imgprofile->getExtension();                
-            $fileDestination = Yii::$app->params['dir_member'] . $newFilename;    
+            $fileDestination = $dir . $newFilename;    
             if (!$imgprofile->saveAs($fileDestination)) {
                 return [
                     'code'    => self::CODE_ERROR,
                     'message' => 'Error uploading the file'
                 ];
             }    
-            $user->img_profile = $newFilename;
+            $user->img_profile = $newFilename;                
+
+            $docform->filename      = $newFilename;
+
+            $doc_type6 = Document::EquivalentTypes()['img_profile'];
+            Document::Create($docform,$user->user_id,$doc_type6);
         }
 
         $user->save();

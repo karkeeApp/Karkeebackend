@@ -236,7 +236,7 @@ class EventController extends Controller
 
         if(!is_null($attendee_status)) $qry->andWhere(['status'=>$attendee_status]);
         if(!is_null($event_id)) $qry->andWhere(['event_id' => $event_id]);
-        if(!is_null($keyword)){
+        if(!is_null($keyword) AND !empty($keyword)){
             $qry->andWhere("user_id IN (SELECT user.user_id FROM user WHERE (user.fullname LIKE '%".$keyword."%' OR user.email LIKE '%".$keyword."%') AND user.status NOT IN (".User::STATUS_DELETED.",".User::STATUS_REJECTED."))")
                 ->orWhere("event_id IN (SELECT event.event_id FROM event WHERE (event.title LIKE '%".$keyword."%' OR event.content LIKE '%".$keyword."%' OR event.summary LIKE '%".$keyword."%') AND event.event_id = ".$event_id.")");           
         }

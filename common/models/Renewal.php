@@ -47,6 +47,10 @@ class Renewal extends ActiveRecord{
         $data = $this->attributes;
         $data['link'] = $this->docLink();
         $data['log_card'] = $this->log_card();
+        $data['screenshot'] = $this->docLink();
+        $data['screenshot_mime_type'] = $this->screenshot_mime_type;
+        $data['log_card_mime_type'] = $this->log_card_mime_type;
+        $data['is_image_logcard'] = $this->is_image_log_card;
         $data['is_image_payment'] = $this->is_image_payment;
         $data['is_image_logcard'] = $this->is_image_log_card;
         $data['email'] = $this->user ? $this->user->email : "";
@@ -95,27 +99,33 @@ class Renewal extends ActiveRecord{
 
     public function docLink()
     {
-        if (empty($this->filename)) $this->filename = 'default-profile.png';
+       // if (empty($this->filename)) $this->filename = 'default-profile.png';
 
         if (Common::isApi() OR Common::isCarkeeApi()) {
             // return ($this->filename)? Url::home(TRUE) . 'member/renewal-attachment?t=' . $this->filename . '&u=' . $this->id . '&f=filename&access-token=' . Yii::$app->request->get('access-token') : '';
-            return ($this->filename)? Url::home(TRUE) . 'member/renewal-attachment?t=' . $this->filename . '&u=' . $this->id . '&f=filename' : '';
+            return !empty($this->filename)? Url::home(TRUE) . 'member/renewal-attachment?t=' . $this->filename . '&u=' . $this->id . '&f=filename' : '';
         } elseif(Common::isAccount() OR Common::isCpanel()){
-            return ($this->filename)? Url::home(TRUE) . 'member/renewal-attachment?t=' . $this->filename . '&u=' . $this->id . '&f=filename' : '';
+            return !empty($this->filename)? Url::home(TRUE) . 'member/renewal-attachment?t=' . $this->filename . '&u=' . $this->id . '&f=filename' : '';
         }
+
+        return !empty($this->filename)? Url::home(TRUE) . 'member/renewal-attachment?t=' . $this->filename . '&u=' . $this->id . '&f=filename' : NULL;
+
     }    
     
 
     public function log_card()
     {
-        if (empty($this->log_card)) $this->log_card = 'default-profile.png';
+        //if (empty($this->log_card)) $this->log_card = 'default-profile.png';
 
 
         if (Common::isApi() OR Common::isCarkeeApi()) {
-            return ($this->log_card)? Url::home(TRUE) . 'member/renewal-attachment?t=' . $this->log_card . '&u=' . $this->id . '&f=log_card' : '';
+            return !empty($this->log_card)? Url::home(TRUE) . 'member/renewal-attachment?t=' . $this->log_card . '&u=' . $this->id . '&f=log_card' : '';
         } elseif(Common::isAccount() OR Common::isCpanel()){
-            return ($this->log_card)? Url::home(TRUE) . 'member/renewal-attachment?t=' . $this->log_card . '&u=' . $this->id . '&f=log_card' : '';
+            return !empty($this->log_card)? Url::home(TRUE) . 'member/renewal-attachment?t=' . $this->log_card . '&u=' . $this->id . '&f=log_card' : '';
         }
+
+        return !empty($this->log_card)? Url::home(TRUE) . 'member/renewal-attachment?t=' . $this->log_card . '&u=' . $this->id . '&f=log_card' : NULL;
+
     }
 
     public function isImage()

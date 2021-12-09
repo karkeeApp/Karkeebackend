@@ -44,12 +44,12 @@ class SecurityAnswersController extends Controller {
        $pages    = new Pagination(['totalCount' => $totalCount, 'defaultPageSize' => $page_size]);        
        $offset   = ($page - 1) * $pages->limit;
        
-       $users = $qry->orderBy(['id' => SORT_DESC])->offset($offset)->limit($pages->limit)->all();
+       $memanswers = $qry->orderBy(['id' => SORT_DESC])->offset($offset)->limit($pages->limit)->all();
        
        $data = [];
 
-       foreach($users as $user){
-           $data[] = $user->data(1);
+       foreach($memanswers as $memanswer){
+           $data[] = $memanswer->simpleData();
        }
 
        return [
@@ -85,7 +85,7 @@ class SecurityAnswersController extends Controller {
        $data = [];
 
        foreach ($answers as $answer) {
-         $data[] = $answer->data();
+         $data[] = $answer->simpleData();
        }
 
        return [

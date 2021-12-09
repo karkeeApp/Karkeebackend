@@ -159,16 +159,19 @@ class Event extends ActiveRecord
         $attendee = $this->attendee($user);
         
         if($attendee){
-            if($attendee->isCancelled()){
+            if(!in_array($attendee->status,[EventAttendee::STATUS_CONFIRMED,EventAttendee::STATUS_CANCELLED,EventAttendee::STATUS_DELETED])){
                 $attendee->status = EventAttendee::STATUS_PENDING;
                 if(!empty($image_filename)) $attendee->filename = $image_filename;
                 $attendee->save();
 
                 $response = $this->notifyEventConfirmAttendees($user,$num_guest_brought,$paid);
 
-                return [ 'status' => true, 'response' => $response];
+                return [ 'status' => true, 'attendee_status' => $attendee->status, 'response' => $response];
             }else{
-                return [ 'status' => false, 'response' => $response];
+                if($attendee->status == EventAttendee::STATUS_CONFIRMED) $response = "You are already confirmed by the Admin!";
+                else if($attendee->status == EventAttendee::STATUS_CANCELLED) $response = "Seems You have cancelled to attend this event.!";
+                else if($attendee->status == EventAttendee::STATUS_DELETED) $response = "Seems You were join status is deleted! Please contact admin for further details on how to restore status";
+                return [ 'status' => false, 'attendee_status' => $attendee->status, 'response' => $response];
             }
         }
 
@@ -182,7 +185,7 @@ class Event extends ActiveRecord
 
         $response = $this->notifyEventConfirmAttendees($user,$num_guest_brought,$paid);
 
-        return [ 'status' => true, 'response' => $response];
+        return [ 'status' => true, 'attendee_status' => $attendee->status, 'response' => $response];
     }
 
     public function cancelAttendee($user)
