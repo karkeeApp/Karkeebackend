@@ -156,7 +156,7 @@ class Helper
         
 
         $dir = Yii::getAlias('@uploads') . '/firebase/'; // Yii::$app->params['dir_firebase'];
-        $fcm_config = $dir . 'agile-infinity-329404-firebase-adminsdk-c0yol-2376fbf24e.json';
+        $fcm_config = $dir . 'carkee-aad70-firebase-adminsdk-hro35-bd9c7a1398.json';
 
         $factory = (new Factory)->withServiceAccount($fcm_config);
         $messaging = $factory->createMessaging();
@@ -251,7 +251,7 @@ class Helper
     //     $dir = Yii::getAlias('@uploads') . '/firebase/'; // Yii::$app->params['dir_firebase'];
 
     //     if(empty($account_id) OR $account_id == 0){
-    //         $fcm_config = $dir . 'agile-infinity-329404-firebase-adminsdk-c0yol-2376fbf24e.json';
+    //         $fcm_config = $dir . 'carkee-aad70-firebase-adminsdk-hro35-bd9c7a1398.json';
     //     }else{
 
     //         $account = Account::findOne($account_id);
@@ -303,7 +303,7 @@ class Helper
         $dir = Yii::getAlias('@uploads') . '/firebase/'; // Yii::$app->params['dir_firebase'];
 
         if(empty($account_id) OR $account_id == 0){
-            $fcm_config = $dir . 'agile-infinity-329404-firebase-adminsdk-c0yol-2376fbf24e.json';
+            $fcm_config = $dir . 'carkee-aad70-firebase-adminsdk-hro35-bd9c7a1398.json';
         }else{
             if (strtolower($account_company) == 'p9club'){
                 $fcm_config = $dir . 'p9-singapore-firebase-adminsdk-pi0be-c66ea29ed2.json';
@@ -370,7 +370,7 @@ class Helper
         $dir = Yii::getAlias('@uploads') . '/firebase/'; // Yii::$app->params['dir_firebase'];
 
         if(empty($account_id) OR $account_id == 0){
-            $fcm_config = $dir . 'agile-infinity-329404-firebase-adminsdk-c0yol-2376fbf24e.json';
+            $fcm_config = $dir . 'carkee-aad70-firebase-adminsdk-hro35-bd9c7a1398.json';
         }else{
             if (strtolower($account_company) == 'p9club'){
                 $fcm_config = $dir . 'p9-singapore-firebase-adminsdk-pi0be-c66ea29ed2.json';
@@ -411,7 +411,7 @@ class Helper
         $dir = Yii::getAlias('@uploads') . '/firebase/'; // Yii::$app->params['dir_firebase'];
 
         if(empty($account_id) OR $account_id == 0){
-            $fcm_config = $dir . 'agile-infinity-329404-firebase-adminsdk-c0yol-2376fbf24e.json';
+            $fcm_config = $dir . 'carkee-aad70-firebase-adminsdk-hro35-bd9c7a1398.json';
         }else{
             if (strtolower($account_company) == 'p9club'){
                 $fcm_config = $dir . 'p9-singapore-firebase-adminsdk-pi0be-c66ea29ed2.json';
@@ -452,7 +452,7 @@ class Helper
         $account_company = $user->account_id > 0 ? $user->account->company : "Karkee";
         if(empty($user->account_id) OR $user->account_id == 0){
             $clubaltname = "Karkee";
-            $fcm_config = $dir . 'agile-infinity-329404-firebase-adminsdk-c0yol-2376fbf24e.json';
+            $fcm_config = $dir . 'carkee-aad70-firebase-adminsdk-hro35-bd9c7a1398.json';
         }else{
             if (strtolower($account_company) == 'p9club'){
                 $clubaltname = "P9";
@@ -497,7 +497,7 @@ class Helper
         $dir = Yii::getAlias('@uploads') . '/firebase/'; // Yii::$app->params['dir_firebase'];
 
         if(empty($account_id) OR $account_id == 0){
-            $fcm_config = $dir . 'agile-infinity-329404-firebase-adminsdk-c0yol-2376fbf24e.json';
+            $fcm_config = $dir . 'carkee-aad70-firebase-adminsdk-hro35-bd9c7a1398.json';
         }else{
             if (strtolower($account_company) == 'p9club'){
                 $fcm_config = $dir . 'p9-singapore-firebase-adminsdk-pi0be-c66ea29ed2.json';
@@ -537,7 +537,7 @@ class Helper
         $dir = Yii::getAlias('@uploads') . '/firebase/'; // Yii::$app->params['dir_firebase'];
 
         if(empty($account_id) OR $account_id == 0){
-            $fcm_config = $dir . 'agile-infinity-329404-firebase-adminsdk-c0yol-2376fbf24e.json';
+            $fcm_config = $dir . 'carkee-aad70-firebase-adminsdk-hro35-bd9c7a1398.json';
         }else{
             if (strtolower($account_company) == 'p9club'){
                 $fcm_config = $dir . 'p9-singapore-firebase-adminsdk-pi0be-c66ea29ed2.json';
@@ -580,7 +580,7 @@ class Helper
         $account_company = $user->account_id > 0 ? $user->account->company : "Karkee";
         if(empty($user->account_id) OR $user->account_id == 0){
             $clubaltname = "Karkee";
-            $fcm_config = $dir . 'agile-infinity-329404-firebase-adminsdk-c0yol-2376fbf24e.json';
+            $fcm_config = $dir . 'carkee-aad70-firebase-adminsdk-hro35-bd9c7a1398.json';
         }else{
             if (strtolower($account_company) == 'p9club'){
                 $clubaltname = "P9";
@@ -703,7 +703,7 @@ class Helper
     //     $dir = Yii::getAlias('@uploads') . '/firebase/'; // Yii::$app->params['dir_firebase'];
 
     //     if(empty($account_id) OR $account_id == 0){
-    //         $fcm_config = $dir . 'agile-infinity-329404-firebase-adminsdk-c0yol-2376fbf24e.json';
+    //         $fcm_config = $dir . 'carkee-aad70-firebase-adminsdk-hro35-bd9c7a1398.json';
     //     }else{
     //         if (strtolower($account_company) == 'p9club'){
     //             $fcm_config = $dir . 'p9-singapore-firebase-adminsdk-pi0be-c66ea29ed2.json';
