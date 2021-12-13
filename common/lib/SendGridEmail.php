@@ -28,18 +28,13 @@ class SendGridEmail
         // https://github.com/sendgrid/sendgrid-php/releases
 
         $email = new Mail(); 
-        // $email->setFrom('backend@unravelstudios.co', "Admin"); // team lead acct
-        $email->setFrom('bigprince2021@gmail.com', "Admin"); // jr dev acct
-        // $email->setFrom('abubakar@unravelstudios.co', "Admin"); // New acct
+
+        $email->setFrom('admin@karkee.biz', "Admin"); 
         $email->setSubject($subject);
         $email->addTo($to,$params['name']);
-        $email->addCc("backend@unravelstudios.co", "Admin");
-        // $email->addBcc('franklin@unravelstudios.co', 'Info');
+        $email->addCc("admin@karkee.biz", "Admin");
         $email->addBcc('abubakar@unravelstudios.co', 'Info');
-        
-        
-        // if(!in_array($to,$admin_staff_emails)) $email->addCc("sheetalbdz@yopmail.com", "QA");
-
+         
         if(!in_array($params['club_email'],$admin_staff_emails)) $email->addCc($params['club_email'], "Club Admin");
         if(!empty($params['email']) AND !in_array($params['email'],$admin_staff_emails)) $email->addCc($params['email'],"User");
 
@@ -52,11 +47,9 @@ class SendGridEmail
             $email->addDynamicTemplateData("club_name", $params['club_name']);
             $email->addDynamicTemplateData("club_link", $params['club_link']);
             $email->addDynamicTemplateData("club_logo", $params['club_logo']);
+             
+            $email->setTemplateId("d-ffcaa631f2a848c590997b43841016eb"); 
             
-            //  $email->setTemplateId("d-07c42e9ba2a542d787a37573df0679be"); //team lead acct
-            $email->setTemplateId("d-dff8216dcd494d178786700358d18fad"); //jr Dev acct
-            //$email->setTemplateId("d-0e7a4e5333a449abb5d8a563afa2f511"); //new acct
-
         }else if($template == "club-inquiry" OR $template == "carkee-inquiry"){
 
             $email->addDynamicTemplateData("name", $params['name']);
@@ -67,9 +60,8 @@ class SendGridEmail
             $email->addDynamicTemplateData("club_link", $params['club_link']);
             $email->addDynamicTemplateData("club_logo", $params['club_logo']);
 
-            //  $email->setTemplateId("d-dddd351051bc4dcc941aa31d6b298d10"); //team lead acct
-            $email->setTemplateId("d-70749a0b295d4cb28887025cf126e8b5"); //jr Dev acct
-            // $email->setTemplateId("d-8120a60b99864482ae43dffce75379fd"); //new acct
+            $email->setTemplateId("d-08dca03733bd401da5f424728515f704"); 
+            
 
         }else if($template == "club-inquiry-reply" OR $template == "carkee-inquiry-reply"){
 
@@ -82,9 +74,7 @@ class SendGridEmail
             $email->addDynamicTemplateData("club_link", $params['club_link']);
             $email->addDynamicTemplateData("club_logo", $params['club_logo']);
 
-           //  $email->setTemplateId("d-ddea77b127c14b99808b021976917856"); //team lead acct
-           $email->setTemplateId("d-41bcc68ceacb4822a9bab0a398c0697a"); ///jr Dev acct
-            // $email->setTemplateId("d-4b7887f92cea48f491fb6e03254cad43"); //new acct
+           $email->setTemplateId("d-44e04578a3764ff7a47276d29d3aa423"); 
         
         }
         else if($template == "club-register" OR $template == "carkee-register"){
@@ -94,10 +84,8 @@ class SendGridEmail
             $email->addDynamicTemplateData("club_name", $params['club_name']);
             $email->addDynamicTemplateData("club_link", $params['club_link']);
             $email->addDynamicTemplateData("club_logo", $params['club_logo']);
-
-            //$email->setTemplateId("d-5f110b3a80a540c9b3a9282739f782a1");    //team lead acct    
-            $email->setTemplateId("d-bf34496cd19e4e5aa75601a26f96e7e2");    ///jr Dev acct  
-           // $email->setTemplateId("d-c769a11f89454211b4f0dd7bd709a973"); //new acct 
+ 
+            $email->setTemplateId("d-2428db09101648379b948b0acfb3a0ea");      
 
         }
         else if($template == "club-register-verify" OR $template == "carkee-register-verify"){
@@ -111,9 +99,7 @@ class SendGridEmail
             $email->addDynamicTemplateData("api_link", $params['api_link']);
             $email->addDynamicTemplateData("account_id", $params['account_id']);
 
-            //$email->setTemplateId("d-ade018fbd002402d81b0da7b8f1691d4");      //team lead acct  
-            $email->setTemplateId("d-4bb74990ba1f4c12a6e4e81a79fcb4d7");      //jr Dev acct
-            // $email->setTemplateId("d-326b7881815542d49440bb919c220151"); //new acct  
+            $email->setTemplateId("d-52b11884119c4231874e588be99c19c6"); 
                            
 
         }else if($template == "admin-notification"){
@@ -125,9 +111,7 @@ class SendGridEmail
             $email->addDynamicTemplateData("club_link", $params['club_link']);
             $email->addDynamicTemplateData("club_logo", $params['club_logo']);
 
-            //$email->setTemplateId("d-a79bb2c4cd0d435e845ba1f7c9d6368e"); //team lead acct
-            $email->setTemplateId("d-66c52d7844054e43b11bdf150477e67e"); //jr Dev acct
-            //$email->setTemplateId("d-b4813a944d1c491d99a4cf333b719d74 "); //new acct
+            $email->setTemplateId("d-697ff5bf543f4a0493b35b09ef45e6c4"); 
 
         }else if($template == "club-membership"){
 
@@ -138,11 +122,8 @@ class SendGridEmail
             $email->addDynamicTemplateData("club_link", $params['club_link']);
             $email->addDynamicTemplateData("club_logo", $params['club_logo']);
 
-            //$email->setTemplateId("d-4822689e8df543a7b2c126b80de7a3bd");    //team lead acct
-            $email->setTemplateId("d-fad47e28975c4ef191107f33e9608a09");    //jr Dev acct
-            //$email->setTemplateId("d-792d7b83ab724f7188bf67bae42e1487"); //new acct
+            $email->setTemplateId("d-a9e3ed8d1331468cb8761afaf8a8a61f");  
 
-            //$email->addContent("text/html","This is just a test email message... ".$params['name']."!");
         }else if($template == "approve-reject"){
 
             $email->addDynamicTemplateData("name", $params['name']);
@@ -153,11 +134,8 @@ class SendGridEmail
             $email->addDynamicTemplateData("club_link", $params['club_link']);
             $email->addDynamicTemplateData("club_logo", $params['club_logo']);
 
-            //$email->setTemplateId("d-032f1174c64c4209ab5653302a7bddab");    //team lead acct
-            $email->setTemplateId("d-b672ec6e2bdd44f8b95370df48ff4873");    //jr Dev acct
-            // $email->setTemplateId("d-fcc789619a9146c58e8dd1ba227b288f"); //new acct
-
-            //$email->addContent("text/html","This is just a test email message... ".$params['name']."!");
+            $email->setTemplateId("d-a031dcac661a449bb490ac6261703b43"); 
+            
         } else if($template == "test"){
 
             $email->addDynamicTemplateData("name", $params['name']);
@@ -167,18 +145,13 @@ class SendGridEmail
             $email->addDynamicTemplateData("club_link", $params['club_link']);
             $email->addDynamicTemplateData("club_logo", $params['club_logo']);
 
-           //$email->setTemplateId("d-5f110b3a80a540c9b3a9282739f782a1"); //team lead acct
-           $email->setTemplateId("d-bf34496cd19e4e5aa75601a26f96e7e2"); //jr Dev acct
-            //$email->setTemplateId("d-c769a11f89454211b4f0dd7bd709a973"); //new acct
-
+           $email->setTemplateId("d-2428db09101648379b948b0acfb3a0ea");
 
             //$email->addContent("text/html","This is just a test email message... ".$params['name']."!");
         }
 
-        // $apiKey = 'sendgrid_api_key_lead';  //team lead acct
-        $apiKey = Yii::$app->params['sendgrid_api_key_jr_dev'];  //jr Dev acct
-        // $apiKey = Yii::$app->params['sendgrid_api_key_new']; //New Acct  
-                       
+        $apiKey = Yii::$app->params['sendgrid_api_key'];   
+             
         $sendgrid = new \SendGrid($apiKey);
         try {
             $response = $sendgrid->send($email);
@@ -208,7 +181,6 @@ class SendGridEmail
                                 $to,
                                 "backend@unravelstudios.co",
                                 "superadmin4@yopmail.com",
-                                // "sheetalbdz@yopmail.com",
                                 "franklin@unravelstudios.co",
                                 "admin@carkee.sg"
                             ];
@@ -220,29 +192,22 @@ class SendGridEmail
         // replacing <PATH TO> with the path to the sendgrid-php.php file,
         // which is included in the download:
         // https://github.com/sendgrid/sendgrid-php/releases
-
-        $bccEmails = [
-            "abubakar@unravelstudios.co" => "Jr Dev",
-            "franklin@unravelstudios.co" => "Team Lead"
-        ];
         
 
         $email = new Mail(); 
-        // $email->setFrom('backend@unravelstudios.co', "Admin"); // team lead acct
-        $email->setFrom('bigprince2021@gmail.com', "Admin"); // jr dev acct
-        // $email->setFrom('abubakar@unravelstudios.co', "Admin"); // New acct
+
+        $email->setFrom('admin@karkee.biz', "Admin"); 
         $email->setSubject($subject);
         $email->addTo($to,$params['name']);
-        $email->addCc("backend@unravelstudios.co", "Admin");
+        $email->addCc("admin@karkee.biz", "Admin");
         $email->addBcc('abubakar@unravelstudios.co', 'Info');
-        // $email->addBccs($bccEmails);
-        $email->addBccs($admin);
-        $email->addBccs($subAdmin);
-        $email->addBccs($superAdmin);
-    
-        
-        // if(!in_array($to,$admin_staff_emails)) $email->addCc("sheetalbdz@yopmail.com", "QA");
+        // $email->addBccs($admin);
+        // $email->addBccs($subAdmin);
+        // $email->addBccs($superAdmin);
 
+        if (!empty($admin)) $email->addBccs($admin);
+        if (!empty($subAdmin)) $email->addBccs($subAdmin);
+        if (!empty($superAdmin)) $email->addBccs($superAdmin);
 
         if(!in_array($params['club_email'],$admin_staff_emails)) $email->addCc($params['club_email'], "Club Admin");
         if(!empty($params['email']) AND !in_array($params['email'],$admin_staff_emails)) $email->addCc($params['email'],"User");
@@ -257,9 +222,7 @@ class SendGridEmail
             $email->addDynamicTemplateData("club_link", $params['club_link']);
             $email->addDynamicTemplateData("club_logo", $params['club_logo']);
 
-            // $email->setTemplateId("d-a79bb2c4cd0d435e845ba1f7c9d6368e"); //team lead acct
-           $email->setTemplateId("d-66c52d7844054e43b11bdf150477e67e"); //jr dev acct
-             //$email->setTemplateId("d-b4813a944d1c491d99a4cf333b719d74"); //new acct
+           $email->setTemplateId("d-697ff5bf543f4a0493b35b09ef45e6c4");
 
 
         }else if($template == "test"){
@@ -271,16 +234,12 @@ class SendGridEmail
             $email->addDynamicTemplateData("club_link", $params['club_link']);
             $email->addDynamicTemplateData("club_logo", $params['club_logo']);
 
-            // $email->setTemplateId("d-5f110b3a80a540c9b3a9282739f782a1"); //team lead acct
-            $email->setTemplateId("d-bf34496cd19e4e5aa75601a26f96e7e2"); //jr dev acct
-           //   $email->setTemplateId("d-c769a11f89454211b4f0dd7bd709a973"); //new acct
-
+           $email->setTemplateId("d-2428db09101648379b948b0acfb3a0ea");
 
         }
 
-        // $apiKey = Yii::$app->params['sendgrid_api_key_lead'];  //team lead acct
-        $apiKey = Yii::$app->params['sendgrid_api_key_jr_dev'];  //jr Dev acct
-        // $apiKey = Yii::$app->params['sendgrid_api_key_new']; //New Acct
+
+        $apiKey = Yii::$app->params['sendgrid_api_key']; 
                     
         $sendgrid = new \SendGrid($apiKey);
         try {
