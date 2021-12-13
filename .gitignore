@@ -35,3 +35,6 @@ phpunit.phar
 
 # vagrant runtime
 /.vagrant
+
+/uploads/firebase
+/uploads/socialmedia_credentials
