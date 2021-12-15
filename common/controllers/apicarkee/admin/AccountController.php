@@ -864,25 +864,37 @@ class AccountController extends Controller
             if (!empty($form->logo)) $saved_img = LibHelper::saveImage($this, $form->file, $form->logo, Yii::$app->params['dir_member']);
             if (!empty($saved_img) AND !$saved_img['success'])  return $saved_img;
         }
-        $settings = Settings::find()->one();
-        if($form->default_interest) $settings->default_interest         = $form->default_interest;
-        if($form->renewal_fee) $settings->renewal_fee                   = $form->renewal_fee;
-        if($form->company) $settings->company                           = $form->company;
-        if($form->logo) $settings->logo                                 = $form->logo;
-        if($form->title) $settings->title                               = $form->title;
-        if($form->content) $settings->content                           = $form->content;
-        if($form->email) $settings->email                               = $form->email;
-        if($form->contact_name) $settings->contact_name                 = $form->contact_name;
-        if($form->address) $settings->address                           = $form->address;
-        if($form->num_days_expiry) $settings->num_days_expiry           = $form->num_days_expiry;
-        if($form->enable_ads) $settings->enable_ads                     = $form->enable_ads;
-        if($form->enable_banner) $settings->enable_banner               = $form->enable_banner;
-        if($form->is_one_approval) $settings->is_one_approval           = $form->is_one_approval;
-        if($form->renewal_alert) $settings->renewal_alert               = $form->renewal_alert;
-        if($form->skip_approval) $settings->skip_approval               = $form->skip_approval;
-        if($form->club_code) $settings->club_code                       = $form->club_code;
-        if($form->days_unverified_reg) $settings->days_unverified_reg   = $form->days_unverified_reg;
-        $settings->save();
+        if($admin->account_id > 0){
+            $account = Account::find()->where(['account_id'=>$admin->account_id])->one();
+            $account->num_days_expiry   = $form->num_days_expiry;
+            $account->enable_ads        = $form->enable_ads;
+            $account->is_one_approval   = $form->is_one_approval;
+            $account->renewal_alert     = $form->renewal_alert;
+            $account->skip_approval     = $form->skip_approval;
+            $account->club_code         = $form->club_code;
+            $account->days_unverified_reg= $form->days_unverified_reg;
+            $account->save();
+        }else{
+            $settings = Settings::find()->one();
+            if($form->default_interest) $settings->default_interest         = $form->default_interest;
+            if($form->renewal_fee) $settings->renewal_fee                   = $form->renewal_fee;
+            if($form->company) $settings->company                           = $form->company;
+            if($form->logo) $settings->logo                                 = $form->logo;
+            if($form->title) $settings->title                               = $form->title;
+            if($form->content) $settings->content                           = $form->content;
+            if($form->email) $settings->email                               = $form->email;
+            if($form->contact_name) $settings->contact_name                 = $form->contact_name;
+            if($form->address) $settings->address                           = $form->address;
+            if($form->num_days_expiry) $settings->num_days_expiry           = $form->num_days_expiry;
+            if($form->enable_ads) $settings->enable_ads                     = $form->enable_ads;
+            if($form->enable_banner) $settings->enable_banner               = $form->enable_banner;
+            if($form->is_one_approval) $settings->is_one_approval           = $form->is_one_approval;
+            if($form->renewal_alert) $settings->renewal_alert               = $form->renewal_alert;
+            if($form->skip_approval) $settings->skip_approval               = $form->skip_approval;
+            if($form->club_code) $settings->club_code                       = $form->club_code;
+            if($form->days_unverified_reg) $settings->days_unverified_reg   = $form->days_unverified_reg;
+            $settings->save();
+        }
 
         return [
             'code' => self::CODE_SUCCESS,
