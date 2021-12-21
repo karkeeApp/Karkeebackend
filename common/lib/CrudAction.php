@@ -81,7 +81,7 @@ class CrudAction
 
             try {
                 foreach($fields as $field){
-                    $model->{$field} = $form->{$field};
+                    if(!empty($form->{$field})) $model->{$field} = $form->{$field};
                 }
 
                 $model->save();

@@ -62,7 +62,7 @@ class AccountController extends \common\controllers\apicarkee\admin\AccountContr
 	            ],
     		],
             'authenticator' => [
-                'optional' => ['index','list','list-options'],
+                'optional' => ['index','list','list-options','view'],
                 'class' => \yii\filters\auth\CompositeAuth::class,
                 'authMethods' => [
                         \yii\filters\auth\HttpBasicAuth::class,
