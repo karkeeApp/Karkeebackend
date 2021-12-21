@@ -247,7 +247,9 @@ class AccountController extends Controller
 
     public function actionView()
     {
-        $account_id = Yii::$app->request->get('account_id',NULL);
+        $admin = Yii::$app->user->identity;
+        $admin_account_id = ($admin ? $admin->account_id : NULL);
+        $account_id = Yii::$app->request->get('account_id',$admin_account_id);
         
         if(!is_null($account_id)){
             if($account_id >= 1) $account = Account::findOne($account_id);
