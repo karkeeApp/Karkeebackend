@@ -86,67 +86,82 @@ class UserpaymentController extends Controller
     }
 
 
-    public function actionCreate(){
+    public function actionCreate() {
         $user = Yii::$app->user->identity;
+
+        $img_field = 'screenshot';
+        $img_log = 'log_card';
+        $tmp = [];
+        $ltmp = [];
+        if(!is_null($_FILES) AND count($_FILES) > 0){
+            foreach($_FILES as $file) {
+                $tmp['UserPaymentForm'] = [
+                    'name'     => [$img_field => $file['name']],
+                    'type'     => [$img_field => $file['type']],
+                    'tmp_name' => [$img_field => $file['tmp_name']],
+                    'error'    => [$img_field => $file['error']],
+                    'size'     => [$img_field => $file['size']],
+                ];
+            }
+
+            $_FILES = $tmp;
+        }
+        if(!is_null($_FILES) AND count($_FILES) > 0){
+            foreach($_FILES as $file) {
+                $ltmp['UserPaymentForm'] = [
+                    'name'     => [$img_log => $file['name']],
+                    'type'     => [$img_log => $file['type']],
+                    'tmp_name' => [$img_log => $file['tmp_name']],
+                    'error'    => [$img_log => $file['error']],
+                    'size'     => [$img_log => $file['size']],
+                ];
+            }
+
+            $_FILES = $ltmp;
+        }
 
         $form = new UserPaymentForm(['scenario' => 'admin-carkee-create-payment']);
         $form = $this->postLoad($form);
 
-        $form->account_id = $user->account_id;
-        // if (!empty($_FILES['screenshot'])) $form->file = UploadedFile::getInstanceByName('screenshot');
-        // if (!is_null($form->file)) $form->filename = hash('crc32', $form->file->name) . time() . '.' . $form->file->extension;
-       
-        if (!empty($_FILES['screenshot'])) $form->file = UploadedFile::getInstanceByName('screenshot');
-        if (!empty($form->file)) $form->filename = hash('crc32', $form->file->name) . time() . '.' . $form->file->extension;
+        if (!is_null($_FILES) AND count($_FILES) > 0) $form->file = UploadedFile::getInstance($form, $img_field);
+        if (!is_null($form->file) AND count($_FILES) > 0) $form->filename = hash('crc32', $form->file->name) . time() . '.' . $form->file->extension;
+             
+        if (!is_null($_FILES) AND count($_FILES) > 0) $form->file_logcard = UploadedFile::getInstance($form, $img_log);
+        if (!is_null($form->file_logcard) AND count($_FILES) > 0) $form->log_card = hash('crc32', $form->file_logcard->name) . time() . '.' . $form->file_logcard->extension;
 
-       
-       
-        if (!empty($_FILES['log_card'])) $form->file_logcard = UploadedFile::getInstanceByName('log_card');
-        if (!is_null($form->file_logcard)) $form->log_card = hash('crc32', $form->file_logcard->name) . time() . '.' . $form->file_logcard->extension;
 
         if (!$form->validate()){
             $error = self::getFirstError(ActiveForm::validate($form));
             return Helper::errorMessage($error['message'], true);
         }
 
+        $userPayment = new UserPayment();
         $transaction = Yii::$app->db->beginTransaction();
+
         try {
 
-            $form->payment_for = !is_null($form->payment_for) ? $form->payment_for : UserPayment::PAYMENT_FOR_OTHERS;
-            $userPayment = UserPayment::create($form, $user->user_id);
+            $dir = Yii::$app->params['dir_payment'];
 
-            if (!empty($form->filename)){
-                $userPayment->filename = $form->filename;
-                $saved_img = Helper::saveImage($this, $form->file, $form->filename, Yii::$app->params['dir_payment']);
-            }
-            if (!empty($saved_img) AND !$saved_img['success']) return $saved_img;
-            
-            // if (!empty($form->file) AND !is_null($form->file)) $saved_img = Helper::saveImage($this, $form->file, $form->filename, Yii::$app->params['dir_payment']);
-            // if (!empty($saved_img) AND !is_null($saved_img) AND !$saved_img['success'])  return $saved_img;
-            
-            if (!empty($form->file_logcard)) $saved_imglc = Helper::saveImage($this, $form->file_logcard, $form->log_card, Yii::$app->params['dir_payment']);
-            if (!empty($saved_imglc) AND !$saved_imglc['success'])  return $saved_img;
-
-            if($userPayment->payment_for == UserPayment::PAYMENT_FOR_RENEWAL){
-                $dir_pay = Yii::$app->params['dir_payment'];
-                $dir_ren = Yii::$app->params['dir_renewal'];
-                
-                $renewal = Renewal::Create($userPayment, $user->user_id);
-
-                $filerenorig = $dir_pay . $userPayment->filename;
-                $filerendes = $dir_ren . $renewal->filename;
-
-                if (!empty($form->file)) @copy($filerenorig,$filerendes);
-
-                if (!empty($form->file_logcard)) {
-                    $filerenoriglc = $dir_pay . $userPayment->log_card;
-                    $filerendeslc = $dir_ren . $renewal->log_card;
-                    if(file_exists($filerenoriglc)) @copy($filerenoriglc,$filerendeslc);
+            if (!is_null($form->filename) AND count($_FILES) > 0){
+                if ($form->filename->saveAs($dir . $form->filename)){
+                    $userPayment->filename = $form->filename;
                 }
-
-                $userPayment->renewal_id = $renewal->id;
-                $userPayment->save();
             }
+
+            if (!is_null($form->log_card) AND count($_FILES) > 0){
+                if ($form->log_card->saveAs($dir . $form->log_card)){
+                    $userPayment->log_card = $form->log_card;
+                }
+            }
+
+            $userPayment->account_id      = $user->account_id;
+            $userPayment->user_id         = $user;
+            $userPayment->amount          = $form->amount;
+            $userPayment->description     = $form->description;
+            $userPayment->name            = $form->name;
+            $userPayment->payment_for     = !is_null($form->payment_for) ? $form->payment_for : UserPayment::PAYMENT_FOR_OTHERS;
+    
+            $userPayment->save();
 
             $transaction->commit();
 
@@ -155,13 +170,83 @@ class UserpaymentController extends Controller
                 'message' => 'Successfully Created User Payment',
                 'data' => $userPayment->data()
             ];
+
         } catch (\Exception $e) {
             $transaction->rollBack();
             
             $error = $e->getMessage();
             return Helper::errorMessage($error,true);
         }
+
     }
+
+
+
+    // public function actionCreate(){
+    //     $user = Yii::$app->user->identity;
+
+    //     $form = new UserPaymentForm(['scenario' => 'admin-carkee-create-payment']);
+    //     $form = $this->postLoad($form);
+
+    //     $form->account_id = $user->account_id;
+    //     if (!empty($_FILES['screenshot'])) $form->file = UploadedFile::getInstanceByName('screenshot');
+    //     if (!is_null($form->file)) $form->filename = hash('crc32', $form->file->name) . time() . '.' . $form->file->extension;
+       
+    //     if (!empty($_FILES['log_card'])) $form->file_logcard = UploadedFile::getInstanceByName('log_card');
+    //     if (!is_null($form->file_logcard)) $form->log_card = hash('crc32', $form->file_logcard->name) . time() . '.' . $form->file_logcard->extension;
+
+    //     if (!$form->validate()){
+    //         $error = self::getFirstError(ActiveForm::validate($form));
+    //         return Helper::errorMessage($error['message'], true);
+    //     }
+
+    //     $transaction = Yii::$app->db->beginTransaction();
+    //     try {
+
+    //         $form->payment_for = !is_null($form->payment_for) ? $form->payment_for : UserPayment::PAYMENT_FOR_OTHERS;
+    //         $userPayment = UserPayment::create($form, $user->user_id);
+            
+    //         if (!empty($form->file) AND !is_null($form->file)) $saved_img = Helper::saveImage($this, $form->file, $form->filename, Yii::$app->params['dir_payment']);
+    //         if (!empty($saved_img) AND !is_null($saved_img) AND !$saved_img['success'])  return $saved_img;
+            
+    //         if (!empty($form->file_logcard)) $saved_imglc = Helper::saveImage($this, $form->file_logcard, $form->log_card, Yii::$app->params['dir_payment']);
+    //         if (!empty($saved_imglc) AND !$saved_imglc['success'])  return $saved_img;
+
+    //         if($userPayment->payment_for == UserPayment::PAYMENT_FOR_RENEWAL){
+    //             $dir_pay = Yii::$app->params['dir_payment'];
+    //             $dir_ren = Yii::$app->params['dir_renewal'];
+                
+    //             $renewal = Renewal::Create($userPayment, $user->user_id);
+
+    //             $filerenorig = $dir_pay . $userPayment->filename;
+    //             $filerendes = $dir_ren . $renewal->filename;
+
+    //             if (!empty($form->file)) @copy($filerenorig,$filerendes);
+
+    //             if (!empty($form->file_logcard)) {
+    //                 $filerenoriglc = $dir_pay . $userPayment->log_card;
+    //                 $filerendeslc = $dir_ren . $renewal->log_card;
+    //                 if(file_exists($filerenoriglc)) @copy($filerenoriglc,$filerendeslc);
+    //             }
+
+    //             $userPayment->renewal_id = $renewal->id;
+    //             $userPayment->save();
+    //         }
+
+    //         $transaction->commit();
+
+    //         return [
+    //             'success' => TRUE,
+    //             'message' => 'Successfully Created User Payment',
+    //             'data' => $userPayment->data()
+    //         ];
+    //     } catch (\Exception $e) {
+    //         $transaction->rollBack();
+            
+    //         $error = $e->getMessage();
+    //         return Helper::errorMessage($error,true);
+    //     }
+    // }
 
     public function actionUpdate($id)
     {
