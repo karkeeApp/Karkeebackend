@@ -93,8 +93,13 @@ class UserpaymentController extends Controller
         $form = $this->postLoad($form);
 
         $form->account_id = $user->account_id;
+        // if (!empty($_FILES['screenshot'])) $form->file = UploadedFile::getInstanceByName('screenshot');
+        // if (!is_null($form->file)) $form->filename = hash('crc32', $form->file->name) . time() . '.' . $form->file->extension;
+       
         if (!empty($_FILES['screenshot'])) $form->file = UploadedFile::getInstanceByName('screenshot');
-        if (!empty($form->file) AND !is_null($form->file)) $form->filename = hash('crc32', $form->file->name) . time() . '.' . $form->file->extension;
+        if (!empty($form->file)) $form->filename = hash('crc32', $form->file->name) . time() . '.' . $form->file->extension;
+
+       
        
         if (!empty($_FILES['log_card'])) $form->file_logcard = UploadedFile::getInstanceByName('log_card');
         if (!is_null($form->file_logcard)) $form->log_card = hash('crc32', $form->file_logcard->name) . time() . '.' . $form->file_logcard->extension;
@@ -109,9 +114,15 @@ class UserpaymentController extends Controller
 
             $form->payment_for = !is_null($form->payment_for) ? $form->payment_for : UserPayment::PAYMENT_FOR_OTHERS;
             $userPayment = UserPayment::create($form, $user->user_id);
+
+            if (!empty($form->filename)){
+                $userPayment->filename = $form->filename;
+                $saved_img = Helper::saveImage($this, $form->file, $form->filename, Yii::$app->params['dir_payment']);
+            }
+            if (!empty($saved_img) AND !$saved_img['success']) return $saved_img;
             
-            if (!empty($form->filename) AND !is_null($form->filename)) $saved_img = Helper::saveImage($this, $form->file, $form->filename, Yii::$app->params['dir_payment']);
-            if (!empty($saved_img) AND !is_null($saved_img) AND !$saved_img['success'])  return $saved_img;
+            // if (!empty($form->file) AND !is_null($form->file)) $saved_img = Helper::saveImage($this, $form->file, $form->filename, Yii::$app->params['dir_payment']);
+            // if (!empty($saved_img) AND !is_null($saved_img) AND !$saved_img['success'])  return $saved_img;
             
             if (!empty($form->file_logcard)) $saved_imglc = Helper::saveImage($this, $form->file_logcard, $form->log_card, Yii::$app->params['dir_payment']);
             if (!empty($saved_imglc) AND !$saved_imglc['success'])  return $saved_img;
