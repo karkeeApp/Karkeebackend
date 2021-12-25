@@ -163,13 +163,13 @@ class NewsController extends Controller
 
     public function actionViewPrivate()
     {
-        // $user       = Yii::$app->user->identity;
+        $user       = Yii::$app->user->identity;
         $user_id  = Yii::$app->request->get('id');
         $news_id    = Yii::$app->request->get('news_id');
         $user = User::findOne($user_id);
         $data['news'] = News::findOne($news_id);
 
-        $tpl = (($data['news'] AND $data['news']->is_public) OR $user->isApproved())? 'view_full.tpl' : 'view.tpl';
+        $tpl = (($data['news'] AND $data['news']->is_public) OR (!empty($user) AND $user->isApproved()))? 'view_full.tpl' : 'view.tpl';
 
         return $this->render('@common/views/news/' . $tpl, $data);
     }
