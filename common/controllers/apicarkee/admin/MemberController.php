@@ -1035,8 +1035,8 @@ class MemberController extends Controller
             'relationships'   => User::relationships(TRUE),
             'salaries'        => User::salaries(TRUE),
             'total_payable'   => 'SGD 250.00',
-            'entity_eun'      => 'X11XX0000X',
-            'entity_name'     => 'CARKEE',
+            'entity_eun'      => 'T20SS0149L',
+            'entity_name'     => 'BMW Car Club Singapore',
             'details' => [
                 [
                     'label' => 'Member entrance fee (one-time)',
@@ -1062,8 +1062,8 @@ class MemberController extends Controller
             'relationships'   => User::relationships(TRUE),
             'salaries'        => User::salaries(TRUE),
             'total_payable'   => 'SGD 250.00',
-            'entity_eun'      => 'X11XX0000X',
-            'entity_name'     => 'CARKEE',
+            'entity_eun'      => 'T20SS0149L',
+            'entity_name'     => 'BMW Car Club Singapore',
             'details' => [
                 [
                     'label' => 'Member entrance fee (one-time)',
