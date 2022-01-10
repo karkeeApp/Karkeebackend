@@ -111,8 +111,8 @@ class UserpaymentController extends Controller
             $form->payment_for = !is_null($form->payment_for) ? $form->payment_for : UserPayment::PAYMENT_FOR_OTHERS;
             $userPayment = UserPayment::create($form, $user->user_id);
             
-            if (!empty($form->file) AND !is_null($form->file)) $saved_img = Helper::saveImage($this, $form->file, $form->filename, Yii::$app->params['dir_payment']);
-            if (!empty($saved_img) AND !is_null($saved_img) AND !$saved_img['success'])  return $saved_img;
+            if (!empty($form->file)) $saved_img = Helper::saveImage($this, $form->file, $form->filename, Yii::$app->params['dir_payment']);
+            if (!empty($saved_img) AND !$saved_img['success'])  return $saved_img;
             
             if (!empty($form->file_logcard)) $saved_imglc = Helper::saveImage($this, $form->file_logcard, $form->log_card, Yii::$app->params['dir_payment']);
             if (!empty($saved_imglc) AND !$saved_imglc['success'])  return $saved_img;
