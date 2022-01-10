@@ -38,7 +38,7 @@ class UserPaymentForm extends Model
             [['premium_status'], 'required', 'on' => 'update-premium-status'],
             [['file','file_logcard'], 'file', 'skipOnEmpty' => FALSE, 'extensions' => 'png, jpg, jpeg, gif', 'maxSize' => 1024 * 1024 * 20, 'on' => ['create-payment']],
             [['file','file_logcard'], 'file', 'skipOnEmpty' => TRUE, 'extensions' => 'png, jpg, jpeg, gif', 'maxSize' => 1024 * 1024 * 20, 'on' => ['remove-ads']],
-            [['file', 'file_logcard'], 'file', 'skipOnEmpty' => TRUE, 'extensions' => 'png, jpg, jpeg, gif', 'maxSize' => 1024 * 1024 * 20, 'on' => ['admin-carkee-remove-ads','admin-carkee-create-payment']],
+            [['file', 'file_logcard'], 'file', 'skipOnEmpty' => TRUE, 'extensions' => 'png, jpg, jpeg, gif', 'maxSize' => 1024 * 1024 * 20, 'checkExtensionByMimeType' => false, 'on' => ['admin-carkee-remove-ads','admin-carkee-create-payment']],
             
         ];
     }
