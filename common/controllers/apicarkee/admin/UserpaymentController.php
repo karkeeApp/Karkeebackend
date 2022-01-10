@@ -94,11 +94,19 @@ class UserpaymentController extends Controller
         $form = $this->postLoad($form);
 
         $form->account_id = $user->account_id;
-        if (!empty($_FILES['screenshot']) AND count($_FILES['screenshot']) > 0) $form->file = UploadedFile::getInstanceByName('screenshot');
-        if (!is_null($form->file)) $form->filename = hash('crc32', $form->file->name) . time() . '.' . $form->file->extension;
-       
-        if (!empty($_FILES['log_card']) AND count($_FILES['log_card']) > 0) $form->file_logcard = UploadedFile::getInstanceByName('log_card');
+
+
+        if (!empty($_FILES['screenshot'])) $form->file = UploadedFile::getInstanceByName('screenshot');
+        if (!empty($form->file)) $form->filename = hash('crc32', $form->file->name) . time() . '.' . $form->file->extension;
+
+        if (!empty($_FILES['log_card'])) $form->file_logcard = UploadedFile::getInstanceByName('log_card');
         if (!is_null($form->file_logcard)) $form->log_card = hash('crc32', $form->file_logcard->name) . time() . '.' . $form->file_logcard->extension;
+
+        // if (!empty($_FILES['screenshot']) AND count($_FILES['screenshot']) > 0) $form->file = UploadedFile::getInstanceByName('screenshot');
+        // if (!is_null($form->file)) $form->filename = hash('crc32', $form->file->name) . time() . '.' . $form->file->extension;
+       
+        // if (!empty($_FILES['log_card']) AND count($_FILES['log_card']) > 0) $form->file_logcard = UploadedFile::getInstanceByName('log_card');
+        // if (!is_null($form->file_logcard)) $form->log_card = hash('crc32', $form->file_logcard->name) . time() . '.' . $form->file_logcard->extension;
 
         if (!$form->validate()){
             $error = self::getFirstError(ActiveForm::validate($form));
