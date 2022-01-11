@@ -111,23 +111,11 @@ class UserpaymentController extends Controller
             $form->payment_for = !is_null($form->payment_for) ? $form->payment_for : UserPayment::PAYMENT_FOR_OTHERS;
             $userPayment = UserPayment::create($form, $user->user_id);
             
-            // if (!empty($form->file)) $saved_img = Helper::saveImage($this, $form->file, $form->filename, Yii::$app->params['dir_payment']);
-            // if (!empty($saved_img) AND !$saved_img['success'])  return $saved_img;
+            if (!empty($form->filename)) $saved_img = Helper::saveImage($this, $form->file, $form->filename, Yii::$app->params['dir_payment']);
+            if (!empty($saved_img) AND !$saved_img['success'])  return $saved_img;
             
-            // if (!empty($form->file_logcard)) $saved_imglc = Helper::saveImage($this, $form->file_logcard, $form->log_card, Yii::$app->params['dir_payment']);
-            // if (!empty($saved_imglc) AND !$saved_imglc['success'])  return $saved_img;
-
-            if (!empty($form->filename)){
-                $userPayment->filename = $form->filename;
-                $saved_img = Helper::saveImage($this, $form->file, $form->filename, Yii::$app->params['dir_payment']);
-            }
-            if (!empty($saved_img) AND !$saved_img['success']) return $saved_img;
-
-            if (!empty($form->file_logcard)){
-                $userPayment->log_card = $form->log_card;
-                Helper::saveImage($this, $form->file_logcard, $form->log_card, Yii::$app->params['dir_payment']);
-            }     
-
+            if (!empty($form->file_logcard)) $saved_imglc = Helper::saveImage($this, $form->file_logcard, $form->log_card, Yii::$app->params['dir_payment']);
+            if (!empty($saved_imglc) AND !$saved_imglc['success'])  return $saved_img;
 
             if($userPayment->payment_for == UserPayment::PAYMENT_FOR_RENEWAL){
                 $dir_pay = Yii::$app->params['dir_payment'];
@@ -149,7 +137,7 @@ class UserpaymentController extends Controller
                 $userPayment->renewal_id = $renewal->id;
                 $userPayment->save();
             }
-
+            $userPayment->save();
             $transaction->commit();
 
             return [
