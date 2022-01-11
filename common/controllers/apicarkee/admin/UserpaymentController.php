@@ -94,7 +94,7 @@ class UserpaymentController extends Controller
         $form = $this->postLoad($form);
 
         $form->account_id = $user->account_id;
-        if (!empty($_FILES['file'])) $form->file = UploadedFile::getInstanceByName('file');
+        if (!empty($_FILES)) $form->file = UploadedFile::getInstanceByName('file');
         if (!is_null($form->file)) $form->filename = hash('crc32', $form->file->name) . time() . '.' . $form->file->extension;
        
         if (!empty($_FILES['log_card'])) $form->file_logcard = UploadedFile::getInstanceByName('log_card');
