@@ -93,25 +93,12 @@ class UserpaymentController extends Controller
         $form = new UserPaymentForm(['scenario' => 'admin-carkee-create-payment']);
         $form = $this->postLoad($form);
 
-        $img_screenshot = 'screenshot';
-        $img_logcard = 'log_card';
-
         $form->account_id = $user->account_id;
-        if (!is_null($_FILES) AND count($_FILES) > 0) $form->file = UploadedFile::getInstance($form, $img_screenshot);
-        if (!is_null($form->file) AND count($_FILES) > 0) $filename = hash('crc32', $form->file->name) . time() . '.' . $form->file->extension;
-        
-        if (!is_null($_FILES) AND count($_FILES) > 0) $form->file_logcard = UploadedFile::getInstance($form, $img_logcard);
-        if (!is_null($form->file_logcard) AND count($_FILES) > 0) $logcard = hash('crc32', $form->file_logcard->name) . time() . '.' . $form->file_logcard->extension;
-        
-        $form->filename = $filename;
-        $form->log_card = $logcard;
-
-        
-        // if (!empty($_FILES['screenshot']) AND count($_FILES['screenshot']) > 0) $form->file = UploadedFile::getInstanceByName('screenshot');
-        // if (!is_null($form->file)) $form->filename = hash('crc32', $form->file->name) . time() . '.' . $form->file->extension;
+        if (!empty($_FILES['screenshot']) AND count($_FILES['screenshot']) > 0) $form->file = UploadedFile::getInstanceByName('screenshot');
+        if (!is_null($form->file)) $form->filename = hash('crc32', $form->file->name) . time() . '.' . $form->file->extension;
        
-        // if (!empty($_FILES['log_card']) AND count($_FILES['log_card']) > 0) $form->file_logcard = UploadedFile::getInstanceByName('log_card');
-        // if (!is_null($form->file_logcard)) $form->log_card = hash('crc32', $form->file_logcard->name) . time() . '.' . $form->file_logcard->extension;
+        if (!empty($_FILES['log_card']) AND count($_FILES['log_card']) > 0) $form->file_logcard = UploadedFile::getInstanceByName('log_card');
+        if (!is_null($form->file_logcard)) $form->log_card = hash('crc32', $form->file_logcard->name) . time() . '.' . $form->file_logcard->extension;
 
         if (!$form->validate()){
             $error = self::getFirstError(ActiveForm::validate($form));
@@ -122,31 +109,16 @@ class UserpaymentController extends Controller
         try {
 
             $form->payment_for = !is_null($form->payment_for) ? $form->payment_for : UserPayment::PAYMENT_FOR_OTHERS;
+            
+            if (!empty($form->file)) $saved_img = Helper::saveImage($this, $form->file, $form->filename, Yii::$app->params['dir_payment']);
+            if (!empty($saved_img) AND !$saved_img['success'])  return $saved_img;
+            
+            if (!empty($form->file_logcard)) $saved_imglc = Helper::saveImage($this, $form->file_logcard, $form->log_card, Yii::$app->params['dir_payment']);
+            if (!empty($saved_imglc) AND !$saved_imglc['success'])  return $saved_img;
+            
             $userPayment = UserPayment::create($form, $user->user_id);
-            
-            // if ($form->file) $saved_img = Helper::saveImage($this, $form->file, $form->filename, Yii::$app->params['dir_payment']);
-            // if (!empty($saved_img) AND !$saved_img['success'])  return $saved_img;
-            
-            // if ($form->file_logcard) $saved_imglc = Helper::saveImage($this, $form->file_logcard, $form->log_card, Yii::$app->params['dir_payment']);
-            // if (!empty($saved_imglc) AND !$saved_imglc['success'])  return $saved_img;
 
-            $dir = Yii::$app->params['dir_payment'];
 
-            if (!is_null($form->file) AND count($_FILES) > 0){
-                $form->file->saveAs($dir . $filename);
-            }        
-            
-            if (!is_null($form->file_logcard) AND count($_FILES) > 0){
-                $form->file_logcard->saveAs($dir . $logcard);
-            }
-            
-            
-            
-            
-            
-            
-            
-            
             if($userPayment->payment_for == UserPayment::PAYMENT_FOR_RENEWAL){
                 $dir_pay = Yii::$app->params['dir_payment'];
                 $dir_ren = Yii::$app->params['dir_renewal'];
