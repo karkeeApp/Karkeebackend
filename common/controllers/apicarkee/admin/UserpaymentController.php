@@ -63,6 +63,86 @@ class UserpaymentController extends Controller
             'code'  => self::CODE_SUCCESS
         ];
     }
+
+    private function paymentSave($id = null) {
+        $user = Yii::$app->user->identity;
+
+        $form = new UserPaymentForm(['scenario' => 'admin-carkee-edit-payment']);
+        $form = $this->postLoad($form);
+        $form->id = $id;
+         
+        if (!is_null($_FILES) AND count($_FILES) > 0) $form->file = UploadedFile::getInstanceByName('file');
+        if (!is_null($form->file) AND count($_FILES) > 0) $form->filename = hash('crc32', $form->file->name) . time() . '.' . $form->file->extension;
+        
+  
+        if (!is_null($_FILES) AND count($_FILES) > 0) $form->file_logcard = UploadedFile::getInstanceByName('file_logcard');
+        if (!is_null($form->file_logcard) AND count($_FILES) > 0) $form->log_card = hash('crc32', $form->file_logcard->name) . time() . '.' . $form->file_logcard->extension;
+        
+
+
+        $form->account_id = $user->account_id;
+
+        if (!$form->validate()){
+            $error = self::getFirstError(ActiveForm::validate($form));
+            return Helper::errorMessage($error['message'],true);
+        }
+
+       /**
+         * Save payment
+         */
+        $userPayment = UserPayment::findOne($form->id);
+
+        $isNew = false;
+
+        if (!$form->id) {
+            $userPayment = new UserPayment();
+            $isNew = true;
+        }
+
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
+
+            $dir = Yii::$app->params['dir_payment'];
+
+            if (!is_null($form->file) AND count($_FILES) > 0){
+                if ($form->file->saveAs($dir . $form->filename)){
+                    $userPayment->filename = $form->filename;
+                }
+            }
+
+            if (!empty($form->file_logcard)){
+                if ($form->file_logcard->saveAs($dir . $form->log_card)){
+                    $userPayment->log_card = $form->log_card;
+                }
+            }
+
+            $form->payment_for = !is_null($form->payment_for) ? $form->payment_for : UserPayment::PAYMENT_FOR_OTHERS;
+
+            $userPayment->account_id      = $form->account_id;
+            $userPayment->user_id         = $user->user_id;
+            $userPayment->amount          = $form->amount;
+            $userPayment->description     = $form->description;
+            $userPayment->name            = $form->name;
+            $userPayment->payment_for     = $form->payment_for;
+    
+            $userPayment->save();
+
+            $transaction->commit();
+
+            return [
+                'success' => TRUE,
+                'message' => 'Successfully Created User Payment',
+                'data' => $userPayment->data()
+            ];
+
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            
+            $error = $e->getMessage();
+            return Helper::errorMessage($error,true);
+        }
+    }
+
     public function actionIndex(){
         return $this->paymentList();
     }
@@ -152,49 +232,10 @@ class UserpaymentController extends Controller
     //     }
     // }
 
+
+
     public function actionCreate() {
-        $user = Yii::$app->user->identity;
-
-        $form = new UserPaymentForm(['scenario' => 'admin-carkee-create-payment']);
-        $form = $this->postLoad($form);
-         
-        if (!is_null($_FILES) AND count($_FILES) > 0) $form->file = UploadedFile::getInstanceByName('file');
-        if (!is_null($form->file) AND count($_FILES) > 0) $form->filename = hash('crc32', $form->file->name) . time() . '.' . $form->file->extension;
-        
-        $form->account_id = $user->account_id;
-
-        if (!$form->validate()){
-            $error = self::getFirstError(ActiveForm::validate($form));
-            return Helper::errorMessage($error['message'],true);
-        }
-
-        $transaction = Yii::$app->db->beginTransaction();
-        try {
-
-            $form->payment_for = !is_null($form->payment_for) ? $form->payment_for : UserPayment::PAYMENT_FOR_OTHERS;
-            $userPayment = UserPayment::create($form, $user->user_id);
-
-
-            // Copying/Saving image to destination executed last so that tmp/<tmp_name> will not disappear until details are validated by form validator then saved,
-            // otherwise an error display of Please upload file
-            if (!is_null($form->file) AND count($_FILES) > 0) $saved_img = Helper::saveImage($this, $form->file, $form->filename, Yii::$app->params['dir_payment']);
-            if (!empty($saved_img) AND !$saved_img['success'])  return $saved_img;
-
-            $transaction->commit();
-
-
-            return [
-                'success' => TRUE,
-                'message' => 'Successfully Created User Payment',
-                'data' => $userPayment->data()
-            ];
-
-        } catch (\Exception $e) {
-            $transaction->rollBack();
-            
-            $error = $e->getMessage();
-            return Helper::errorMessage($error,true);
-        }
+        return $this->paymentSave();
     }
 
     public function actionUpdate($id)
