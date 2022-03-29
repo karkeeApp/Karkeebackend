@@ -1,0 +1,122 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: labsavvy-websandbox
+  name: websandbox-labsavvy-deployment
+  namespace: sandbox
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: labsavvy-websandbox
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: labsavvy-websandbox
+    spec:
+      containers:
+      - env:
+        - name: NODE_ENV
+          value: staging
+        - name: REACT_APP_BACKEND_URL
+          value: https://apisb.labsavvy.com
+        - name: REACT_APP_USE_CHAT
+          value: "true"
+        - name: REACT_APP_USE_ERROR_TRACKING
+          value: "true"
+        - name: REACT_APP_SENTRY_DSN
+          value: https://50079353e9254fabadb04e3531893e22@o281223.ingest.sentry.io/1506265
+        - name: PUBLIC_URL
+          value: https://websb.labsavvy.com
+        - name: REACT_APP_FIREBASE_API_KEY
+          value: AIzaSyAqremchBto0uYjQjtc_w03lJ2OkmYN6KQ
+        - name: REACT_APP_FIREBASE_PROJECT_ID
+          value: development-323214
+        - name: REACT_APP_FIREBASE_MESSAGING_SENDER_ID
+          value: "11421232741"
+        - name: REACT_APP_FIREBASE_APP_ID
+          value: 1:11421232741:web:096569d66fe68a4e2e208c
+        - name: REACT_APP_FIREBASE_MESSAGING_GRAPHQL_URL
+          value: https://us-east4-development-323214.cloudfunctions.net/chat_graphql
+        - name: REACT_APP_PLAID_ENV
+          value: development
+        - name: REACT_APP_PLAID_PUBLIC_KEY
+          value: 51267981f034a8cb6a03b421505c5e
+        - name: REACT_APP_USE_ECOMMERCE
+          value: "true"
+        - name: REACT_APP_STRIPE_API_KEY
+          value: pk_test_51KLX29Dg3TpOLnhYBCdN9uELgreAP4jjNLTr8UBj1XGoqjYVYnr9kVNaQ9dCCEId7zuiOd2Oc61jYkGl5h1QP6lN00d3hKcY38
+        - name: REACT_APP_FIREBASE_AUTH_DOMAIN
+          value: development-323214.firebaseapp.com
+        - name: REACT_APP_FIREBASE_DATABASE_URL
+          value: https://development-323214.firebaseio.com
+        - name: REACT_APP_FIREBASE_PUBLIC_VAPID_KEY
+          value: BGU69w0obLPDxDxyoZ6w7o0l_uyps-vCPXQN9UBxVoJZB7ObnY0voacZrxNi_ol0cwEbBqlTiDDpoEQFjNiLU_w
+        image: gcr.io/ls-sandbox-v1/websb_server:40030
+        imagePullPolicy: Always
+        name: labsavvy-websandbox
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - cat
+            - /usr/share/nginx/html/healthz/index.html
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 80
+            httpHeaders:
+            - name: Custom-Header
+              value: OK
+          initialDelaySeconds: 3
+          periodSeconds: 3
+        resources:
+          limits:
+            cpu: 250m
+          requests:
+            cpu: 200m
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: labsavvy-websandbox
+  name: websandbox-service
+  namespace: sandbox
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: http
+    nodePort: 32134
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: labsavvy-websandbox
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
+

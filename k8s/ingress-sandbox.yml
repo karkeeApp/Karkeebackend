@@ -1,0 +1,50 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ls-sandbox-v1-sandbox-external-ingress
+  namespace: sandbox
+spec:
+  rules:
+  - host: adminsb.labsavvy.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: adminsandbox-service
+            port:
+              number: 80
+        pathType: ImplementationSpecific
+  - host: websb.labsavvy.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: websandbox-service
+            port:
+              number: 80
+        pathType: ImplementationSpecific
+  - host: apisb.labsavvy.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: apisandbox-service
+            port:
+              number: 8080
+        pathType: ImplementationSpecific
+  - host: portalsb.labsavvy.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: portalsandbox-service
+            port:
+              number: 3000
+        pathType: ImplementationSpecific
+  tls:
+  - secretName: external-ingress-tls-lb-secret
+status:
+  loadBalancer:
+    ingress:
+    - ip: 34.149.193.193

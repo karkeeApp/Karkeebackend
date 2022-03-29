@@ -1,0 +1,229 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-data-disk
+  namespace: ingress-nginx
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+  namespace: ingress-nginx
+spec:
+  type: NodePort
+  selector:
+    app: mysql
+  ports:
+  - protocol: TCP
+    port: 3306
+    targetPort: 3306
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-secrets
+  namespace: ingress-nginx
+type: Opaque
+data:
+    root-password: MDEuKSAwMV9TdGFnaW5nL0thcmtlZS9BcHAjMDFAQXBpOjEuMC1BbHBoYQ==
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  namespace: ingress-nginx
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:5.7
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: "1"
+          requests:
+            memory: 256Mi
+            cpu: "0.2"
+        ports:
+          - containerPort: 3306
+        volumeMounts:
+          - mountPath: "/var/lib/mysql"
+            subPath: "mysql"
+            name: mysql-data
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secrets
+                key: root-password
+      volumes:
+        - name: mysql-data
+          persistentVolumeClaim:
+            claimName: mysql-data-disk
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phpmyadmin-deployment
+  namespace: ingress-nginx
+  labels:
+    app: phpmyadmin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: phpmyadmin
+  template:
+    metadata:
+      labels:
+        app: phpmyadmin
+    spec:
+      containers:
+      - name: phpmyadmin
+        image: phpmyadmin/phpmyadmin
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: "1"
+          requests:
+            memory: 256Mi
+            cpu: "0.2"
+        ports:
+          - containerPort: 80
+        env:
+          - name: PMA_HOST
+            value: mysql-service
+          - name: PMA_PORT
+            value: "3306"
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secrets
+                key: root-password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: phpmyadmin-service
+  namespace: ingress-nginx
+spec:
+  type: NodePort
+  selector:
+    app: phpmyadmin
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+  - name: https
+    port: 443
+    targetPort: 443
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-staging
+  namespace: ingress-nginx
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: admin@karkee.biz
+    privateKeySecretRef:
+      name: karkee-staging-secret
+    solvers:
+    - http01:
+        ingress:
+          class: nginx
+---
+apiVersion: networking.gke.io/v1beta1
+kind: ManagedCertificate
+metadata:
+  name: phpmyadmin-certificate
+  namespace: ingress-nginx
+spec:
+  domains:
+    - staging.karkee.biz
+---
+apiVersion: networking.gke.io/v1beta1
+kind: ManagedCertificate
+metadata:
+  name: karkee-certificate2
+  namespace: ingress-nginx
+spec:
+  domains:
+    - phpmyadmin.staging.karkee.biz
+---
+apiVersion: networking.gke.io/v1beta1
+kind: ManagedCertificate
+metadata:
+  name: karkee-certificate3
+  namespace: ingress-nginx
+spec:
+  domains:
+    - api.staging.karkee.biz
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"    
+  name: phpmyadmin-staging-ingress
+  namespace: ingress-nginx
+spec:
+  tls:
+  - hosts:
+    - phpmyadmin.staging.karkee.biz
+    secretName: karkee-staging-secret
+  rules:
+  - host: phpmyadmin.staging.karkee.biz
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+            service:
+              name: phpmyadmin-service
+              port:
+                number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"    
+  name: karkee-staging-ingress
+  namespace: ingress-nginx
+spec:
+  tls:
+  - hosts:
+    - api.staging.karkee.biz
+    secretName: karkee-staging-secret
+  rules:
+  - host: api.staging.karkee.biz
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+            service:
+              name: mysql-service
+              port:
+                number: 80

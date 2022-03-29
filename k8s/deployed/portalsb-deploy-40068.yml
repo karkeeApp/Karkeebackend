@@ -1,0 +1,80 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: labsavvy-portalsandbox
+  name: portalsandbox-labsavvy-deployment
+  namespace: sandbox
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: labsavvy-portalsandbox
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: labsavvy-portalsandbox
+    spec:
+      containers:
+      - env:
+        - name: NODE_ENV
+          value: development
+        - name: REACT_APP_BACKEND_URL
+          value: https://apisb.labsavvy.com
+        - name: PUBLIC_URL
+          value: https://portalsb.labsavvy.com
+        - name: REACT_APP_USE_ECOMMERCE
+          value: "true"
+        - name: REACT_APP_STRIPE_API_KEY
+          value: "pk_test_51KLX29Dg3TpOLnhYBCdN9uELgreAP4jjNLTr8UBj1XGoqjYVYnr9kVNaQ9dCCEId7zuiOd2Oc61jYkGl5h1QP6lN00d3hKcY38"
+        image: gcr.io/ls-sandbox-v1/portalsb_server:40068
+        imagePullPolicy: Always
+        name: labsavvy-portalsandbox
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 250m
+          requests:
+            cpu: 200m
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: labsavvy-portalsandbox
+  name: portalsandbox-service
+  namespace: sandbox
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: http
+    nodePort: 32133
+    port: 3000
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: labsavvy-portalsandbox
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
+
