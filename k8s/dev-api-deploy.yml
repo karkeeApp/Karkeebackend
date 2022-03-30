@@ -38,7 +38,7 @@ spec:
         - php
         - yii
         - serve
-        - start:server
+        - --docroot="apicarkee/web"
         image: fdc101082/dev.api.karkee.biz:app-api-1
         imagePullPolicy: Always
         name: karkee-app-staging
