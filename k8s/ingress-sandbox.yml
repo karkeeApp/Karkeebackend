@@ -2,49 +2,43 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ls-sandbox-v1-sandbox-external-ingress
-  namespace: sandbox
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"    
+  name: karkee-staging-ingress
+  namespace: ingress-nginx
 spec:
   rules:
-  - host: adminsb.labsavvy.com
+  - host: phpmyadmin.staging.karkee.biz
     http:
       paths:
       - backend:
           service:
-            name: adminsandbox-service
+            name: phpmyadmin-service
             port:
               number: 80
         pathType: ImplementationSpecific
-  - host: websb.labsavvy.com
+  - host: api.staging.karkee.biz
     http:
       paths:
       - backend:
           service:
-            name: websandbox-service
-            port:
-              number: 80
-        pathType: ImplementationSpecific
-  - host: apisb.labsavvy.com
-    http:
-      paths:
-      - backend:
-          service:
-            name: apisandbox-service
+            name: api-service
             port:
               number: 8080
         pathType: ImplementationSpecific
-  - host: portalsb.labsavvy.com
+  - host: mysql.staging.karkee.biz
     http:
       paths:
       - backend:
           service:
-            name: portalsandbox-service
+            name: mysql-service
             port:
-              number: 3000
+              number: 3306
         pathType: ImplementationSpecific
   tls:
-  - secretName: external-ingress-tls-lb-secret
+  - secretName: karkee-staging-secret
 status:
   loadBalancer:
     ingress:
-    - ip: 34.149.193.193
+    - ip: 34.124.145.94

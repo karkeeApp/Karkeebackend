@@ -1,0 +1,88 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-data-disk
+  namespace: ingress-nginx
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-secrets
+  namespace: ingress-nginx
+type: Opaque
+data:
+    root-password: MDEuKSAwMV9TdGFnaW5nL0thcmtlZS9BcHAjMDFAQXBpOjEuMC1BbHBoYQ==
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  namespace: ingress-nginx
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:5.7
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: "1"
+          requests:
+            memory: 256Mi
+            cpu: "0.2"
+        ports:
+          - containerPort: 3306
+        volumeMounts:
+          - mountPath: "/var/lib/mysql"
+            subPath: "mysql"
+            name: mysql-data
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secrets
+                key: root-password
+      volumes:
+        - name: mysql-data
+          persistentVolumeClaim:
+            claimName: mysql-data-disk
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: karkee-app-staging
+  name: mysql-service
+  namespace: ingress-nginx
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: http
+    nodePort: 32100
+    port: 3306
+    protocol: TCP
+    targetPort: 3306
+  selector:
+    app: karkee-app-staging
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
+
