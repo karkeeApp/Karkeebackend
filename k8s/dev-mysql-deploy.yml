@@ -35,11 +35,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: karkee-app-staging
+      app: mysql
   template:
     metadata:
       labels:
-        app: karkee-app-staging
+        app: mysql
     spec:
       containers:
       - name: mysql

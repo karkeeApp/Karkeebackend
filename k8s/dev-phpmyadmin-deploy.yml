@@ -10,11 +10,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: karkee-app-staging
+      app: phpmyadmin
   template:
     metadata:
       labels:
-        app: karkee-app-staging
+        app: phpmyadmin
     spec:
       containers:
       - name: phpmyadmin
