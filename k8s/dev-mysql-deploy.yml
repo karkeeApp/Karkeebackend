@@ -75,7 +75,7 @@ spec:
   externalTrafficPolicy: Cluster
   ports:
   - name: http
-    nodePort: 32100
+    nodePort: 32132
     port: 3306
     protocol: TCP
     targetPort: 3306

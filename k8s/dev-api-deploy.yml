@@ -70,7 +70,7 @@ spec:
   externalTrafficPolicy: Cluster
   ports:
   - name: http
-    nodePort: 32100
+    nodePort: 32131
     port: 8080
     protocol: TCP
     targetPort: 8080
