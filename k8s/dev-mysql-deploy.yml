@@ -79,6 +79,11 @@ spec:
     port: 3306
     protocol: TCP
     targetPort: 3306
+  - name: https
+    nodePort: 32133
+    port: 443
+    protocol: TCP
+    targetPort: 443
   selector:
     app: karkee-app-staging
   sessionAffinity: None
