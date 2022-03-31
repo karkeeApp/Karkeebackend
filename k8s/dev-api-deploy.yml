@@ -2,8 +2,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    app: karkee-app-staging-api
   name: api-staging-deployment
   namespace: development
 spec:

@@ -4,8 +4,6 @@ kind: Deployment
 metadata:
   name: phpmyadmin-deployment
   namespace: development
-  labels:
-    app: karkee-app-staging-phpmyadmin
 spec:
   replicas: 1
   selector:
