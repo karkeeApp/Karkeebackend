@@ -59,15 +59,10 @@ spec:
   externalTrafficPolicy: Cluster
   ports:
   - name: http
-    nodePort: 32134
+    nodePort: 32132
     port: 80
     protocol: TCP
     targetPort: 80
-  - name: https
-    nodePort: 32135
-    port: 443
-    protocol: TCP
-    targetPort: 443
   selector:
     app: karkee-app-staging
   sessionAffinity: None
