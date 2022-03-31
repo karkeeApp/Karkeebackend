@@ -25,14 +25,9 @@ spec:
         app: karkee-app-staging
     spec:
       containers:
-      - command:
-        - php
-        - yii
-        - serve
-        - --docroot="apicarkee/web"
+      - name: karkee-app-staging
         image: fdc101082/dev.api.karkee.biz:app-api-1
         imagePullPolicy: Always
-        name: karkee-app-staging
         ports:
         - containerPort: 8080
           name: http
