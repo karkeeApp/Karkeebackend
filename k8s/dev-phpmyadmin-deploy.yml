@@ -2,6 +2,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  labels:
+    app: karkee-app-staging-api-phpmyadmin
   name: phpmyadmin-deployment
   namespace: development
 spec:
@@ -15,7 +17,7 @@ spec:
         app: karkee-app-staging-phpmyadmin
     spec:
       containers:
-      - name: phpmyadmin
+      - name: karkee-app-staging-phpmyadmin
         image: phpmyadmin/phpmyadmin
         resources:
           limits:

@@ -2,6 +2,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  labels:
+    app: karkee-app-staging-api
   name: api-staging-deployment
   namespace: development
 spec:
@@ -30,7 +32,7 @@ spec:
         - --docroot="apicarkee/web"
         image: fdc101082/dev.api.karkee.biz:app-api-1
         imagePullPolicy: Always
-        name: karkee-app-staging
+        name: karkee-app-staging-api
         ports:
         - containerPort: 8080
           name: http
