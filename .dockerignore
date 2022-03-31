@@ -7,4 +7,3 @@ runtime/
 web/assets/
 vendor/
 var/
-k8s
