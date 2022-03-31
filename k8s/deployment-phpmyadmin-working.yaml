@@ -135,49 +135,6 @@ spec:
     port: 443
     targetPort: 443
 ---
-apiVersion: cert-manager.io/v1alpha2
-kind: ClusterIssuer
-metadata:
-  name: letsencrypt-staging
-  namespace: development
-spec:
-  acme:
-    server: https://acme-v02.api.letsencrypt.org/directory
-    email: admin@karkee.biz
-    privateKeySecretRef:
-      name: karkee-staging-secret
-    solvers:
-    - http01:
-        ingress:
-          class: nginx
----
-apiVersion: networking.gke.io/v1beta1
-kind: ManagedCertificate
-metadata:
-  name: phpmyadmin-certificate
-  namespace: development
-spec:
-  domains:
-    - staging.karkee.biz
----
-apiVersion: networking.gke.io/v1beta1
-kind: ManagedCertificate
-metadata:
-  name: karkee-certificate2
-  namespace: development
-spec:
-  domains:
-    - phpmyadmin.staging.karkee.biz
----
-apiVersion: networking.gke.io/v1beta1
-kind: ManagedCertificate
-metadata:
-  name: karkee-certificate3
-  namespace: development
-spec:
-  domains:
-    - api.staging.karkee.biz
----
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -190,7 +147,7 @@ spec:
   tls:
   - hosts:
     - phpmyadmin.staging.karkee.biz
-    secretName: karkee-staging-secret
+    secretName: karkee-staging-ingress-tls-secret
   rules:
   - host: phpmyadmin.staging.karkee.biz
     http:
@@ -215,7 +172,7 @@ spec:
   tls:
   - hosts:
     - api.staging.karkee.biz
-    secretName: karkee-staging-secret
+    secretName: karkee-staging-ingress-tls-secret
   rules:
   - host: api.staging.karkee.biz
     http:

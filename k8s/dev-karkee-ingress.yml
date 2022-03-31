@@ -3,7 +3,6 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: "letsencrypt-staging"    
   name: karkee-staging-ingress
   namespace: development
@@ -37,7 +36,7 @@ spec:
               number: 3306
         pathType: ImplementationSpecific
   tls:
-  - secretName: karkee-staging-secret
+  - secretName: karkee-staging-ingress-tls-secret
 status:
   loadBalancer:
     ingress:
