@@ -51,21 +51,16 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    app: karkee-app-staging
-  name: api-service
+  name: phpmyadmin-service
   namespace: development
 spec:
-  externalTrafficPolicy: Cluster
+  type: NodePort
+  selector:
+    app: phpmyadmin
   ports:
   - name: http
-    nodePort: 32132
     port: 80
-    protocol: TCP
     targetPort: 80
-  selector:
-    app: karkee-app-staging
-  sessionAffinity: None
-  type: NodePort
-status:
-  loadBalancer: {}
+  - name: https
+    port: 443
+    targetPort: 443
