@@ -2,6 +2,8 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  labels:
+    app: karkee-app-staging-mysql
   name: mysql-data-disk
   namespace: development
 spec:
@@ -14,6 +16,8 @@ spec:
 apiVersion: v1
 kind: Secret
 metadata:
+  labels:
+    app: karkee-app-staging-mysql
   name: mysql-secrets
   namespace: development
 type: Opaque
@@ -26,16 +30,16 @@ metadata:
   name: mysql-deployment
   namespace: development
   labels:
-    app: mysql
+    app: karkee-app-staging-mysql
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mysql
+      app: karkee-app-staging-mysql
   template:
     metadata:
       labels:
-        app: mysql
+        app: karkee-app-staging-mysql
     spec:
       containers:
       - name: mysql
@@ -68,7 +72,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: karkee-app-staging
+    app: karkee-app-staging-mysql
   name: mysql-service
   namespace: development
 spec:
@@ -80,7 +84,7 @@ spec:
     protocol: TCP
     targetPort: 3306
   selector:
-    app: karkee-app-staging
+    app: karkee-app-staging-mysql
   sessionAffinity: None
   type: NodePort
 status:

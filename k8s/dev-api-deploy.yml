@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: karkee-app-staging
+    app: karkee-app-staging-api
   name: api-staging-deployment
   namespace: development
 spec:
@@ -12,7 +12,7 @@ spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: karkee-app-staging
+      app: karkee-app-staging-api
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -22,7 +22,7 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        app: karkee-app-staging
+        app: karkee-app-staging-api
     spec:
       containers:
       - command:
@@ -32,7 +32,7 @@ spec:
         - --docroot="apicarkee/web"
         image: fdc101082/dev.api.karkee.biz:app-api-1
         imagePullPolicy: Always
-        name: karkee-app-staging
+        name: karkee-app-staging-api
         ports:
         - containerPort: 8080
           name: http
@@ -54,7 +54,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: karkee-app-staging
+    app: karkee-app-staging-api
   name: api-service
   namespace: development
 spec:
@@ -66,7 +66,7 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    app: karkee-app-staging
+    app: karkee-app-staging-api
   sessionAffinity: None
   type: NodePort
 status:
