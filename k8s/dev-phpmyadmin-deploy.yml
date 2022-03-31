@@ -10,14 +10,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: karkee-app-staging-phpmyadmin
+      app: karkee-app-staging
   template:
     metadata:
       labels:
-        app: karkee-app-staging-phpmyadmin
+        app: karkee-app-staging
     spec:
       containers:
-      - name: karkee-app-staging-phpmyadmin
+      - name: phpmyadmin
         image: phpmyadmin/phpmyadmin
         resources:
           limits:
@@ -43,7 +43,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: karkee-app-staging-phpmyadmin
+    app: karkee-app-staging
   name: phpmyadmin-service
   namespace: development
 spec:
@@ -55,7 +55,7 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    app: karkee-app-staging-phpmyadmin
+    app: karkee-app-staging
   sessionAffinity: None
   type: NodePort
 status:
