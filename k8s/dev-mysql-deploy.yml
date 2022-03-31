@@ -3,7 +3,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-data-disk
-  namespace: ingress-nginx
+  namespace: development
 spec:
   accessModes:
     - ReadWriteOnce
@@ -15,7 +15,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: mysql-secrets
-  namespace: ingress-nginx
+  namespace: development
 type: Opaque
 data:
     root-password: MDEuKSAwMV9TdGFnaW5nL0thcmtlZS9BcHAjMDFAQXBpOjEuMC1BbHBoYQ==
@@ -24,7 +24,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql-deployment
-  namespace: ingress-nginx
+  namespace: development
   labels:
     app: mysql
 spec:
@@ -70,7 +70,7 @@ metadata:
   labels:
     app: karkee-app-staging
   name: mysql-service
-  namespace: ingress-nginx
+  namespace: development
 spec:
   externalTrafficPolicy: Cluster
   ports:

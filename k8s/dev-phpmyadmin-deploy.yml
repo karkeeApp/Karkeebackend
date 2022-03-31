@@ -3,7 +3,7 @@ apiVersion: networking.gke.io/v1beta1
 kind: ManagedCertificate
 metadata:
   name: karkee-certificate2
-  namespace: ingress-nginx
+  namespace: development
 spec:
   domains:
     - phpmyadmin.staging.karkee.biz
@@ -12,7 +12,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: phpmyadmin-deployment
-  namespace: ingress-nginx
+  namespace: development
   labels:
     app: phpmyadmin
 spec:
@@ -54,7 +54,7 @@ metadata:
   labels:
     app: karkee-app-staging
   name: api-service
-  namespace: ingress-nginx
+  namespace: development
 spec:
   externalTrafficPolicy: Cluster
   ports:

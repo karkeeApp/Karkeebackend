@@ -3,7 +3,7 @@ apiVersion: networking.gke.io/v1beta1
 kind: ManagedCertificate
 metadata:
   name: karkee-certificate3
-  namespace: ingress-nginx
+  namespace: development
 spec:
   domains:
     - api.staging.karkee.biz
@@ -14,7 +14,7 @@ metadata:
   labels:
     app: karkee-app-staging
   name: api-staging-deployment
-  namespace: ingress-nginx
+  namespace: development
 spec:
   progressDeadlineSeconds: 600
   replicas: 2
@@ -65,7 +65,7 @@ metadata:
   labels:
     app: karkee-app-staging
   name: api-service
-  namespace: ingress-nginx
+  namespace: development
 spec:
   externalTrafficPolicy: Cluster
   ports:    

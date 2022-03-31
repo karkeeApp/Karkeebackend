@@ -6,7 +6,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: "letsencrypt-staging"    
   name: karkee-staging-ingress
-  namespace: ingress-nginx
+  namespace: development
 spec:
   rules:
   - host: phpmyadmin.staging.karkee.biz

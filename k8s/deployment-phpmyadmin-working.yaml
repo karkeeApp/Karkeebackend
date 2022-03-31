@@ -3,7 +3,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-data-disk
-  namespace: ingress-nginx
+  namespace: development
 spec:
   accessModes:
     - ReadWriteOnce
@@ -15,7 +15,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mysql-service
-  namespace: ingress-nginx
+  namespace: development
 spec:
   type: NodePort
   selector:
@@ -29,7 +29,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: mysql-secrets
-  namespace: ingress-nginx
+  namespace: development
 type: Opaque
 data:
     root-password: MDEuKSAwMV9TdGFnaW5nL0thcmtlZS9BcHAjMDFAQXBpOjEuMC1BbHBoYQ==
@@ -38,7 +38,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql-deployment
-  namespace: ingress-nginx
+  namespace: development
   labels:
     app: mysql
 spec:
@@ -82,7 +82,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: phpmyadmin-deployment
-  namespace: ingress-nginx
+  namespace: development
   labels:
     app: phpmyadmin
 spec:
@@ -122,7 +122,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: phpmyadmin-service
-  namespace: ingress-nginx
+  namespace: development
 spec:
   type: NodePort
   selector:
@@ -139,7 +139,7 @@ apiVersion: cert-manager.io/v1alpha2
 kind: ClusterIssuer
 metadata:
   name: letsencrypt-staging
-  namespace: ingress-nginx
+  namespace: development
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
@@ -155,7 +155,7 @@ apiVersion: networking.gke.io/v1beta1
 kind: ManagedCertificate
 metadata:
   name: phpmyadmin-certificate
-  namespace: ingress-nginx
+  namespace: development
 spec:
   domains:
     - staging.karkee.biz
@@ -164,7 +164,7 @@ apiVersion: networking.gke.io/v1beta1
 kind: ManagedCertificate
 metadata:
   name: karkee-certificate2
-  namespace: ingress-nginx
+  namespace: development
 spec:
   domains:
     - phpmyadmin.staging.karkee.biz
@@ -173,7 +173,7 @@ apiVersion: networking.gke.io/v1beta1
 kind: ManagedCertificate
 metadata:
   name: karkee-certificate3
-  namespace: ingress-nginx
+  namespace: development
 spec:
   domains:
     - api.staging.karkee.biz
@@ -185,7 +185,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: "letsencrypt-staging"    
   name: phpmyadmin-staging-ingress
-  namespace: ingress-nginx
+  namespace: development
 spec:
   tls:
   - hosts:
@@ -210,7 +210,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: "letsencrypt-staging"    
   name: karkee-staging-ingress
-  namespace: ingress-nginx
+  namespace: development
 spec:
   tls:
   - hosts:
