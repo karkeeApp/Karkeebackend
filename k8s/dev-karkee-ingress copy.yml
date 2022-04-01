@@ -33,7 +33,9 @@ spec:
             port:
               number: 3306
         pathType: ImplementationSpecific
+  tls:
+  - secretName: karkee-staging-ingress-tls-secret
 status:
   loadBalancer:
     ingress:
-    - ip: 34.110.141.111
+    - ip: 34.124.145.94
