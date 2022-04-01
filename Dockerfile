@@ -17,6 +17,3 @@ RUN mkdir -p runtime web/assets var/sessions \
 # Let docker create a volume for the session dir.
 # This keeps the session files even if the container is rebuilt.
 VOLUME /var/www/html/var/
-
-EXPOSE 8080
-RUN ["php", "yii", "server", "--docroot='apicarkee/web'"]
