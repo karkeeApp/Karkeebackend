@@ -3,22 +3,61 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: karkee-app-staging-api-phpmyadmin
+    app: karkee-app-staging-phpmyadmin
   name: phpmyadmin-deployment
   namespace: development
 spec:
+  progressDeadlineSeconds: 600
   replicas: 1
+  revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: phpmyadmin
+      app: karkee-app-staging-phpmyadmin
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
   template:
     metadata:
+      creationTimestamp: null
       labels:
-        app: phpmyadmin
+        app: karkee-app-staging-phpmyadmin
     spec:
       containers:
-      - name: phpmyadmin
+      - env:
+        - name: PMA_HOST
+          value: mysql-service
+        - name: PMA_PORT
+          value: "3306"
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secrets
+              key: root-password      
         image: phpmyadmin/phpmyadmin
+        imagePullPolicy: Always
+        name: karkee-app-staging-phpmyadmin
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - cat
+            - /var/www/html/healthz/index.html
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 80
+            httpHeaders:
+            - name: Custom-Header
+              value: OK
+          initialDelaySeconds: 3
+          periodSeconds: 3
         resources:
           limits:
             memory: 512Mi
@@ -26,24 +65,19 @@ spec:
           requests:
             memory: 256Mi
             cpu: "0.2"
-        ports:
-          - containerPort: 80
-        env:
-          - name: PMA_HOST
-            value: mysql-service
-          - name: PMA_PORT
-            value: "3306"
-          - name: MYSQL_ROOT_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mysql-secrets
-                key: root-password
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: karkee-app-staging
+    app: karkee-app-staging-phpmyadmin
   name: phpmyadmin-service
   namespace: development
 spec:
@@ -55,7 +89,7 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    app: karkee-app-staging
+    app: karkee-app-staging-phpmyadmin
   sessionAffinity: None
   type: NodePort
 status:
