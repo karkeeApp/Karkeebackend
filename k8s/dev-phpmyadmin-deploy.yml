@@ -42,22 +42,6 @@ spec:
         - containerPort: 80
           name: http
           protocol: TCP
-        readinessProbe:
-          exec:
-            command:
-            - cat
-            - /var/www/html/healthz/index.html
-          initialDelaySeconds: 5
-          periodSeconds: 5
-        livenessProbe:
-          httpGet:
-            path: /healthz
-            port: 80
-            httpHeaders:
-            - name: Custom-Header
-              value: OK
-          initialDelaySeconds: 3
-          periodSeconds: 3
         resources:
           limits:
             memory: 512Mi
