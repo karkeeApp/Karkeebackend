@@ -50,7 +50,7 @@ spec:
         app: karkee-app-staging-mysql
     spec:
       containers:
-      - name: mysql
+      - name: karkee-app-staging-mysql
         image: mysql:5.7
         imagePullPolicy: Always
         resources:
@@ -64,14 +64,21 @@ spec:
           - containerPort: 3306
         volumeMounts:
           - mountPath: "/var/lib/mysql"
-            subPath: "mysql"
+            subPath: "karkee-app-staging-mysql"
             name: mysql-data
         env:
           - name: MYSQL_ROOT_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: mysql-secrets
-                key: root-password
+                key: root-password      
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
       volumes:
         - name: mysql-data
           persistentVolumeClaim:
@@ -80,21 +87,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    app: karkee-app-staging-mysql
   name: mysql-service
-  namespace: development
 spec:
-  externalTrafficPolicy: Cluster
-  ports:
-  - name: http
-    nodePort: 32131
-    port: 3306
-    protocol: TCP
-    targetPort: 3306
   selector:
     app: karkee-app-staging-mysql
-  sessionAffinity: None
-  type: NodePort
-status:
-  loadBalancer: {}
+  ports:
+  - protocol: TCP
+    port: 3306
+    targetPort: 3306
