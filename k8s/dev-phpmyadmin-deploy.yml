@@ -37,7 +37,7 @@ spec:
               key: root-password      
         image: phpmyadmin/phpmyadmin
         imagePullPolicy: Always
-        name: karkee-app-staging-phpmyadmin
+        name: phpmyadmin
         ports:
         - containerPort: 80
           name: http
