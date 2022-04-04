@@ -98,20 +98,3 @@ spec:
   type: NodePort
 status:
   loadBalancer: {}
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: karkee-app-staging-mysql
-  name: mysql-service
-  namespace: development
-spec:
-  selector:
-    app: mysql
-  ports:
-  - protocol: TCP
-    port: 3306
-    targetPort: 3306
-
