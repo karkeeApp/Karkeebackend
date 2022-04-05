@@ -14,7 +14,7 @@ spec:
             name: phpmyadmin-service
             port:
               number: 80
-        pathType: /*
+        pathType: Prefix
   - host: api.staging.karkee.biz
     http:
       paths:
@@ -23,7 +23,7 @@ spec:
             name: api-service
             port:
               number: 8080
-        pathType: /*
+        pathType: Prefix
   - host: mysql.staging.karkee.biz
     http:
       paths:
@@ -32,7 +32,7 @@ spec:
             name: mysql-service
             port:
               number: 3306
-        pathType: /*
+        pathType: Prefix
 status:
   loadBalancer:
     ingress:
