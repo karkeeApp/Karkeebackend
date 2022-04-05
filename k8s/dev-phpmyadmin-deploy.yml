@@ -2,79 +2,46 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    app: karkee-app-staging-phpmyadmin
   name: phpmyadmin-deployment
   namespace: development
+  labels:
+    app: phpmyadmin
 spec:
-  progressDeadlineSeconds: 600
   replicas: 1
-  revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: karkee-app-staging-phpmyadmin
-  strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
+      app: phpmyadmin
   template:
     metadata:
-      creationTimestamp: null
       labels:
-        app: karkee-app-staging-phpmyadmin
+        app: phpmyadmin
     spec:
       containers:
-      - env:
-        - name: PMA_HOST
-          value: mysql-service
-        - name: PMA_PORT
-          value: "3306"
-        - name: MYSQL_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secrets
-              key: root-password      
-        image: phpmyadmin/phpmyadmin
-        imagePullPolicy: Always
-        name: phpmyadmin
-        ports:
-        - containerPort: 80
-          name: http
-          protocol: TCP
-        resources:
-          limits:
-            memory: 512Mi
-            cpu: "1"
-          requests:
-            memory: 256Mi
-            cpu: "0.2"
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-      dnsPolicy: ClusterFirst
-      restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
+        - name: phpmyadmin
+          image: phpmyadmin/phpmyadmin
+          ports:
+            - containerPort: 80
+          env:
+            - name: PMA_HOST
+              value: mysql-service
+            - name: PMA_PORT
+              value: "3306"
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: root-password
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    app: karkee-app-staging-phpmyadmin
   name: phpmyadmin-service
   namespace: development
 spec:
-  externalTrafficPolicy: Cluster
-  ports:
-  - name: http
-    nodePort: 32132
-    port: 80
-    protocol: TCP
-    targetPort: 80
-  selector:
-    app: karkee-app-staging-phpmyadmin
-  sessionAffinity: None
   type: NodePort
-status:
-  loadBalancer: {}
+  selector:
+    app: phpmyadmin
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
