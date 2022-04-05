@@ -5,7 +5,7 @@ metadata:
   namespace: development
 data:
   default.conf: |
-        "server {
+        server {
             listen 80 default_server;
             listen [::]:80 default_server;
             server_name _;
@@ -34,9 +34,9 @@ data:
 
             error_log  /var/log/nginx/error.log;
             access_log /var/log/nginx/access.log;
-        }"
+        }
   api.conf: |
-        "server {
+        server {
             listen 80 default_server;
             listen [::]:80 default_server;
             server_name _;
@@ -65,9 +65,9 @@ data:
 
             error_log  /var/log/nginx/error.log;
             access_log /var/log/nginx/access.log;
-        }"
+        }
   apikarkee.conf: |
-      "server {
+      server {
           listen 80 default_server;
           listen [::]:80 default_server;
           server_name _;
@@ -96,9 +96,9 @@ data:
 
           error_log  /var/log/nginx/error.log;
           access_log /var/log/nginx/access.log;
-      }"
+      }
   phpmyadmin.conf: |
-      "server {
+      server {
           listen 80 default_server;
           listen [::]:80 default_server;
           server_name _;
@@ -127,4 +127,4 @@ data:
 
           error_log  /var/log/nginx/error.log;
           access_log /var/log/nginx/access.log;
-      }"
+      }
