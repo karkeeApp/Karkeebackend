@@ -55,15 +55,12 @@ metadata:
   name: api-service
   namespace: development
 spec:
-  externalTrafficPolicy: Cluster
   ports:    
   - protocol: TCP
     port: 8080    
     targetPort: 8080
   selector:
     app: karkee-app-staging-api
-  sessionAffinity: None
-  type: NodePort
 status:
   loadBalancer: {}
 

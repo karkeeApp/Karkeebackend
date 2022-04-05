@@ -24,15 +24,6 @@ spec:
             port:
               number: 8080
         pathType: ImplementationSpecific
-  - host: mysql.staging.karkee.biz
-    http:
-      paths:
-      - backend:
-          service:
-            name: mysql-service
-            port:
-              number: 3306
-        pathType: ImplementationSpecific
 status:
   loadBalancer:
     ingress:
