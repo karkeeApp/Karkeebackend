@@ -19,8 +19,3 @@ RUN mkdir -p runtime web/assets var/sessions \
 VOLUME /var/www/html/var/
 
 WORKDIR /var/www/html
-
-RUN mkdir /var/www/html/healthz
-RUN echo "OK" > /var/www/html/healthz/index.html
-
-EXPOSE 8080

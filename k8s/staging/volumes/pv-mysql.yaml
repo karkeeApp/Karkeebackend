@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: karkee-app-staging-mysql
+    name: mysql-pvc
+    namespace: development
+spec:
+    storageClassName: standard
+    accessModes:
+        - ReadWriteOnce
+    resources:
+        requests:
+            storage: 1Gi

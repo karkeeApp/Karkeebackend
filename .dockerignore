@@ -1,9 +1,10 @@
 .git/*
 .env
-build/
 config/local.php
 config/console-local.php
 runtime/
 web/assets/
 vendor/
 var/
+docker/api/build
+docker/apikarkee/build
