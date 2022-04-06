@@ -67,8 +67,8 @@ spec:
       serviceAccountName: ""
       volumes:
       - name: www-storage
-          persistentVolumeClaim:
-            claimName: pv-www-claim
+        persistentVolumeClaim:
+          claimName: pv-www-claim
       - name: nginx-config-volume
-          configMap:
-            name: nginx-config
+        configMap:
+          name: nginx-config

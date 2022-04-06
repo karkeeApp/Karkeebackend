@@ -70,11 +70,11 @@ spec:
       terminationGracePeriodSeconds: 30
       volumes:
       - name: mysql-data
-          persistentVolumeClaim:
-            claimName: mysql-data-disk
+        persistentVolumeClaim:
+          claimName: mysql-data-disk
       - name: www-storage
-          persistentVolumeClaim:
-            claimName: pv-www-claim
+        persistentVolumeClaim:
+          claimName: pv-www-claim
       - name: nginx-config-volume
-          configMap:
-            name: nginx-config
+        configMap:
+          name: nginx-config
