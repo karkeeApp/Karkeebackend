@@ -3,10 +3,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: karkee-app-staging-api
+    app: karkee-app-staging-apikarkee
   annotations:
     kubernetes.io/ingress.class: "nginx"
-  name: api-staging-deployment
+  name: apikarkee-staging-deployment
   namespace: development
 spec:
   progressDeadlineSeconds: 600
@@ -14,7 +14,7 @@ spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: karkee-app-staging-api
+      app: karkee-app-staging-apikarkee
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -24,11 +24,11 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        app: karkee-app-staging-api
+        app: karkee-app-staging-apikarkee
     spec:
       containers:
-      - name: karkee-app-staging-api
-        image: fdc101082/dev.api.karkee.biz:app-api-138
+      - name: karkee-app-staging-apikarkee
+        image: fdc101082/dev.api.karkee.biz:app-apikarkee-138
         imagePullPolicy: Always
         resources:
           limits:
@@ -38,15 +38,15 @@ spec:
             memory: 256Mi
             cpu: "0.2"
         ports:
-        - containerPort: 8080
+        - containerPort: 3000
           name: http
           protocol: TCP
         volumeMounts:
         - name: nginx-config-volume
-          mountPath: /etc/nginx/conf.d/api.conf
-          subPath: api.conf
+          mountPath: /etc/nginx/conf.d/apikarkee.conf
+          subPath: apikarkee.conf
         - name: www-storage
-          mountPath: /var/www/html/api/web
+          mountPath: /var/www/html/apikarkee/web
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
       dnsPolicy: ClusterFirst

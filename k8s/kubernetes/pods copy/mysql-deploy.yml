@@ -4,8 +4,6 @@ kind: Secret
 metadata:
   labels:
     app: karkee-app-staging-mysql
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
   name: mysql-secrets
   namespace: development
 type: Opaque

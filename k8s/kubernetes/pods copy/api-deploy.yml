@@ -4,13 +4,11 @@ kind: Deployment
 metadata:
   labels:
     app: karkee-app-staging-api
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
   name: api-staging-deployment
   namespace: development
 spec:
   progressDeadlineSeconds: 600
-  replicas: 1
+  replicas: 2
   revisionHistoryLimit: 10
   selector:
     matchLabels:
@@ -28,8 +26,17 @@ spec:
     spec:
       containers:
       - name: karkee-app-staging-api
-        image: fdc101082/dev.api.karkee.biz:app-api-138
+        image: fdc101082/dev.api.karkee.biz:app-api-XXXX
         imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        volumeMounts:
+        - name: nginx-config-volume
+          mountPath: /etc/nginx/conf.d/apikarkee.conf
+        - name: www-storage
+          mountPath: /var/www/html/apicarkee/web
         resources:
           limits:
             memory: 512Mi
@@ -37,16 +44,6 @@ spec:
           requests:
             memory: 256Mi
             cpu: "0.2"
-        ports:
-        - containerPort: 8080
-          name: http
-          protocol: TCP
-        volumeMounts:
-        - name: nginx-config-volume
-          mountPath: /etc/nginx/conf.d/api.conf
-          subPath: api.conf
-        - name: www-storage
-          mountPath: /var/www/html/api/web
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
