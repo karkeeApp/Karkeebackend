@@ -14,7 +14,7 @@ spec:
     nodePort: 32131
     port: 80
     protocol: TCP
-    targetPort: 80
+    targetPort: 4000
   sessionAffinity: None
   type: NodePort
 status:

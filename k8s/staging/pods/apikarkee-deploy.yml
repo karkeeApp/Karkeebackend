@@ -38,7 +38,7 @@ spec:
             memory: 256Mi
             cpu: "0.2"
         ports:
-        - containerPort: 3000
+        - containerPort: 8080
           name: http
           protocol: TCP
         volumeMounts:
