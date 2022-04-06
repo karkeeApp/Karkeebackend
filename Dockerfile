@@ -4,6 +4,16 @@
 #
 FROM fdc101082/dev.api.karkee.biz:app-apikarkee-1
 
+ARG NODE_ENV=staging
+ARG API_URL=https://apikarkee.staging.karkee.biz
+ARG PLATFORM_API=api
+ARG SERVER_PORT=5000
+
+ENV NODE_ENV=${NODE_ENV}
+ENV API_URL=${API_URL}
+ENV PLATFORM_API=${PLATFORM_API}
+ENV SERVER_PORT=${SERVER_PORT}
+
 # Copy PHP configuration into the image
 COPY ./config/php/productive.ini /etc/php7/conf.d/90-productive.ini
 
