@@ -26,33 +26,7 @@ spec:
       labels:
         app: karkee-app-staging-phpmyadmin
     spec:
-      volumes:
-        - name: ic-volume-devops
-          emptyDir: {}
-      initContainers:
-        - name: ic-msg-devops
-          image: debian:latest
-          command:
-            [
-              "/bin/bash",
-              "-c",
-              "echo Init Done - Welcome to xFusionCorp Industries > /ic/official",
-            ]
-          volumeMounts:
-            - name: www-storage
-              mountPath: /ic
       containers:
-      - name: ic-main-devops
-        image: debian:latest
-        command:
-          [
-            "/bin/bash",
-            "-c",
-            "while true; do cat /ic/official; sleep 5; done",
-          ]
-        volumeMounts:
-          - name: www-storage
-            mountPath: /ic
       - name: karkee-app-staging-phpmyadmin
         image: phpmyadmin/phpmyadmin
         env:
