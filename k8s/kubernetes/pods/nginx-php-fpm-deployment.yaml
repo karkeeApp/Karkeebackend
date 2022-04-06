@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: sylius-php-fpm
-        image: fdc101082/dev.api.karkee.biz:app-api-XXXX
+        image: fdc101082/dev.apikarkee.karkee.biz-api-XXXX
         imagePullPolicy: Never
         ports:
         - containerPort: 9000
