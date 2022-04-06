@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: karkee-app-staging-api
-        image: fdc101082/dev.api.karkee.biz:app-api-1
+        image: fdc101082/dev.api.karkee.biz:app-api-XXXX
         imagePullPolicy: Always
         ports:
         - containerPort: 4000
