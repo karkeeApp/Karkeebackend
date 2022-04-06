@@ -85,4 +85,4 @@ spec:
           claimName: pv-www-claim
       - name: nginx-config-volume
         configMap:
-          name: api-nginx-config
+          name: nginx-config
