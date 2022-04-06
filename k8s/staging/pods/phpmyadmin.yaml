@@ -60,14 +60,9 @@ spec:
           mountPath: /etc/nginx/conf.d/phpmyadmin.conf
           subPath: phpmyadmin.conf
         - name: www-storage
-          mountPath: /var/www/phpmyadmin/
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-      dnsPolicy: ClusterFirst
+          mountPath: /var/www/html/phpmyadmin/
       restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
+      serviceAccountName: ""
       volumes:
       - name: mysql-data
         persistentVolumeClaim:

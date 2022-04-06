@@ -20,7 +20,7 @@ spec:
       containers:
       - name: karkee-app-staging-api
         image: fdc101082/dev.api.karkee.biz:app-api-XXXX
-        imagePullPolicy: Always
+        imagePullPolicy: Never
         ports:
         - containerPort: 4000
           name: http
@@ -28,7 +28,7 @@ spec:
         volumeMounts:
         - name: nginx-config-volume
           mountPath: /etc/nginx/conf.d/api.conf
-          subPath: apikarkee.conf
+          subPath: api.conf
         - name: www-storage
           mountPath: /var/www/html
       - name: karkee-app-staging-apicarkee
@@ -40,7 +40,7 @@ spec:
           protocol: TCP
         volumeMounts:
         - name: nginx-config-volume
-          mountPath: /etc/nginx/conf.d/apicarkee.conf
+          mountPath: /etc/nginx/conf.d/apikarkee.conf
           subPath: apikarkee.conf
         - name: www-storage
           mountPath: /var/www/html
@@ -57,13 +57,7 @@ spec:
           subPath: default.conf
         - name: www-storage
           mountPath: /var/www/html
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
-      dnsPolicy: ClusterFirst
       restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
       serviceAccountName: ""
       volumes:
       - name: www-storage
