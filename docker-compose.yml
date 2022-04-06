@@ -1,6 +1,6 @@
 version: '3'
 services:
-    api:
+    apikarkee:
         build: ./
         # During development we map local files into the container
         volumes:

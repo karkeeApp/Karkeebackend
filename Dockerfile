@@ -2,7 +2,7 @@
 #
 # This image mainly adds the latest application source to the base image
 #
-FROM fdc101082/dev.api.karkee.biz:app-api-1
+FROM fdc101082/dev.api.karkee.biz:app-apikarkee-1
 
 # Copy PHP configuration into the image
 COPY ./config/php/productive.ini /etc/php7/conf.d/90-productive.ini
