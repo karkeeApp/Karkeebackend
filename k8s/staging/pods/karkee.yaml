@@ -31,7 +31,7 @@ spec:
           subPath: apikarkee.conf
         - name: www-storage
           mountPath: /var/www/html
-        resources:
+          resources:
           limits:
             memory: 512Mi
             cpu: "1"
@@ -40,7 +40,7 @@ spec:
             cpu: "0.2"
       - name: karkee-app-staging-apicarkee
         image: fdc101082/dev.api.karkee.biz:app-apikarkee-1
-        imagePullPolicy: Never
+        imagePullPolicy: Always
         ports:
         - containerPort: 5000
           name: http
@@ -51,7 +51,7 @@ spec:
           subPath: apikarkee.conf
         - name: www-storage
           mountPath: /var/www/html
-        resources:
+          resources:
           limits:
             memory: 512Mi
             cpu: "1"
@@ -71,13 +71,6 @@ spec:
           subPath: default.conf
         - name: www-storage
           mountPath: /var/www/html
-        resources:
-          limits:
-            memory: 512Mi
-            cpu: "1"
-          requests:
-            memory: 256Mi
-            cpu: "0.2"
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
       dnsPolicy: ClusterFirst

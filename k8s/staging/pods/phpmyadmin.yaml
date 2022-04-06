@@ -68,7 +68,7 @@ spec:
           subPath: phpmyadmin.conf
         - name: www-storage
           mountPath: /var/www/phpmyadmin/
-          resources:
+        resources:
           limits:
             memory: 512Mi
             cpu: "1"
