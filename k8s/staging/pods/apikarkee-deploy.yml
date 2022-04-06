@@ -46,7 +46,7 @@ spec:
           mountPath: /etc/nginx/conf.d/apikarkee.conf
           subPath: apikarkee.conf
         - name: www-storage
-          mountPath: /var/www/html/apikarkee/web
+          mountPath: /var/www/html/apicarkee/web
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
