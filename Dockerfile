@@ -2,11 +2,11 @@
 #
 # This image mainly adds the latest application source to the base image
 #
-FROM fdc101082/dev.api.karkee.biz:app-apikarkee-1
+FROM fdc101082/dev.apikarkee.karkee.biz:app-apikarkee-1
 
 ARG NODE_ENV=staging
 ARG API_URL=https://apikarkee.staging.karkee.biz
-ARG PLATFORM_API=api
+ARG PLATFORM_API=apikarkee
 ARG SERVER_PORT=5000
 
 ENV NODE_ENV=${NODE_ENV}
