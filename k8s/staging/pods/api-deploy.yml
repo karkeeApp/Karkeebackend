@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: karkee-app-staging-api
-        image: fdc101082/dev.api.karkee.biz:app-api-138
+        image: fdc101082/dev.api.karkee.biz:app-api-XXXX
         imagePullPolicy: Always
         resources:
           limits:
