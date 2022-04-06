@@ -31,6 +31,13 @@ spec:
           subPath: apikarkee.conf
         - name: www-storage
           mountPath: /var/www/html
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: "1"
+          requests:
+            memory: 256Mi
+            cpu: "0.2"
       - name: karkee-app-staging-apicarkee
         image: fdc101082/dev.api.karkee.biz:app-apikarkee-1
         imagePullPolicy: Never
@@ -44,6 +51,13 @@ spec:
           subPath: apikarkee.conf
         - name: www-storage
           mountPath: /var/www/html
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: "1"
+          requests:
+            memory: 256Mi
+            cpu: "0.2"
       - name: nginx
         image: nginx:alpine
         imagePullPolicy: Always
@@ -57,7 +71,7 @@ spec:
           subPath: default.conf
         - name: www-storage
           mountPath: /var/www/html
-          resources:
+        resources:
           limits:
             memory: 512Mi
             cpu: "1"
