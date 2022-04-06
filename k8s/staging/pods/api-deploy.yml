@@ -4,8 +4,6 @@ kind: Deployment
 metadata:
   labels:
     app: karkee-app-staging-api
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
   name: api-staging-deployment
   namespace: development
 spec:
