@@ -17,7 +17,6 @@ data:
             }
 
             location ~ ^/index\.php(/|$) {
-                fastcgi_pass 127.0.0.1:8080;
                 fastcgi_read_timeout 300;
                 proxy_read_timeout 300;
                 fastcgi_split_path_info ^(.+\.php)(/.*)$;
@@ -49,7 +48,7 @@ data:
             }
 
             location ~ ^/index\.php(/|$) {
-                fastcgi_pass 127.0.0.1:8080;
+                fastcgi_pass 127.0.0.1:4000;
                 fastcgi_read_timeout 300;
                 proxy_read_timeout 300;
                 fastcgi_split_path_info ^(.+\.php)(/.*)$;
@@ -81,7 +80,7 @@ data:
           }
 
           location ~ ^/index\.php(/|$) {
-              fastcgi_pass 127.0.0.1:8080;
+              fastcgi_pass 127.0.0.1:5000;
               fastcgi_read_timeout 300;
               proxy_read_timeout 300;
               fastcgi_split_path_info ^(.+\.php)(/.*)$;
