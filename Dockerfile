@@ -19,3 +19,5 @@ RUN mkdir -p runtime web/assets var/sessions \
 VOLUME /var/www/html/var/
 
 WORKDIR /var/www/html
+
+EXPOSE ${SERVER_PORT}

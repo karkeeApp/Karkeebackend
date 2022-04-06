@@ -34,5 +34,6 @@ phpunit.phar
 /.vagrant
 
 /build
+/docker
 
 agile-infinity-service-account.json

@@ -96,4 +96,5 @@ RUN echo "OK" > /var/www/html/healthz/index.html
 
 EXPOSE ${SERVER_PORT}
 
-CMD ["php-fpm"]
+# S6 init will start all services
+ENTRYPOINT ["/init"]
