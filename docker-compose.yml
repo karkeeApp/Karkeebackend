@@ -11,4 +11,4 @@ services:
             # Enable periodic jobs (see config/crontabs)
             # ENABLE_CROND: 1
         ports:
-            - "8080"
+            - "4000"
