@@ -31,13 +31,6 @@ spec:
           subPath: apikarkee.conf
         - name: www-storage
           mountPath: /var/www/html
-          resources:
-          limits:
-            memory: 512Mi
-            cpu: "1"
-          requests:
-            memory: 256Mi
-            cpu: "0.2"
       - name: karkee-app-staging-apicarkee
         image: fdc101082/dev.api.karkee.biz:app-apikarkee-1
         imagePullPolicy: Always

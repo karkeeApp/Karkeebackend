@@ -27,13 +27,6 @@ spec:
       - name: karkee-app-staging-mysql
         image: mysql:5.7
         imagePullPolicy: Always
-        resources:
-          limits:
-            memory: 512Mi
-            cpu: "1"
-          requests:
-            memory: 256Mi
-            cpu: "0.2"
         ports:
           - containerPort: 3306
         volumeMounts:
@@ -68,13 +61,6 @@ spec:
           subPath: phpmyadmin.conf
         - name: www-storage
           mountPath: /var/www/phpmyadmin/
-        resources:
-          limits:
-            memory: 512Mi
-            cpu: "1"
-          requests:
-            memory: 256Mi
-            cpu: "0.2"
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
