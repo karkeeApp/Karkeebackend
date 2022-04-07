@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: karkee-staging-api-deployment
+  namespace: development
+spec:
+  selector:
+    matchLabels:
+        app: api-dashboard-karkee
+  replicas: 3
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: api-dashboard-karkee
+    spec:
+      containers:
+      - name: karkee-staging-api
+        image: gcr.io/agile-infinity-329404/karkeebackend_api:latest
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: "1"
+          requests:
+            memory: 256Mi
+            cpu: "0.2"
+        ports:
+        - containerPort: 4000
+          name: http
+          protocol: TCP
+        volumeMounts:
+        - name: nginx-config-volume
+          mountPath: /etc/nginx/conf.d/api.conf
+          subPath: api.conf
+        - name: www-storage
+          mountPath: /var/www/html/api/web
+      - name: karkee-staging-apikarkee
+        image: gcr.io/agile-infinity-329404/karkeebackend_apikarkee:latest
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: "1"
+          requests:
+            memory: 256Mi
+            cpu: "0.2"
+        ports:
+        - containerPort: 5000
+          name: http
+          protocol: TCP
+        volumeMounts:
+        - name: nginx-config-volume
+          mountPath: /etc/nginx/conf.d/apikarkee.conf
+          subPath: apikarkee.conf
+        - name: www-storage
+          mountPath: /var/www/html/apicarkee/web
+      - name: karkee-staging-dashboard
+        image: gcr.io/agile-infinity-329404/karkee-dashboard-staging:latest
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: "1"
+          requests:
+            memory: 256Mi
+            cpu: "0.2"
+        ports:
+        - containerPort: 3000
+          name: http
+          protocol: TCP
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: www-storage
+          persistentVolumeClaim:
+            claimName: pv-www-claim
+        - name: nginx-config-volume
+          configMap:
+            name: nginx-config

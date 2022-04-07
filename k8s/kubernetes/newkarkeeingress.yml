@@ -1,0 +1,72 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: staging-api-karkee-dashboard-nginx-ingress
+  namespace: development
+spec:
+  tls:
+    - secretName: api.staging.karkee.biz
+    - secretName: apikarkee.staging.karkee.biz
+    - secretName: dashboard.staging.karkee.biz
+    - secretName: nginx.staging.karkee.biz
+    - secretName: phpmyadmin.staging.karkee.biz
+    - secretName: mysql.staging.karkee.biz
+  rules:
+  - host: api.staging.karkee.biz
+    http:
+      paths:
+      - pathType: ImplementationSpecific
+        backend:
+          service:
+            name: api-apikarkee-service
+            port:
+              name: api-port
+  - host: apikarkee.staging.karkee.biz
+    http:
+      paths:
+      - pathType: ImplementationSpecific
+        backend:
+          service:
+            name: api-apikarkee-service
+            port:
+              name: apikarkee-port
+  - host: dashboard.staging.karkee.biz
+    http:
+      paths:
+      - pathType: ImplementationSpecific
+        backend:
+          service:
+            name: dashboard-service
+            port:
+              name: dashboard-port
+  - host: nginx.staging.karkee.biz
+    http:
+      paths:
+      - pathType: ImplementationSpecific
+        backend:
+          service:
+            name: nginx-service
+            port:
+              name: nginx-port
+  - host: phpmyadmin.staging.karkee.biz
+    http:
+      paths:
+      - pathType: ImplementationSpecific
+        backend:
+          service:
+            name: phpmyadmin-service
+            port:
+              name: phpmyadmin-port
+  - host: mysql.staging.karkee.biz
+    http:
+      paths:
+      - pathType: ImplementationSpecific
+        backend:
+          service:
+            name: mysql-service
+            port:
+              name: mysql-port
+status:
+  loadBalancer:
+    ingress:
+    - ip: 34.110.141.111

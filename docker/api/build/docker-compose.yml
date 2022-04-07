@@ -11,7 +11,7 @@ services:
     #
     base:
         # Specify a tag name for your base image here:
-        image: fdc101082/dev.api.karkee.biz:app-api-1
+        image: dev-api-karkee-biz:latest
         build: ./
 
     # Composer utility to manage composer packages

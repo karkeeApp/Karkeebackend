@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: karkee-app-staging-api
-        image: fdc101082/dev.api.karkee.biz:app-api-1
+        image: gcr.io/agile-infinity-329404/dev.api.karkee.biz:latest
         imagePullPolicy: Always
         resources:
           limits:
