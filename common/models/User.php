@@ -135,7 +135,7 @@ class User extends ActiveRecord implements IdentityInterface
         $user->member_type = $member_type;         
 
         if($form->member_type) $user->member_type = $form->member_type;
-        
+
         $settings = Settings::find()->one();
 
         /* All club members is also member of carkee by default */
@@ -150,10 +150,7 @@ class User extends ActiveRecord implements IdentityInterface
                             ->andWhere(['account_id'=>0])
                             ->andWhere(['status'=>User::STATUS_APPROVED])
                             ->one();
-            
-            Yii::info($acnt,'carkee');
-            Yii::info($user,'carkee');
-            Yii::info($form,'carkee');
+                                        
             if(!empty($acnt)){
                 if(!empty($acnt->member_expiry) AND !!empty($form->member_expire)) $user->member_expire = $acnt->member_expiry;
                 if(!empty($acnt->skip_approval) AND $acnt->skip_approval==1){     
