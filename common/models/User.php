@@ -141,7 +141,7 @@ class User extends ActiveRecord implements IdentityInterface
             if($member_type == User::TYPE_VENDOR) $user->carkee_member_type = User::TYPE_CARKEE_MEMBER_VENDOR;
             else $user->carkee_member_type = User::TYPE_CARKEE_MEMBER;
 
-            $acnt = Account::findOne($form->account_id);
+            $acnt = Account::find()->where(['account_id'=>$form->account_id])->one();
             $settings = Settings::find()->one();
             $superadmin = User::find()
                             ->where(['IN','status',[User::STATUS_APPROVED]])
@@ -152,9 +152,9 @@ class User extends ActiveRecord implements IdentityInterface
             Yii::info($acnt,'carkee');
             Yii::info($user,'carkee');
             Yii::info($form,'carkee');
-            if($acnt){
-                if($acnt->member_expiry AND !$form->member_expire) $user->member_expire = $acnt->member_expiry;
-                if($acnt->skip_approval AND $acnt->skip_approval==1){     
+            if(!empty($acnt)){
+                if(!empty($acnt->member_expiry) AND !!empty($form->member_expire)) $user->member_expire = $acnt->member_expiry;
+                if(!empty($acnt->skip_approval) AND $acnt->skip_approval==1){     
                     if($member_type != User::TYPE_VENDOR){
                         $user->step = 6;
                         $user->confirmed_by = $superadmin->user_id;
@@ -170,8 +170,8 @@ class User extends ActiveRecord implements IdentityInterface
                     }
                 }
             }else {
-                if($settings->member_expiry AND !$form->member_expire) $user->member_expire = $settings->member_expiry;
-                if(($settings->skip_approval AND $settings->skip_approval==1)){
+                if(!empty($settings->member_expiry) AND !!empty($form->member_expire)) $user->member_expire = $settings->member_expiry;
+                if((!empty($settings->skip_approval) AND $settings->skip_approval==1)){
                     if($member_type != User::TYPE_VENDOR){  
                         $user->step = 6;
                         $user->confirmed_by = $superadmin->user_id;
@@ -179,7 +179,7 @@ class User extends ActiveRecord implements IdentityInterface
                         $user->approved_at = date('Y-m-d H:i:s');
                         $user->status = self::STATUS_APPROVED;
                     }
-                }else if($settings->is_one_approval AND $settings->is_one_approval==1){
+                }else if(!empty($settings->is_one_approval) AND $settings->is_one_approval==1){
                     if($member_type != User::TYPE_VENDOR){  
                         $user->step = 6;
                         $user->confirmed_by = $superadmin->user_id;
@@ -221,7 +221,7 @@ class User extends ActiveRecord implements IdentityInterface
         $usersettings = new UserSettings;
         $usersettings->user_id = $user->user_id;
         $usersettings->account_id = $user->account_id;
-        if($acnt){
+        if(!empty($acnt)){
             $usersettings->enable_ads = $acnt->enable_ads;
             $usersettings->skip_approval = $acnt->skip_approval;
             $usersettings->renewal_alert = $acnt->renewal_alert;
