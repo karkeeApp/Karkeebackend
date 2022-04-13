@@ -141,7 +141,7 @@ class User extends ActiveRecord implements IdentityInterface
             if($member_type == User::TYPE_VENDOR) $user->carkee_member_type = User::TYPE_CARKEE_MEMBER_VENDOR;
             else $user->carkee_member_type = User::TYPE_CARKEE_MEMBER;
 
-            $acnt = Account::find()->where(['account_id'=>$form->account_id])->one();
+            $acnt = Account::findOne($form->account_id);
             $settings = Settings::find()->one();
             $superadmin = User::find()
                             ->where(['IN','status',[User::STATUS_APPROVED]])
