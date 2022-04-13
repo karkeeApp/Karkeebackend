@@ -162,7 +162,7 @@ class User extends ActiveRecord implements IdentityInterface
                         $user->approved_at = date('Y-m-d H:i:s');
                         $user->status = self::STATUS_APPROVED;
                     }
-                }else if($settings->is_one_approval AND $settings->is_one_approval==1){
+                }else if(!empty($settings) AND $settings->is_one_approval AND $settings->is_one_approval==1){
                     if($member_type != User::TYPE_VENDOR){  
                         $user->step = 6;
                         $user->confirmed_by = $superadmin->user_id;
@@ -170,8 +170,8 @@ class User extends ActiveRecord implements IdentityInterface
                     }
                 }
             }else {
-                if(!empty($settings->member_expiry) AND !!empty($form->member_expire)) $user->member_expire = $settings->member_expiry;
-                if((!empty($settings->skip_approval) AND $settings->skip_approval==1)){
+                if(!empty($settings) AND !empty($settings->member_expiry) AND !!empty($form->member_expire)) $user->member_expire = $settings->member_expiry;
+                if(!empty($settings) AND (!empty($settings->skip_approval) AND $settings->skip_approval==1)){
                     if($member_type != User::TYPE_VENDOR){  
                         $user->step = 6;
                         $user->confirmed_by = $superadmin->user_id;
@@ -179,7 +179,7 @@ class User extends ActiveRecord implements IdentityInterface
                         $user->approved_at = date('Y-m-d H:i:s');
                         $user->status = self::STATUS_APPROVED;
                     }
-                }else if(!empty($settings->is_one_approval) AND $settings->is_one_approval==1){
+                }else if(!empty($settings) AND !empty($settings->is_one_approval) AND $settings->is_one_approval==1){
                     if($member_type != User::TYPE_VENDOR){  
                         $user->step = 6;
                         $user->confirmed_by = $superadmin->user_id;
