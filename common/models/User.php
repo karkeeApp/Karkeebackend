@@ -148,6 +148,10 @@ class User extends ActiveRecord implements IdentityInterface
                             ->andWhere(['account_id'=>0])
                             ->andWhere(['status'=>User::STATUS_APPROVED])
                             ->one();
+            
+            Yii::info($acnt,'carkee');
+            Yii::info($user,'carkee');
+            Yii::info($form,'carkee');
             if($acnt){
                 if($acnt->member_expiry AND !$form->member_expire) $user->member_expire = $acnt->member_expiry;
                 if($acnt->skip_approval AND $acnt->skip_approval==1){     
