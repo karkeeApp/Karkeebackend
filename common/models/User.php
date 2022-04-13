@@ -135,6 +135,8 @@ class User extends ActiveRecord implements IdentityInterface
         $user->member_type = $member_type;         
 
         if($form->member_type) $user->member_type = $form->member_type;
+        
+        $settings = Settings::find()->one();
 
         /* All club members is also member of carkee by default */
         if (Common::isCarkeeApi()) {
@@ -142,7 +144,7 @@ class User extends ActiveRecord implements IdentityInterface
             else $user->carkee_member_type = User::TYPE_CARKEE_MEMBER;
 
             $acnt = Account::find()->where(['account_id'=>$form->account_id])->one();
-            $settings = Settings::find()->one();
+            
             $superadmin = User::find()
                             ->where(['IN','status',[User::STATUS_APPROVED]])
                             ->andWhere(['account_id'=>0])
