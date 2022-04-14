@@ -238,7 +238,7 @@ class UserForm extends Model
                 'plate_no', 'car_model', 'registration_code', 'club_code', 'verification_code',
                 'club_logo_file', 'club_name',
                 // 'uiid', 'device_type',
-
+                'mobile_code', 'mobile',
                 'no_approval','social_media_id','social_media_type','fcm_token', 'fcm_topics', 'notification_type','member_expire','member_type'
             ], 'safe'],
 
