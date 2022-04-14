@@ -15,7 +15,6 @@ class SendGridEmail
                                 "backend@unravelstudios.co",
                                 "superadmin4@yopmail.com",
                                 "franklin@unravelstudios.co",
-                                "abubakar@unravelstudios.co",
                                 "admin@carkee.sg"
                             ];
 
@@ -33,7 +32,7 @@ class SendGridEmail
         $email->setSubject($subject);
         $email->addTo($to,$params['name']);
         $email->addCc("admin@karkee.biz", "Admin");
-        $email->addBcc('abubakar@unravelstudios.co', 'Info');
+        // $email->addBcc('abubakar@unravelstudios.co', 'Info');
          
         if(!in_array($params['club_email'],$admin_staff_emails)) $email->addCc($params['club_email'], "Club Admin");
         if(!empty($params['email']) AND !in_array($params['email'],$admin_staff_emails)) $email->addCc($params['email'],"User");
@@ -200,10 +199,8 @@ class SendGridEmail
         $email->setSubject($subject);
         $email->addTo($to,$params['name']);
         $email->addCc("admin@karkee.biz", "Admin");
-        $email->addBcc('abubakar@unravelstudios.co', 'Info');
-        // $email->addBccs($admin);
-        // $email->addBccs($subAdmin);
-        // $email->addBccs($superAdmin);
+        
+      
 
         if (!empty($admin)) $email->addBccs($admin);
         if (!empty($subAdmin)) $email->addBccs($subAdmin);
