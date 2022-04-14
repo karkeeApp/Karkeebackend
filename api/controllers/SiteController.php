@@ -54,6 +54,7 @@ class SiteController extends \common\controllers\api\SiteController
     public function actions()
     {
         return [
+            'message' => "You're trying to access and not existing route / that's why you're redirected here",
             'error' => [
                 'class' => 'common\web\ServerErrorAction',
             ],
