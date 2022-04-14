@@ -50,4 +50,13 @@ class SiteController extends \common\controllers\api\SiteController
             ],
         ];
     }
+
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'common\web\ServerErrorAction',
+            ],
+        ];
+    }
 }
