@@ -292,7 +292,7 @@ class UserForm extends Model
            
             
             //Vendor Logo
-            [['img_vendor'], 'safe'],
+            [['account_id','img_vendor'], 'safe'],
             [['img_vendor'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, pdf', 'maxSize' => 1024 * 1024 * 20],
 
             // ==================            
