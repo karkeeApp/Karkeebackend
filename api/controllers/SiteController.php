@@ -38,7 +38,7 @@ class SiteController extends \common\controllers\api\SiteController
 	            ],
     		],
             'authenticator' => [
-                'except' => ['data-protection-terms', 'p9club-terms','fb-whatsapp-gc-rules'],
+                'except' => ['data-protection-terms', 'p9club-terms','fb-whatsapp-gc-rules','index'],
                 'class'  => \yii\filters\auth\QueryParamAuth::class,            
             ],
             'contentNegotiator' => [
