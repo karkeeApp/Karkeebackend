@@ -54,10 +54,8 @@ class SiteController extends \common\controllers\api\SiteController
     public function actionIndex()
     {
         return [
-            'message' => "You're trying to access and not existing route / that's why you're redirected here",
-            'error' => [
-                'class' => 'common\web\ServerErrorAction',
-            ],
+            'code' => self::CODE_ERROR,
+            'message' => "P9 Karkee API: You're redirected here because you did not specify an existing site/route/api endpoint. Thanks!"
         ];
     }
 }
