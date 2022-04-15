@@ -152,7 +152,7 @@ class User extends ActiveRecord implements IdentityInterface
                             ->one();
                                         
             if(!empty($acnt)){
-                if(!empty($acnt->member_expiry) AND !!empty($form->member_expire)) $user->member_expire = $acnt->member_expiry;
+                if(!empty($acnt->member_expiry) AND !empty($form->member_expire)) $user->member_expire = $acnt->member_expiry;
                 if(!empty($acnt->skip_approval) AND $acnt->skip_approval==1){     
                     if($member_type != User::TYPE_VENDOR){
                         $user->step = 6;
