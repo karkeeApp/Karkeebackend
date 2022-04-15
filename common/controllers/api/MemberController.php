@@ -820,6 +820,7 @@ class MemberController extends Controller
             ];
         }
     }
+    
 
     public function actionRegisterVendor()
     {
@@ -1301,11 +1302,49 @@ class MemberController extends Controller
         }
     }
 
+    // public function actionLogin()
+    // {
+    //     $form = new LoginForm;
+    //     $form = $this->postLoad($form);
+        
+    //     $errors = [];
+
+    //     if (!$form->validate()) {
+    //         $errors = ActiveForm::validate($form);
+    //     }
+
+    //     if (!empty($errors)) {
+    //         return self::getFirstError(ActiveForm::validate($form));
+    //     }
+
+    //     $user = Yii::$app->user->identity;
+        
+    //     if($user->user_fcm){ 
+    //         $userfcm = UserFcmToken::find()->where(['user_id'=>$user->user_id])->andWhere(['account_id'=>$user->account_id])->one();
+    //     }else{
+    //         $userfcm = new UserFcmToken;
+    //         $userfcm->user_id = $user->user_id; 
+    //         $userfcm->account_id = $user->account_id; 
+    //     }
+
+               
+    //     if($form->fcm_token) $userfcm->fcm_token = $form->fcm_token;
+    //     if(!is_null($form->fcm_topics)) $userfcm->fcm_topics = $form->fcm_topics;
+
+    //     $userfcm->save();
+        
+    //     return [
+    //         'code'        => self::CODE_SUCCESS,   
+    //         'accesstoken' => $user->auth_key,
+    //         'step'        => $user->step,
+    //     ];
+    // }
+
     public function actionLogin()
     {
         $form = new LoginForm;
         $form = $this->postLoad($form);
-        
+        // $form->account_id = 0;
         $errors = [];
 
         if (!$form->validate()) {
@@ -1316,8 +1355,16 @@ class MemberController extends Controller
             return self::getFirstError(ActiveForm::validate($form));
         }
 
-        $user = Yii::$app->user->identity;
         
+        $cuser = Yii::$app->user->identity;
+
+        $account_id = Common::identifyAccountID();
+        $user = User::find()
+                      ->where(['user_id'=>$cuser->user_id])
+                      ->andWhere(['account_id'=>$account_id])
+                      ->andWhere(['NOT IN','status',[User::STATUS_DELETED,User::STATUS_REJECTED]])
+                      ->one();
+
         if($user->user_fcm){ 
             $userfcm = UserFcmToken::find()->where(['user_id'=>$user->user_id])->andWhere(['account_id'=>$user->account_id])->one();
         }else{
@@ -1331,13 +1378,17 @@ class MemberController extends Controller
         if(!is_null($form->fcm_topics)) $userfcm->fcm_topics = $form->fcm_topics;
 
         $userfcm->save();
+
+        // if ($user->isMembershipNearExpire()) Helper::pushNotificationFCM_ToPerMemberNearExpiry($user);
         
         return [
             'code'        => self::CODE_SUCCESS,   
             'accesstoken' => $user->auth_key,
             'step'        => $user->step,
+            'account_id'  => $user->account_id
         ];
     }
+
 
     public function actionLoginUiid()
     {
