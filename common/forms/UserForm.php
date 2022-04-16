@@ -195,8 +195,8 @@ class UserForm extends Model
             [['plate_no', 'car_model', 'registration_code', 'are_you_owner'], 'trim', 'on' => ['carkee-member-step2']],
             [['contact_person', 'emergency_no', 'emergency_code', 'relationship'], 'trim', 'on' => ['step3-carkee', 'step3-mclub', 'step3-p9club', 'carkee-member-step3']],
 
-            [['emergency_no','emergency_code'], 'number', 'on' => ['step3-carkee', 'step3-mclub', 'step3-p9club', 'carkee-member-step3','admin_edit_member']],
-            ['emergency_no', 'string', 'length' => 8, 'notEqual' => 'Mobile should contain 8 digits.', 'on' => ['step3-carkee', 'step3-mclub', 'step3-p9club', 'carkee-member-step3','admin_edit_member']],
+            [['emergency_no','emergency_code','mobile_code','mobile'], 'number', 'on' => ['step3-carkee', 'step3-mclub', 'step3-p9club', 'carkee-member-step3','admin_edit_member']],
+            ['emergency_no', 'mobile', 'string', 'length' => 8, 'notEqual' => 'Mobile should contain 8 digits.', 'on' => ['step3-carkee', 'step3-mclub', 'step3-p9club', 'carkee-member-step3','admin_edit_member']],
 
             [['transfer_amount'], 'trim', 'on' => ['step5-carkee', 'step5-mclub', 'step5-p9club', 'vendor-step3', 'carkee-member-step5']],
             // ['transfer_amount', 'compare', 'compareValue' => 0, 'operator' => '>', 'type' => 'number', 'on' => ['step5-mclub']],
