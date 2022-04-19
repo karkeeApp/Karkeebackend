@@ -38,6 +38,7 @@ class EventController extends \common\controllers\api\EventController
                     'view-private' => ['get'],
                     'gallery'      => ['get'],
                     'join'         => ['post'],
+                    'join-with-image' => ['post'],
 	            ],
     		],
             'authenticator' => [

@@ -270,4 +270,120 @@ class EventController extends Controller
             ];
         }
     }
+
+    public function actionJoinWithImage()    
+    {        
+        $user  = Yii::$app->user->identity;
+        $event_id = Yii::$app->request->post('event_id');
+        $num_guest_brought = Yii::$app->request->post('num_guest_brought',0);
+        $paid = Yii::$app->request->post('paid',0);
+        $uploadFile = UploadedFile::getInstanceByName('file');  
+        if(!$uploadFile){
+            return [
+                'code'  => self::CODE_ERROR,   
+                'error' => 'Please upload proof of event fee'
+            ];
+        }
+
+        $dir_payment = Yii::$app->params['dir_payment'];
+        $image_filename = hash('crc32', $uploadFile->name) . time() . '.' . $uploadFile->extension;
+        $fileDestination = $dir_payment.$image_filename;
+
+        $event = Event::findOne($event_id);
+
+        if (!$event OR $event->account_id != 0){
+            return [
+                'code'  => self::CODE_ERROR,   
+                'error' => 'Event not found.'
+            ];
+        }
+        
+            $timeNow = new \DateTime();
+            $timeEvent = new \DateTime($event->event_time);
+            $timeCutoff = new \DateTime($event->cut_off_at);
+            $formattedTimeNow = $timeNow->format('Y/m/d H:i:s');
+            $formattedTimeEvent = $timeEvent->format('Y/m/d H:i:s');
+            $formattedTimeCutoff = $timeCutoff->format('Y/m/d H:i:s');
+
+            if (new \DateTime($formattedTimeNow) > new \DateTime($formattedTimeEvent)) {
+
+                if($event->is_closed == Event::EVENT_NOT_CLOSED){
+                    $event->is_closed = Event::EVENT_IS_CLOSED;
+                    $event->save();
+                }
+
+                return [
+                    'success' => FALSE,
+                    'code'  => self::CODE_ERROR,
+                    'error' => 'Can not join event already done or lapse the event date',
+                    'message' => 'Can not join event already done or lapse the event date'
+                ];
+            }
+
+            if (!empty($event->cut_off_at) AND new \DateTime($formattedTimeNow) > new \DateTime($formattedTimeCutoff)) {
+                return [
+                    'success' => FALSE,
+                    'code'  => self::CODE_ERROR,
+                    'error' => 'Cutt Off already lapse. Contact us for clarification ',
+                    'message' => 'Cutt Off already lapse. Contact us for clarification'
+                ];
+            }
+
+            $attendee = $event->attendee($user);
+
+            // if( $event->is_closed == Event::EVENT_IS_CLOSED 
+            if( $event->limit <= count($event->attendees)
+                AND 
+                ( !$attendee OR ( $attendee AND $attendee->status == EventAttendee::STATUS_CANCELLED ) )
+            ){
+                return [
+                    'code'  => self::CODE_ERROR,   
+                    'error' => 'So Sorry but it seems that event is now closed. Continue using your app for possible open slots. Thank You!',
+                    'message' => 'So Sorry but it seems that event is now closed. Continue using your app for possible open slots. Thank You!'
+                ];
+            }
+            
+            $join_response = $event->attend($user,$num_guest_brought,$paid,$image_filename);
+            if($join_response['status']){             
+                
+                $uploadFile = UploadedFile::getInstanceByName('file');  
+                if (!empty($uploadFile)){
+
+                    if($uploadFile->saveAs($fileDestination)){}
+                    
+                    $userpayment = UserPayment::find()->where([ 'event_id' => $event->event_id ])->andWhere(['user_id'  => $user->user_id])->one();
+                    if(!$userpayment){
+                        $userpayment = new UserPayment;
+                        $userpayment->event_id = $event->event_id;
+                        $userpayment->user_id = $user->user_id;
+                        $userpayment->account_id = $user->account_id;
+                    }
+                    $userpayment->amount = 0;
+                    $userpayment->description = $user->fullname . " event fee";
+                    $userpayment->filename = $image_filename;
+                    $userpayment->name = $user->fullname . " fee";
+                    $userpayment->payment_for = UserPayment::PAYMENT_FOR_EVENT;
+                    $userpayment->save();
+                }
+
+                return [
+                    'code'        => self::CODE_SUCCESS,
+                    'message'     => 'Our team will get in touch with you soon!',
+                    'title'       => 'We appreciate your interest!',
+                    'is_attendee' => true,
+                    'response'    => $join_response
+                ];
+            }else if(!$join_response['status']){
+                $cancel_response = $event->cancelAttendee($user);
+                if(!in_array($join_response['attendee_status'],[EventAttendee::STATUS_CANCELLED,EventAttendee::STATUS_CANCELLED])) $cancel_response['response'] = $join_response['response'];
+                else $cancel_response['response'] = 'You have cancelled to attend this event.';
+                
+                return [
+                    'code'        => self::CODE_SUCCESS,
+                    'message'     => $cancel_response['response'],
+                    'is_attendee' => false,
+                    'response'    => $cancel_response
+                ];
+            }
+    }
 }
